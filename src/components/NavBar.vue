@@ -18,7 +18,7 @@ import { ref } from 'vue';
 <style scoped>
     header {
         height: 17vh;
-        background-color: rgb(186, 250, 90);
+        background-color: var(--main-green);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -35,7 +35,7 @@ import { ref } from 'vue';
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: rgb(90, 235, 0);
+            background-color: var(--medium-green);
             border-radius: 0 12% 12% 0;
             font-size: 2rem;
             color: white;
