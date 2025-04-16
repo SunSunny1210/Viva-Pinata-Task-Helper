@@ -1,4 +1,5 @@
 <script setup>
+import AsideMenu from '@/components/AsideMenu.vue'
 import VPLogo from '@/assets/VivaPinataTIP.png';
 import Pretzail from '@/assets/pretzail.jpg'
 import { ref } from 'vue';
@@ -14,6 +15,7 @@ const showAside = ref(false)
         </div>
         <img class="logo" :src=VPLogo />
     </header>
+    <AsideMenu v-show="showAside" />
 </template>
 
 <style scoped>
