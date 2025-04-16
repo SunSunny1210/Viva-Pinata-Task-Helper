@@ -13,7 +13,10 @@
         margin: 1rem;
 
         h1 {
+            padding: 5px;
             background-color: var(--light-green);
+            font-size: 1rem;
+            color: white;
         }
     }
 </style>
