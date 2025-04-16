@@ -3,11 +3,12 @@ import VPLogo from '@/assets/VivaPinataTIP.png';
 import Pretzail from '@/assets/pretzail.jpg'
 import { ref } from 'vue';
 
+const showAside = ref(false)
 </script>
 
 <template>
     <header>
-        <div class="menu-btn">
+        <div @click="showAside = !showAside" class="menu-btn">
             <span><</span>
             <button :style="{ backgroundImage: `url(${Pretzail})` }"></button>
         </div>
