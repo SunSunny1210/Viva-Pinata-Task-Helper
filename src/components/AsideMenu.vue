@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-// import UserData from '@/components/UserData';
+import UserData from '@/components/UserData';
 
 const props = defineProps({
     isOpen: Boolean,
@@ -10,8 +10,8 @@ const emit = defineEmits(['closeMenu']);
 </script>
 
 <template>
-    <!-- <UserData /> -->
-     <div>
+    <UserData />
+    <div>
         <aside :class="{ isOpen: isOpen }">
             <RouterLink to="">Home</RouterLink>
             <RouterLink to="">Piñatas</RouterLink>
@@ -19,7 +19,7 @@ const emit = defineEmits(['closeMenu']);
             <RouterLink to="">Plants and seeds</RouterLink>
             <RouterLink to="">Services</RouterLink>
         </aside>
-     </div>
+    </div>
 </template>
 
 <style scoped>
