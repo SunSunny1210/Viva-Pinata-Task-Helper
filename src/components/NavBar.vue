@@ -1,21 +1,28 @@
 <script setup>
 import AsideMenu from '@/components/AsideMenu.vue'
 import VPLogo from '@/assets/VivaPinataTIP.png';
-import Pretzail from '@/assets/pretzail.jpg'
-import { ref } from 'vue';
+import Pretzail from '@/assets/pretzail.jpg';
 
-const showAside = ref(false)
+const props = defineProps({
+    menuOpen: Boolean,
+});
+
+const emit = defineEmits(['menuToggled'])
+
+const toggleMenu = () => {
+    emit('menuToggled', !props.menuOpen)
+}
 </script>
 
 <template>
     <header>
-        <div @click="showAside = !showAside" class="menu-btn">
+        <div class="menu-btn">
             <span><</span>
-            <button :style="{ backgroundImage: `url(${Pretzail})` }"></button>
+            <button :style="{ backgroundImage: `url(${Pretzail})` }" @click="toggleMenu"></button>
         </div>
         <img class="logo" :src=VPLogo />
     </header>
-    <AsideMenu v-show="showAside" />
+    <AsideMenu :isOpen="menuOpen" @closeMenu="affectMenu(false)" />
 </template>
 
 <style scoped>
@@ -29,7 +36,6 @@ const showAside = ref(false)
         .logo {
             margin-right: 1.5rem;
             height: 80%;
-            z-index: 1;
         }
         
         .menu-btn {
