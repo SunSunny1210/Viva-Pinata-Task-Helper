@@ -39,6 +39,6 @@ onUnmounted(() => {
   }
 
   .moveRight {
-    transform: translateX(50%);
+    transform: translateX(70%);
   }
 </style>

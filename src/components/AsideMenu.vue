@@ -12,7 +12,7 @@ const emit = defineEmits(['closeMenu']);
 <template>
     <!-- <UserData /> -->
      <div>
-        <aside>
+        <aside :class="{ isOpen: isOpen }">
             <RouterLink to="">Home</RouterLink>
             <RouterLink to="">Piñatas</RouterLink>
             <RouterLink to="">Villagers</RouterLink>
@@ -24,15 +24,36 @@ const emit = defineEmits(['closeMenu']);
 
 <style scoped>
     aside {
+        padding: 1rem 10px 0 0;
         position: fixed;
         top: 0;
         left: 0;
-        width: 50%;
+        width: 65%;
         height: 100vh;
         display: flex;
         flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
         background-color: var(--background-yellow);
         transform: translateX(-100%);
-        transition: transform 0.3s ease-in-out;
+        transition: transform 0.5s ease-in-out;
+        transition: box-shadow 0.2s ease-out;
+
+        a {
+            height: 30px;
+            width: 85%;
+            display: flex;
+            align-items: center;
+            padding: 7px;
+            color: white;
+            background-color: var(--main-green);
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    }
+
+    .isOpen {
+        box-shadow: 150px 0 200px -50px rgba(0, 0, 0, 0.7);
     }
 </style>
