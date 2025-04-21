@@ -15,19 +15,22 @@ const toggleMenu = () => {
 </script>
 
 <template>
-    <header>
+    <nav>
         <div class="menu-btn">
             <span><</span>
             <button :style="{ backgroundImage: `url(${Pretzail})` }" @click="toggleMenu"></button>
         </div>
         <img class="logo" :src=VPLogo />
-    </header>
-    <AsideMenu :isOpen="menuOpen" @closeMenu="affectMenu(false)" />
+    </nav>
+    <AsideMenu :isOpen="menuOpen" @closeMenu="$emit('closeMenu')" />
 </template>
 
 <style scoped>
-    header {
+    nav {
         height: 17vh;
+        width: 100%;
+        position: fixed;
+        top: 0;
         background-color: var(--main-green);
         display: flex;
         justify-content: space-between;

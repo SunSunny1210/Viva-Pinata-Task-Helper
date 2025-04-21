@@ -3,9 +3,13 @@
 @import url(./colors.css);
 
 html, body {
-    font-family: "Irish Grover", system-ui;
     margin: 0 auto;
     padding: 0;
+    height: 100vh;
     box-sizing: border-box;
     background-color: var(--background-yellow);
+}
+
+* {
+    font-family: "Irish Grover", system-ui;
 }

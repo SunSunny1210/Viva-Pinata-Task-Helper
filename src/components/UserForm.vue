@@ -28,13 +28,55 @@ const sendUserData = async () => {
     <div class="form">
         <form @submit.prevent="sendUserData">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" />
+            <input type="email" id="email" name="email" placeholder="Enter your email" />
             <label for="password">Password</label>
-            <input type="password" id="password" name="password">
+            <input type="password" id="password" name="password" placeholder="Password must be...">
             <button type="submit">Submit</button>
         </form>
     </div>
 </template>
 
 <style scoped>
+    .form {
+        height: 100%;
+        width: 100%;
+
+        form {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            
+            label {
+                margin: 1rem;
+                color: var(--dark-green);
+                font-size: 1.2rem;
+            }
+            
+            input {
+                height: 3rem;
+                width: 80%;
+                border: 3px dotted orange;
+                border-radius: 5px;
+            }
+
+            ::placeholder {
+                padding-left: 1rem;
+                color: darkolivegreen;
+                font-size: 1rem;
+            }
+
+            button {
+                margin-top: 1rem;
+                margin-bottom: 2rem;
+                height: 4rem;
+                width: 80%;
+                color: white;
+                font-size: 1rem;
+                background-color: var(--carmin);
+                border: none;
+                border-radius: 12px;
+            }
+        }
+    }
 </style>

@@ -7,11 +7,17 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['closeMenu']);
+
+const handleLinkClick = (event) => {
+    if (event.target.closest('a')) {
+        emit('closeMenu');
+    }
+};
 </script>
 
 <template>
     <div>
-        <aside :class="{ isOpen: isOpen }">
+        <aside :class="{ isOpen: isOpen }" @click="handleLinkClick">
             <UserData />
             <RouterLink to="">Home</RouterLink>
             <RouterLink to="">Piñatas</RouterLink>
