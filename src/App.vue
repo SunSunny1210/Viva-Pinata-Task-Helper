@@ -27,15 +27,30 @@ onUnmounted(() => {
 
 <template>
   <div class="main" :class="{ moveRight: menuOpen }">
-    <NavBar :menuOpen="menuOpen" @menuToggled="affectMenu"/>
-    <RouterView />
+    <NavBar :menuOpen="menuOpen" @menuToggled="affectMenu" @closeMenu="affectMenu(false)"/>
+    <div class="router-view">
+      <RouterView />
+    </div>
   </div>
 </template>
 
 <style scoped>
   .main {
+    width: 100%;
     transition: transform 0.3s ease-in-out;
     overflow: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .router-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 17vh;
   }
 
   .moveRight {
