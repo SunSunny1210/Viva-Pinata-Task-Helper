@@ -27,6 +27,7 @@ export const signUp = async (email, password) => {
         })
 
         if (error) {
+            console.error("ERRORBITCH", error.message)
             throw new Error(error.message)
         }
 
