@@ -1,7 +1,8 @@
 <script setup>
 import { useUserStore } from '@/stores/store';
 import { h } from 'vue';
-import Pretzail from '@/assets/pretzail.jpg'
+import Pretzail from '@/assets/pretzail.jpg';
+import { RouterLink } from 'vue-router';
 
 const storeUser = useUserStore();
 
@@ -17,8 +18,8 @@ const printUserTemplate = () =>{
     : h("div", { class: "no-user" }, [
         h("img", { src: `${Pretzail}` }),
         h("div", { class: "options" }, [
-            h("RouterLink", { to: "/register" }, "Register"),
-            h("RouterLink", { to: "/login" }, "Log in")
+            h(RouterLink, { to: "/register" }, "Register"),
+            h(RouterLink, { to: "/login" }, "Log in")
         ])
     ])
     
@@ -40,6 +41,8 @@ const printUserTemplate = () =>{
 
         img {
             height: 100px;
+            border-radius: 12px;
+            border: 3px solid yellow;
         }
 
         .options {
@@ -50,8 +53,12 @@ const printUserTemplate = () =>{
             justify-content: center;
             gap: 15px;
             align-items: flex-start;
-            font-size: 1.5rem;
-            color: white;
+            
+            a {
+                font-size: 1.5rem;
+                text-decoration: underline wavy yellow;
+                color: white;
+            }
         }
     }
 </style>
