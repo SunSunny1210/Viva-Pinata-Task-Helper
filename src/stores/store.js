@@ -19,4 +19,19 @@ export const usePiñataStore = defineStore('piñataStore', () => {
     console.log(piñatas)
     
     return { piñatas, fetchPiñatas}
+});
+
+export const useUserStore = defineStore('userStore', () => {
+    const userData = ref(null);
+    const profileData = ref(null);
+
+    const setUserData = (data) => {
+        userData.value = data;
+
+        if (userData.value) {
+            profileData.value = data; 
+        }
+    };
+
+    return { userData, profileData, setUserData }
 })

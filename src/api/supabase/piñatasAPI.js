@@ -38,7 +38,7 @@ export const signUp = async (email, password) => {
     }
 }
 
-//login user
+//Login user
 export const login = async (email, password) => {
     try {
         const { data, error } = await supabase.auth.signInWithPassword({
@@ -70,5 +70,31 @@ export const deleteUser = async (userId) => {
         
     } catch (err) {
         console.error(err)
+    }
+};
+
+//Create Profile
+export const createProfile = async (userData, username, avatarUrl, farmName) => {
+    try {
+        const { data, error } = await supabase
+            .from('profiles')
+            .insert([
+                {
+                    id: userData.id,
+                    username: username,
+                    avatar_url: avatarUrl,
+                    farm_name: farmName
+                }
+            ])
+
+        if (error) {
+            throw new Error(error.message)
+        }
+
+        return data
+    } catch (err) {
+        console.error(err)
+
+        return null
     }
 }

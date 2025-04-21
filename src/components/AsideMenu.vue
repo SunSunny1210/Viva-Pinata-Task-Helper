@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-import UserData from '@/components/UserData';
+import UserData from '@/components/UserData.vue';
 
 const props = defineProps({
     isOpen: Boolean,
@@ -10,9 +10,9 @@ const emit = defineEmits(['closeMenu']);
 </script>
 
 <template>
-    <UserData />
     <div>
         <aside :class="{ isOpen: isOpen }">
+            <UserData />
             <RouterLink to="">Home</RouterLink>
             <RouterLink to="">Piñatas</RouterLink>
             <RouterLink to="">Villagers</RouterLink>
@@ -26,7 +26,7 @@ const emit = defineEmits(['closeMenu']);
     aside {
         padding: 1rem 10px 0 0;
         position: fixed;
-        top: 0;
+        top: -17px;
         left: 0;
         width: 65%;
         height: 100vh;
