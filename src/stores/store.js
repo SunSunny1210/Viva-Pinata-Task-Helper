@@ -23,15 +23,24 @@ export const usePiñataStore = defineStore('piñataStore', () => {
 
 export const useUserStore = defineStore('userStore', () => {
     const userData = ref(null);
-    const profileData = ref(null);
-
+    
     const setUserData = (data) => {
-        userData.value = data;
-
-        if (userData.value) {
-            profileData.value = data; 
-        }
+        if (!userData.value) {
+            userData.value = data;
+        } 
     };
 
-    return { userData, profileData, setUserData }
+    return { userData, setUserData }
+})
+
+export const useProfileStore = defineStore('profileStore', () => {
+    const profileData = ref(null);
+    
+    const setProfileData = (data) => {
+        if (!profileData.value) {
+            profileData.value = data;
+        } 
+    };
+
+    return { profileData, setProfileData }
 })

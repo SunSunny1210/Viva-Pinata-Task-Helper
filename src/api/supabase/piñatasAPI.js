@@ -59,6 +59,24 @@ export const login = async (email, password) => {
     }
 }
 
+//Get user
+export const getUser = async () => {
+    try {
+        const { data, error } = await supabase.auth.getUser();
+
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        return data
+
+    } catch (err) {
+        console.error(err);
+
+        return null
+    }
+} 
+
 //Delete user
 export const deleteUser = async (userId) => {
     try {
@@ -75,16 +93,22 @@ export const deleteUser = async (userId) => {
 };
 
 //Create Profile
-export const createProfile = async (userData, username, avatarUrl, farmName) => {
+export const createProfile = async (userId, username, avatarUrl, farmName) => {
+    console.log({
+        id: userId.id,
+        username: username.value,
+        avatar_url: avatarUrl.value,
+        farm_name: farmName.value
+      });
     try {
         const { data, error } = await supabase
             .from('profiles')
             .insert([
                 {
-                    id: userData.id,
-                    username: username,
-                    avatar_url: avatarUrl,
-                    farm_name: farmName
+                    id: userId.id,
+                    username: username.value,
+                    avatar_url: avatarUrl.value,
+                    farm_name: farmName.value
                 }
             ])
 

@@ -2,7 +2,10 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 import NavBar from './components/NavBar.vue';
 import { RouterView, RouterLink } from 'vue-router';
+import { useUserStore } from './stores/store';
+import { getUser } from './api/supabase/piñatasAPI';
 
+const storeUser = useUserStore();
 const menuOpen = ref(false);
 
 const affectMenu = (value) => {
@@ -16,7 +19,16 @@ const closeMenu = (event) => {
   }
 };
 
-onMounted(() => {
+onMounted(async () => {
+  const userData = await getUser();
+
+  if (userData) {
+    console.log(userData)
+    storeUser.setUserData(userData)
+  } else {
+    console.log("No active session.")
+  }
+  
   document.addEventListener('click', closeMenu);
 });
 

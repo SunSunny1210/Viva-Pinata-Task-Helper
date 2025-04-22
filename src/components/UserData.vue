@@ -7,6 +7,7 @@ import { RouterLink } from 'vue-router';
 const storeUser = useUserStore();
 
 const printUserTemplate = () =>{
+    console.log(storeUser.profileData)
     return storeUser.profileData
     ? h("div", { class: "user-info" }, [
         h("img", { src: `${storeUser.profileData.avatar_url}` }),

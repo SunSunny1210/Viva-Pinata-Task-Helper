@@ -1,9 +1,52 @@
 <script setup>
+import ProfileCreation from '@/components/ProfileCreation.vue';
+
 </script>
 
 <template>
-    
+    <div class="profile-creation">
+        <h1>Create your profile!</h1>
+        <p>Select your avatar, choose your username and give your farm a cool name!</p>
+        <ProfileCreation />
+    </div>
 </template>
 
 <style scoped>
+* {
+        margin: 0;
+    }
+    .profile-creation {
+        margin-top: 2rem;
+        margin: 1rem;
+        width: 85%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        background-color: white;
+        border: 3px outset var(--background-yellow);
+        border-radius: 12px;
+        
+        h1 {
+            height: 10vh;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            background-color: var(--medium-green);
+            border-radius: 5px 5px 0 0; 
+        }
+
+        p {
+            margin: 1rem 1rem 0 1rem;
+            padding: 2rem;
+            text-align: justify;
+            font-size: 1.2rem;
+            color: var(--dark-green);
+            background-color: rgb(255, 251, 167);
+            border: 3px dashed var(--carmin);
+            border-radius: 12px;
+        }
+    }
 </style>

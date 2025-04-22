@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import RegisterUser from '@/views/RegisterUser.vue'
 import LoginUser from '@/views/LoginUser.vue'
 import CreateProfile from '@/views/CreateProfile.vue'
+import { defineAsyncComponent } from 'vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,7 +26,7 @@ const router = createRouter({
     {
       path: '/create-profile',
       name: 'create-profile',
-      component: CreateProfile,
+      component: defineAsyncComponent(() => import('@/views/CreateProfile.vue')),
     },
   ],
 })
