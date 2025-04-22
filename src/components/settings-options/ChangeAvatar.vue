@@ -152,7 +152,7 @@ const handleSubmit = async () => {
             background-color: var(--white-yellow);
             border: 3px dashed var(--carmin);
             border-radius: 5px;
-        }
+            }
         }
     }
 }

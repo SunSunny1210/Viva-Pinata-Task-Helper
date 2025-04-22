@@ -1,5 +1,6 @@
 <script setup>
 import ChangeAvatar from '@/components/settings-options/ChangeAvatar.vue';
+import ChangeNames from '@/components/settings-options/ChangeNames.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 
     const CHANGE_OPTIONS = {
@@ -13,15 +14,13 @@ import { ref, onMounted, onUnmounted } from 'vue';
     const selectedOption = ref(null)
 
     const showOption = (option) => {
-        if (option === CHANGE_OPTIONS.AVATAR) {
-            selectedOption.value = option
-        } else {
-            selectedOption.value = null
-        }
+        selectedOption.value = option;
     }
 
     const closePopUp = (event) => {
-        if (selectedOption.value && !event.target.closest(".pop-up") && !event.target.closest(".clickable")) {
+        if (selectedOption.value && 
+        !event.target.closest(".pop-up") && 
+        !event.target.closest(".clickable")) {
             selectedOption.value = null;
         }
     };
@@ -49,6 +48,9 @@ import { ref, onMounted, onUnmounted } from 'vue';
     </div>
     <Transition name="fade">
         <ChangeAvatar v-if="selectedOption === CHANGE_OPTIONS.AVATAR"/>
+    </Transition>
+    <Transition name="fade">
+        <ChangeNames v-if="selectedOption && selectedOption !== CHANGE_OPTIONS.AVATAR" :option="selectedOption"/>
     </Transition>
   </div>
 </template>
