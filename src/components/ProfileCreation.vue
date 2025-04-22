@@ -26,7 +26,6 @@ const sendProfileData = async () => {
         }
     } catch (err) {
         console.error(err)
-        console.log(storeUser.userData)
     }
 }
 </script>

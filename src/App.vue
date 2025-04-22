@@ -2,10 +2,11 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 import NavBar from './components/NavBar.vue';
 import { RouterView, RouterLink } from 'vue-router';
-import { useUserStore } from './stores/store';
-import { getUser } from './api/supabase/piñatasAPI';
+import { useProfileStore, useUserStore } from './stores/store';
+import { getUser, getProfile } from './api/supabase/piñatasAPI';
 
 const storeUser = useUserStore();
+const storeProfile = useProfileStore();
 const menuOpen = ref(false);
 
 const affectMenu = (value) => {
@@ -21,12 +22,19 @@ const closeMenu = (event) => {
 
 onMounted(async () => {
   const userData = await getUser();
+  const profileData = await getProfile();
 
   if (userData) {
     console.log(userData)
     storeUser.setUserData(userData)
   } else {
     console.log("No active session.")
+  };
+
+  if (profileData) {
+    storeProfile.setProfileData(profileData)
+  } else {
+    console.log("No existent profile")
   }
   
   document.addEventListener('click', closeMenu);

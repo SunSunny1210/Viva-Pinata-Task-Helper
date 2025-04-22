@@ -94,12 +94,6 @@ export const deleteUser = async (userId) => {
 
 //Create Profile
 export const createProfile = async (userId, username, avatarUrl, farmName) => {
-    console.log({
-        id: userId.id,
-        username: username.value,
-        avatar_url: avatarUrl.value,
-        farm_name: farmName.value
-      });
     try {
         const { data, error } = await supabase
             .from('profiles')
@@ -121,5 +115,32 @@ export const createProfile = async (userId, username, avatarUrl, farmName) => {
         console.error(err)
 
         return null
+    }
+}
+
+//Get Profile
+export const getProfile = async () => {
+    try {
+        const userData = await getUser();
+
+        if (!userData) {
+            throw new Error("No active session found")
+        }
+
+        const userId = userData.user.id
+
+        const { data: profile, error } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', userId)
+            .single();
+        
+        if (error) {
+            throw new Error(error.message)
+        };
+
+        return profile
+    } catch (err) {
+        console.error(err)
     }
 }

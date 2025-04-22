@@ -1,19 +1,18 @@
 <script setup>
-import { useUserStore } from '@/stores/store';
+import { useProfileStore } from '@/stores/store';
 import { h } from 'vue';
 import Pretzail from '@/assets/pretzail.jpg';
 import { RouterLink } from 'vue-router';
 
-const storeUser = useUserStore();
+const storeProfile = useProfileStore();
 
 const printUserTemplate = () =>{
-    console.log(storeUser.profileData)
-    return storeUser.profileData
+    return storeProfile.profileData
     ? h("div", { class: "user-info" }, [
-        h("img", { src: `${storeUser.profileData.avatar_url}` }),
+        h("img", { src: `${storeProfile.profileData.avatar_url}` }),
         h("div", { class: "profile-names" }, [
-            h("h3", { class: "username" }, storeUser.profileData.username),
-            h("h4", { class: "farm-name" }, storeUser.profileData.farm_name)
+            h("h3", { class: "username" }, storeProfile.profileData.username),
+            h("h4", { class: "farm-name" }, storeProfile.profileData.farm_name)
         ])
     ])
     : h("div", { class: "no-user" }, [
