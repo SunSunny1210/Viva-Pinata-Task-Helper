@@ -19,11 +19,12 @@ const handleLinkClick = (event) => {
     <div>
         <aside :class="{ isOpen: isOpen }" @click="handleLinkClick">
             <UserData />
-            <RouterLink to="">Home</RouterLink>
+            <RouterLink to="/">Home</RouterLink>
             <RouterLink to="">Piñatas</RouterLink>
             <RouterLink to="">Villagers</RouterLink>
             <RouterLink to="">Plants and seeds</RouterLink>
             <RouterLink to="">Services</RouterLink>
+            <RouterLink to="/settings">Settings</RouterLink>
         </aside>
     </div>
 </template>
@@ -45,6 +46,7 @@ const handleLinkClick = (event) => {
         transform: translateX(-100%);
         transition: transform 0.5s ease-in-out;
         transition: box-shadow 0.2s ease-out;
+        z-index: 6;
 
         a {
             height: 30px;

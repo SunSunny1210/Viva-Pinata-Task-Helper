@@ -35,6 +35,7 @@ const toggleMenu = () => {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        z-index: 5;
         
         .logo {
             margin-right: 1.5rem;

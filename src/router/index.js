@@ -28,6 +28,11 @@ const router = createRouter({
       name: 'create-profile',
       component: defineAsyncComponent(() => import('@/views/CreateProfile.vue')),
     },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: defineAsyncComponent(() => import('@/views/Settings.vue')),
+    },
   ],
 })
 

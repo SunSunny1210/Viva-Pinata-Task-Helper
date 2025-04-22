@@ -70,7 +70,7 @@ onUnmounted(() => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 17vh;
+    margin-top: 18vh;
   }
 
   .moveRight {
