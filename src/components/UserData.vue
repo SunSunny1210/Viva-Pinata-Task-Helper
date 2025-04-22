@@ -1,12 +1,12 @@
 <script setup>
 import { useProfileStore } from '@/stores/store';
-import { h } from 'vue';
+import { computed, h } from 'vue';
 import Pretzail from '@/assets/pretzail.jpg';
 import { RouterLink } from 'vue-router';
 
 const storeProfile = useProfileStore();
 
-const printUserTemplate = () =>{
+const printUserTemplate = computed(() =>{
     return storeProfile.profileData
     ? h("div", { class: "user-info" }, [
         h("img", { src: `${storeProfile.profileData.avatar_url}` }),
@@ -22,8 +22,7 @@ const printUserTemplate = () =>{
             h(RouterLink, { to: "/login" }, "Log in")
         ])
     ])
-    
-}
+})
 </script>
 
 <template>

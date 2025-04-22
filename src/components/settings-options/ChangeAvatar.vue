@@ -1,15 +1,42 @@
 <script setup>
+import { useProfileStore } from '@/stores/store';
+import { ref } from 'vue';
+
+const newAvatarURL = ref('');
+const selectedFile = ref(null);
+const storeProfile = useProfileStore();
+
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    selectedFile.value = file;
+    newAvatarURL.value = URL.createObjectURL(file);
+  }
+};
+
+const handleSubmit = async () => {
+    try {
+        if (!selectedFile.value) {
+            console.error("No file selected");
+            return
+        }
+        
+        await storeProfile.updateProfileAvatar(selectedFile.value)
+    } catch (err) {
+        console.error(err)
+    }
+}
 </script>
 
 <template>
     <div class="pop-up">
         <div class="change-avatar">
             <h2>Change Avatar</h2>
-            <form>
-                <label for="title" class="upload-btn">Upload your avatar</label>
-                <input type="file" id="upload" name="avatar_upload" accept="image/*" hidden/>
-                <label for="upload">Select your file</label>
-                <img class="preview" src="" />
+            <form @submit.prevent="handleSubmit">
+                <label for="title">Upload your avatar</label>
+                <input type="file" id="upload" name="avatar_upload" accept="image/*" @change="handleFileChange" hidden/>
+                <label for="upload" class="upload-btn">Select your file</label>
+                <img class="preview" :src="newAvatarURL" />
                 <button type="submit">Upload</button>
             </form>
             <div class="uploaded-avatars">
@@ -71,6 +98,7 @@
             align-items: center;
             
             label {
+                margin: 1rem;
                 font-size: 1.5rem;
                 color: var(--dark-green);
                 border-radius: 12px;

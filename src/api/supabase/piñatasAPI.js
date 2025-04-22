@@ -144,3 +144,73 @@ export const getProfile = async () => {
         console.error(err)
     }
 }
+
+//Update Profile
+export const updateProfileInfo = async (id, columnName, newData) => {
+    try {
+        const { data, error } = await supabase
+            .from('profiles')
+            .update({ [columnName]: newData })
+            .eq('id', id);
+
+        if (error) {
+            throw new Error("Profile couldn't be updated", error.message);
+        }
+
+        console.log("Profile updated successfully");
+        return data;
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+//Upload Avatar 
+export const uploadAvatar = async (file) => {
+    try {
+        const fileName = `${Date.now()}_${file.name}`;
+        const { data, error } = await supabase.storage
+            .from('avatars')
+            .upload(fileName, file)
+
+        if (error) {
+            throw new Error(error.message)
+        }
+
+        return data.path
+    } catch (err) {
+        console.error(err)
+        return null
+    }
+}
+
+//Get Avatars
+export const getAvatars = async () => {
+    try {
+        const { data, error } = await supabase.storage
+            .from("avatars")
+            .list()
+
+        if (error) {
+            throw new Error(error.message)
+        }
+
+        const avatars = data.map(file => ({
+            name: file.name,
+            url: supabase.storage.from("avatars").getPublicUrl(file.name).data.publicUrl
+        }));
+
+        return avatars
+    } catch (err) {
+        console.error(err)
+        return []
+    }
+}
+
+export const getAvatarByName = async (name) => {
+    try {
+        return await supabase.storage.from("avatars").getPublicUrl(name).data.publicUrl
+    } catch (err) {
+        console.error(err)
+        return ''
+    }
+}
