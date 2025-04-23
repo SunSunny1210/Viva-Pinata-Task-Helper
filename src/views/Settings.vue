@@ -1,15 +1,26 @@
 <script setup>
 import ChangeAvatar from '@/components/settings-options/ChangeAvatar.vue';
 import ChangeNames from '@/components/settings-options/ChangeNames.vue';
+import Setting from '@/components/settings-options/Setting.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 
-    const CHANGE_OPTIONS = {
-    USERNAME: 'Change Username',
-    AVATAR: 'Change Avatar',
-    FARM_NAME: 'Change Farm Name'
+    const OPTIONS = {
+        CHANGE_OPTIONS: {
+            TITLE: 'Profile',
+            USERNAME: 'Change Username',
+            AVATAR: 'Change Avatar',
+            FARM_NAME: 'Change Farm Name'
+        },
+        USER_OPTIONS: {
+            TITLE: 'User',
+            EMAIL: 'Check/Change Email',
+            PASSWORD: 'Check/Change Password',
+            SESSION: 'Log Out',
+            DELETE: 'Delete User'
+        }
     }
 
-    const options = Object.keys(CHANGE_OPTIONS).map(key => CHANGE_OPTIONS[key]);
+    const options = Object.values(OPTIONS);
 
     const selectedOption = ref(null)
 
@@ -38,19 +49,12 @@ import { ref, onMounted, onUnmounted } from 'vue';
 <template>
   <div class="settings">
     <h1>Settings</h1>
-    <div class="setting">
-        <h2>Profile</h2>
-        <div class="options">
-            <span v-for="option in options" :key="option" class="clickable" @click="showOption(option)">
-            {{ option }}    
-        </span>
-        </div>
-    </div>
+    <Setting v-for="(options, key) in OPTIONS" :key="key" @trigger-function="showOption" :options="options"/>
     <Transition name="fade">
-        <ChangeAvatar v-if="selectedOption === CHANGE_OPTIONS.AVATAR"/>
+        <ChangeAvatar v-if="selectedOption === OPTIONS.CHANGE_OPTIONS.AVATAR"/>
     </Transition>
     <Transition name="fade">
-        <ChangeNames v-if="selectedOption && selectedOption !== CHANGE_OPTIONS.AVATAR" :option="selectedOption"/>
+        <ChangeNames v-if="selectedOption && selectedOption !== OPTIONS.CHANGE_OPTIONS.AVATAR" :option="selectedOption"/>
     </Transition>
   </div>
 </template>
@@ -71,6 +75,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
         background-color: white;
         border: 3px outset var(--background-yellow);
         border-radius: 12px;
+        overflow-y: scroll;
         
         h1 {
             height: 10vh;
@@ -81,54 +86,6 @@ import { ref, onMounted, onUnmounted } from 'vue';
             color: white;
             background-color: var(--medium-green);
             border-radius: 5px 5px 0 0; 
-        }
-
-        .setting {
-            position: relative;
-            width: 100%;
-
-            h2 {
-                position: relative;
-                margin: 1rem 0 0 2rem;
-                padding: 0.5rem;
-                width: fit-content;
-                color: white;
-                background-color: var(--main-green);
-                border-radius: 12px;
-                z-index: 2;
-            }
-
-            .options {
-                margin: 0 1rem;
-                padding: 2rem 1rem 1rem 1rem;
-                width: 220px;
-                position: absolute;
-                top: 2.5rem;
-                left: 0;
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-start;
-                gap: 10px;
-                text-align: start;
-                font-size: 1.2rem;
-                color: var(--dark-green);
-                background-color: white;
-                border: 3px dashed var(--light-green);
-                border-radius: 12px;
-            }
-            
-            span {
-                padding: 10px;
-                background-color: var(--white-yellow);
-                border: 3px dashed var(--carmin);
-                border-radius: 5px;
-            }
-
-            span:hover,
-            span:active {
-                background-color: darkgreen;
-                color: white;
-            }
         }
     }
 
