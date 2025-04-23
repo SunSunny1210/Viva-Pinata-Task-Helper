@@ -1,48 +1,56 @@
 <script setup>
-import { useProfileStore } from '@/stores/store';
+import { useProfileStore, useUserStore } from '@/stores/store';
 import { ref } from 'vue';
 
 const props = defineProps({
     option: String
 })
 
-const newUserName = ref('');
-const newFarmName = ref('');
+const userStore = useUserStore();
+const trimmedOption = props.option.replace(/(?:Change |Check\/Change )/, "");
+const newEmail = ref('');
+const newPassword = ref('');
 
-const profileStore = useProfileStore();
+console.log(props.option)
 
 const handleInputChange = (event) => {
-    if (props.option === 'Change Username') {
-    newUserName.value = event.target.value;
-    } else if (props.option === 'Change Farm Name') {
-    newFarmName.value = event.target.value;
+    if (props.option === 'Check/Change Email') {
+    newEmail.value = event.target.value;
+    } else if (props.option === 'Check/Change Password') {
+    newPassword.value = event.target.value;
     }
 };
 
-const trimmedOption = props.option.replace(/(?:Change |Check\/Change )/, "")
 
-const handleSubmit = async (option) => {
-    console.log(`Submitting for option: ${option}`);
-    let columnName = option === "Change Username" ? "username" : "farm_name";
-    let newValue = option === "Change Username" ? newUserName.value : newFarmName.value;
+// const handleSubmit = async (option) => {
+//     console.log(`Submitting for option: ${option}`);
+//     let columnName = option === "Change Username" ? "username" : "farm_name";
+//     let newValue = option === "Change Username" ? newUserName.value : newFarmName.value;
     
-    profileStore.updateProfileData(columnName, newValue)
-}
+//     profileStore.updateProfileData(columnName, newValue)
+// }
 </script>
 
 <template>
     <div class="pop-up">
         <h2>{{ props.option }}</h2>
+        <div v-if="props.option === 'Check/Change Email'" class="check-option">
+            <h3>Check {{ trimmedOption }}</h3>
+            <div class="info">
+                <p>Check your current {{ trimmedOption }}</p>
+                <span>Current {{ trimmedOption }}: {{ userStore.userData.user.email }}</span>
+            </div>
+        </div>
         <div class="change-option">
-            <h3>Choose new {{ trimmedOption }}</h3>
+            <h3>Choose New {{ trimmedOption }}</h3>
             <div class="info">
                 <p>Choose your new {{ trimmedOption }} :3</p>
                 <form class="change-info" @submit.prevent="handleSubmit(props.option)">
                     <label :for="trimmedOption">New {{ trimmedOption }}</label>
                     <input 
                     type="text" 
-                    :name="props.option === 'Change Username' ? 'username' : 'farm_name'" 
-                    :id="trimmedOption"
+                    :name="props.option === 'Check/Change Email' ? 'email' : 'password'" 
+                    :id="props.option === 'Check/Change Email' ? 'emailId' : 'passwordId'"
                     :placeholder="'Enter new ' + trimmedOption"
                     @input="handleInputChange">
                     <button type="submit">Submit</button>

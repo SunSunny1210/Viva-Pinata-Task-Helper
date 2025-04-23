@@ -1,5 +1,6 @@
 <script setup>
 import ChangeAvatar from '@/components/settings-options/ChangeAvatar.vue';
+import ChangeEmailPassword from '@/components/settings-options/ChangeEmailPassword.vue';
 import ChangeNames from '@/components/settings-options/ChangeNames.vue';
 import Setting from '@/components/settings-options/Setting.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
@@ -55,6 +56,9 @@ import { ref, onMounted, onUnmounted } from 'vue';
     </Transition>
     <Transition name="fade">
         <ChangeNames v-if="selectedOption && selectedOption !== OPTIONS.CHANGE_OPTIONS.AVATAR" :option="selectedOption"/>
+    </Transition>
+    <Transition name="fade">
+        <ChangeEmailPassword v-if="selectedOption === OPTIONS.USER_OPTIONS.EMAIL || selectedOption === OPTIONS.USER_OPTIONS.PASSWORD" :option="selectedOption"/>
     </Transition>
   </div>
 </template>
