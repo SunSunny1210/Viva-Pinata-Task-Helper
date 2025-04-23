@@ -32,6 +32,7 @@ onMounted(async () => {
   };
 
   if (profileData) {
+    console.log(profileData)
     storeProfile.setProfileData(profileData)
   } else {
     console.log("No existent profile")
