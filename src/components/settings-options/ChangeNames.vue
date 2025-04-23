@@ -1,7 +1,33 @@
 <script setup>
+import { useProfileStore } from '@/stores/store';
+import { ref } from 'vue';
+
 const props = defineProps({
     option: String
 })
+
+const newUserName = ref('');
+const newFarmName = ref('');
+
+const profileStore = useProfileStore();
+
+const handleInputChange = (event) => {
+    if (props.option === 'Change Username') {
+    newUserName.value = event.target.value;
+    } else if (props.option === 'Change Farm Name') {
+    newFarmName.value = event.target.value;
+    }
+};
+
+
+
+const handleSubmit = async (option) => {
+    console.log(`Submitting for option: ${option}`);
+    let columnName = option === "Change Username" ? "username" : "farm_name";
+    let newValue = option === "Change Username" ? newUserName.value : newFarmName.value;
+    
+    profileStore.updateProfileData(columnName, newValue)
+}
 </script>
 
 <template>
@@ -9,13 +35,14 @@ const props = defineProps({
         <div class="change-option">
             <h2>{{ props.option }}</h2>
             <p>Choose your new {{ props.option.slice(7) }} :3</p>
-            <form class="change-info">
+            <form class="change-info" @submit.prevent="handleSubmit(props.option)">
                 <label :for="props.option.slice(7)">New {{ props.option.slice(7) }}</label>
                 <input 
                 type="text" 
                 :name="props.option === 'Change Username' ? 'username' : 'farm_name'" 
                 :id="props.option.slice(7)"
-                :placeholder="'Enter new ' + props.option.slice(7)">
+                :placeholder="'Enter new ' + props.option.slice(7)"
+                @input="handleInputChange">
                 <button type="submit">Submit</button>
             </form>
         </div>

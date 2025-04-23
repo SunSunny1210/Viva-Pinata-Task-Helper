@@ -72,6 +72,29 @@ export const useProfileStore = defineStore('profileStore', () => {
         };
     };
 
+    const updateProfileData = async (columnName, newData) => {
+        const userStore = useUserStore();
+
+        if (columnName && newData) {
+            try {
+                await updateProfileInfo(userStore.userId, columnName, newData)
+
+                if (columnName === "username") {
+                    setProfileData({
+                        username: newData
+                    })
+                } else {
+                    setProfileData({
+                        farm_name: newData
+                    })
+                }
+            } catch (err) {
+                console.error(err)
+                return null
+            }
+        }
+    }
+
     const updateProfileAvatar = async (file) => {
         const userStore = useUserStore();
 
@@ -94,5 +117,5 @@ export const useProfileStore = defineStore('profileStore', () => {
         }
     }
 
-    return { profileData, setProfileData, updateProfileAvatar }
+    return { profileData, setProfileData, updateProfileAvatar, updateProfileData }
 })
