@@ -120,27 +120,37 @@ export const useProfileStore = defineStore('profileStore', () => {
         }
     }
 
-    const updateProfileAvatar = async (file) => {
+    const updateProfileAvatar = async (input) => {
         const userStore = useUserStore();
-
-        if (file) {
-            try {
-                const avatarPath = await uploadAvatar(file);
-                
+    
+        try {
+            let filePublicURL;
+    
+            if (input instanceof File) {
+                const avatarPath = await uploadAvatar(input);
                 if (avatarPath) {
-                    const filePublicURL = await getAvatarByName(avatarPath);
-                    const userId = userStore.userId;
-                    await updateProfileInfo(userId, "avatar_url", filePublicURL);
-
-                    setProfileData({
-                        avatar_url: filePublicURL
-                    })
+                    filePublicURL = await getAvatarByName(avatarPath);
                 }
-            } catch (err) {
-                console.error(err)
+            } else if (typeof input === 'string') {
+                filePublicURL = input;
             }
+    
+            if (filePublicURL) {
+                const userId = userStore.userId;
+                await updateProfileInfo(userId, "avatar_url", filePublicURL);
+    
+                setProfileData({
+                    avatar_url: filePublicURL
+                });
+    
+                console.log('Avatar updated successfully!');
+            } else {
+                console.error('Failed to update avatar: No valid URL or file provided');
+            }
+        } catch (err) {
+            console.error('Error updating avatar:', err);
         }
-    }
+    };
 
     return { profileData, setProfileData, updateProfileAvatar, updateProfileData }
 })

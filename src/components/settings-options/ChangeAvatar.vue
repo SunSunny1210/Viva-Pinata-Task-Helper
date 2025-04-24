@@ -1,10 +1,25 @@
 <script setup>
-import { useProfileStore } from '@/stores/store';
-import { ref } from 'vue';
+import { useAvatarsStore, useProfileStore } from '@/stores/store';
+import { onMounted, ref } from 'vue';
 
 const newAvatarURL = ref('');
 const selectedFile = ref(null);
 const storeProfile = useProfileStore();
+const storeAvatar = useAvatarsStore();
+const selectedAvatar = ref(null)
+
+const selectAvatar = async (avatar) => {
+     const confirmed = confirm(`Do you want to set ${avatar.url} as your avatar?`);
+     if (!confirmed) return;
+
+     try {
+         selectedAvatar.value = avatar;
+         await storeProfile.updateProfileAvatar(avatar.url);
+         console.log('Avatar updated via selection!');
+     } catch (err) {
+         console.error('Error selecting avatar:', err);
+     }
+};
 
 const handleFileChange = (event) => {
   const file = event.target.files[0];
@@ -26,6 +41,11 @@ const handleSubmit = async () => {
         console.error(err)
     }
 }
+
+
+onMounted(async () => {
+    await storeAvatar.fetchAvatars();
+})
 </script>
 
 <template>
@@ -43,7 +63,7 @@ const handleSubmit = async () => {
                 <h3>Uploaded Avatars</h3>
                 <p>These are your uploaded avatars. Choose one of your like for your profile. If you don't see one you like, you can upload one on the option above!</p>
                 <div class="avatars">
-                    <img />
+                    <img @click="selectAvatar(avatar)" v-for="avatar in storeAvatar.avatars" :key="avatar" :src="avatar.url"/>
                 </div>
             </div>
         </div>
@@ -145,13 +165,37 @@ const handleSubmit = async () => {
         }
 
         .uploaded-avatars {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+
             p {
-            margin: 1.5rem;
-            padding: 10px;
-            text-align: center;
-            background-color: var(--white-yellow);
-            border: 3px dashed var(--carmin);
-            border-radius: 5px;
+                margin: 1.5rem;
+                padding: 10px;
+                text-align: center;
+                background-color: var(--white-yellow);
+                border: 3px dashed var(--carmin);
+                border-radius: 5px;
+            }
+
+            .avatars {
+                padding: 1rem;
+                width: 80%;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                gap: 10px;
+                background-color: var(--background-yellow);
+                border-radius: 12px;
+
+                img {
+                    height: 100px;
+                    width: 100px;
+                    border: 3px dashed orange;
+                    border-radius: 12px;
+                }
             }
         }
     }
