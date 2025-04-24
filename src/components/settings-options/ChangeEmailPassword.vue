@@ -1,5 +1,5 @@
 <script setup>
-import { useProfileStore, useUserStore } from '@/stores/store';
+import { useUserStore } from '@/stores/store';
 import { ref } from 'vue';
 
 const props = defineProps({
@@ -21,14 +21,12 @@ const handleInputChange = (event) => {
     }
 };
 
-
-// const handleSubmit = async (option) => {
-//     console.log(`Submitting for option: ${option}`);
-//     let columnName = option === "Change Username" ? "username" : "farm_name";
-//     let newValue = option === "Change Username" ? newUserName.value : newFarmName.value;
+const handleSubmit = async (option) => {
+    console.log(`Submitting for option: ${option}`);
+    let newValue = option === "Check/Change Email" ? newEmail.value : newPassword.value;
     
-//     profileStore.updateProfileData(columnName, newValue)
-// }
+    userStore.updateUserData(newValue)
+}
 </script>
 
 <template>

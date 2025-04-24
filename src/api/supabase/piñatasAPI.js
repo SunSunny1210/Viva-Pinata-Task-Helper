@@ -59,6 +59,30 @@ export const login = async (email, password) => {
     }
 }
 
+//Update User
+export const updateUserInfo = async (email, password) => {
+    try {
+        if (!email && !password) {
+            console.log("No email nor password provided.")
+        }
+
+        const { data, error } = await supabase.auth.updateUser({
+            email,
+            password
+        })
+
+        if (error) {
+            throw new Error("User couldn't be updated", error.message);
+        }
+
+        console.log("User updated successfully");
+        return data;
+    } catch (err) {
+        console.error(err)
+        return null
+    }
+}
+
 //Get user
 export const getUser = async () => {
     try {

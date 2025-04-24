@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getAvatars, getAvatarByName, getPiñatas, uploadAvatar, updateProfileInfo } from '@/api/supabase/piñatasAPI'
+import { getAvatars, getAvatarByName, getPiñatas, uploadAvatar, updateProfileInfo, updateUserInfo, getUser } from '@/api/supabase/piñatasAPI'
 
 export const usePiñataStore = defineStore('piñataStore', () => {
     //State
@@ -54,9 +54,34 @@ export const useUserStore = defineStore('userStore', () => {
         } 
     };
 
-    return { userData, userId, setUserData }
-}, {
-    persist: true
+    const updateUserData = async (data) => {
+        try {
+            const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data)
+            const checking = isEmail
+                ? await updateUserInfo(data)
+                : await updateUserInfo(null, data);
+
+            if (checking && isEmail) {
+                setUserData({ email: data })
+            }
+
+        } catch (err) {
+            console.error(err)
+            return null
+        }
+    }
+
+    const checkUserLog = async () => {
+        try {
+            const check = await getUser()
+
+            return check
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    return { userData, userId, setUserData, updateUserData, checkUserLog }
 });
 
 export const useProfileStore = defineStore('profileStore', () => {
