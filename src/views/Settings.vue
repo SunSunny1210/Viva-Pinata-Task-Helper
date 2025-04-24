@@ -2,6 +2,7 @@
 import ChangeAvatar from '@/components/settings-options/ChangeAvatar.vue';
 import ChangeEmailPassword from '@/components/settings-options/ChangeEmailPassword.vue';
 import ChangeNames from '@/components/settings-options/ChangeNames.vue';
+import CheckInbox from '@/components/settings-options/CheckInbox.vue';
 import Setting from '@/components/settings-options/Setting.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 
@@ -23,7 +24,8 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
     const options = Object.values(OPTIONS);
 
-    const selectedOption = ref(null)
+    const openMessage = ref(false);
+    const selectedOption = ref(null);
 
     const showOption = (option) => {
         selectedOption.value = option;
@@ -36,6 +38,11 @@ import { ref, onMounted, onUnmounted } from 'vue';
             selectedOption.value = null;
         }
     };
+
+    const handleClose = () => {
+        selectedOption.value = null;
+        openMessage.value = true;
+    }
 
     onMounted (() => {
         document.addEventListener("click", closePopUp);
@@ -58,7 +65,13 @@ import { ref, onMounted, onUnmounted } from 'vue';
         <ChangeNames v-if="selectedOption && selectedOption !== OPTIONS.CHANGE_OPTIONS.AVATAR" :option="selectedOption"/>
     </Transition>
     <Transition name="fade">
-        <ChangeEmailPassword v-if="selectedOption === OPTIONS.USER_OPTIONS.EMAIL || selectedOption === OPTIONS.USER_OPTIONS.PASSWORD" :option="selectedOption"/>
+        <ChangeEmailPassword v-if="selectedOption === OPTIONS.USER_OPTIONS.EMAIL || 
+        selectedOption === OPTIONS.USER_OPTIONS.PASSWORD"
+        :option="selectedOption"
+        @close-pop-up="handleClose"/>
+    </Transition>
+    <Transition name="fade">
+        <CheckInbox v-if="openMessage" />
     </Transition>
   </div>
 </template>

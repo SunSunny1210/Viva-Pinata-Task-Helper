@@ -6,7 +6,10 @@ const props = defineProps({
     option: String
 })
 
+const emit = defineEmits(['close-pop-up'])
+
 const userStore = useUserStore();
+
 const trimmedOption = props.option.replace(/(?:Change |Check\/Change )/, "");
 const newEmail = ref('');
 const newPassword = ref('');
@@ -25,7 +28,9 @@ const handleSubmit = async (option) => {
     console.log(`Submitting for option: ${option}`);
     let newValue = option === "Check/Change Email" ? newEmail.value : newPassword.value;
     
-    userStore.updateUserData(newValue)
+    // userStore.updateUserData(newValue);
+
+    emit('close-pop-up');
 }
 </script>
 
