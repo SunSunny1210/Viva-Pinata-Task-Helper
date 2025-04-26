@@ -3,6 +3,7 @@ import ChangeAvatar from '@/components/settings-options/ChangeAvatar.vue';
 import ChangeEmailPassword from '@/components/settings-options/ChangeEmailPassword.vue';
 import ChangeNames from '@/components/settings-options/ChangeNames.vue';
 import CheckInbox from '@/components/settings-options/CheckInbox.vue';
+import LogOutDeleteUser from '@/components/settings-options/LogOutDeleteUser.vue';
 import Setting from '@/components/settings-options/Setting.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 
@@ -44,6 +45,7 @@ import { ref, onMounted, onUnmounted } from 'vue';
         openMessage.value = true;
     }
 
+
     onMounted (() => {
         document.addEventListener("click", closePopUp);
 
@@ -62,7 +64,9 @@ import { ref, onMounted, onUnmounted } from 'vue';
         <ChangeAvatar v-if="selectedOption === OPTIONS.CHANGE_OPTIONS.AVATAR"/>
     </Transition>
     <Transition name="fade">
-        <ChangeNames v-if="selectedOption && selectedOption !== OPTIONS.CHANGE_OPTIONS.AVATAR" :option="selectedOption"/>
+        <ChangeNames v-if="selectedOption === OPTIONS.CHANGE_OPTIONS.USERNAME || 
+        selectedOption === OPTIONS.CHANGE_OPTIONS.FARM_NAME" 
+        :option="selectedOption"/>
     </Transition>
     <Transition name="fade">
         <ChangeEmailPassword v-if="selectedOption === OPTIONS.USER_OPTIONS.EMAIL || 
@@ -72,6 +76,11 @@ import { ref, onMounted, onUnmounted } from 'vue';
     </Transition>
     <Transition name="fade">
         <CheckInbox v-if="openMessage" />
+    </Transition>
+    <Transition name="fade">
+        <LogOutDeleteUser v-if="selectedOption === OPTIONS.USER_OPTIONS.DELETE || 
+        selectedOption === OPTIONS.USER_OPTIONS.SESSION"
+        :option="selectedOption" />
     </Transition>
   </div>
 </template>

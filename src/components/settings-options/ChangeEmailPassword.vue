@@ -28,7 +28,7 @@ const handleSubmit = async (option) => {
     console.log(`Submitting for option: ${option}`);
     let newValue = option === "Check/Change Email" ? newEmail.value : newPassword.value;
     
-    // userStore.updateUserData(newValue);
+    userStore.updateUserData(newValue);
 
     emit('close-pop-up');
 }

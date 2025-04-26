@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getAvatars, getAvatarByName, getPiñatas, uploadAvatar, updateProfileInfo, updateUserInfo, getUser } from '@/api/supabase/piñatasAPI'
+import { getAvatars, getAvatarByName, getPiñatas, uploadAvatar, updateProfileInfo, updateUserInfo, getUser, logOut, deleteUser } from '@/api/supabase/piñatasAPI'
 
 export const usePiñataStore = defineStore('piñataStore', () => {
     //State
@@ -18,7 +18,7 @@ export const usePiñataStore = defineStore('piñataStore', () => {
     }
     console.log(piñatas)
     
-    return { piñatas, fetchPiñatas}
+    return { piñatas, fetchPiñatas }
 });
 
 export const useAvatarsStore = defineStore('avatarsStore', () => {
@@ -43,6 +43,7 @@ export const useAvatarsStore = defineStore('avatarsStore', () => {
 export const useUserStore = defineStore('userStore', () => {
     //State
     const userData = ref(null);
+    const profileStore = useProfileStore();
 
     //Getters
     const userId = computed(() => userData.value?.user?.id || null);
@@ -81,7 +82,34 @@ export const useUserStore = defineStore('userStore', () => {
         }
     }
 
-    return { userData, userId, setUserData, updateUserData, checkUserLog }
+    const logOutUser = async () => {
+        try {
+            const noUser = await logOut();
+
+            if(noUser) {
+                setUserData(null);
+                profileStore.setProfileData(null);
+            }
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const deleteUserData = async () => {
+        try {
+            const deleteRequest = await deleteUser(userId);
+
+            if (deleteRequest) {
+                setUserData(null);
+                profileStore.setProfileData(null);
+            }
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    return { userData, userId, setUserData, updateUserData, checkUserLog, logOutUser, deleteUserData }
 });
 
 export const useProfileStore = defineStore('profileStore', () => {

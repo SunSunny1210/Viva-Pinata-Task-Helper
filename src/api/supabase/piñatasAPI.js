@@ -99,7 +99,22 @@ export const getUser = async () => {
 
         return null
     }
-} 
+}
+
+//Log Out
+export const logOut = async () => {
+    try {
+        const { error } = await supabase.auth.signOut();
+
+        if (error) {
+            throw new Error("Error logging out", error.message);
+        } else {
+            console.log("Log out successful");
+        }
+    } catch (err) {
+        console.error(err)
+    }
+}
 
 //Delete user
 export const deleteUser = async (userId) => {
