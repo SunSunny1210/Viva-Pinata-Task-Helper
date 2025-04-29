@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getAvatars, getAvatarByName, getPiñatas, uploadAvatar, updateProfileInfo, updateUserInfo, getUser, logOut, deleteUser, signUp, login, getProfile, createProfile } from '@/api/supabase/piñatasAPI'
+import { getAvatars, getAvatarByName, getPiñatas, updateProfileInfo, updateUserInfo, getUser, logOut, deleteUser, signUp, login, getProfile, createProfile, uploadAvatar } from '@/api/supabase/piñatasAPI'
 
 export const usePiñataStore = defineStore('piñataStore', () => {
     //State
@@ -26,10 +26,19 @@ export const useAvatarsStore = defineStore('avatarsStore', () => {
     const avatars = ref([])
     //Getters
     //Actions
+    const uploadNewAvatar = async (file) => {
+        try {
+            await uploadAvatar(file);
+            console.log("Avatar uploaded correctly")
+        } catch (err) {
+            console.error("Error uploading avatar", err)
+        }
+    }
+
     const fetchAvatars = async () => {
         try {
             const data = await getAvatars();
-            avatars.value = data
+            avatars.value = data;
         } catch (err) {
             console.error(err);
             return []
@@ -37,7 +46,7 @@ export const useAvatarsStore = defineStore('avatarsStore', () => {
     }
     console.log(avatars)
     
-    return { avatars, fetchAvatars}
+    return { avatars, fetchAvatars, uploadNewAvatar}
 });
 
 export const useUserStore = defineStore('userStore', () => {
@@ -164,10 +173,12 @@ export const useProfileStore = defineStore('profileStore', () => {
 
     const createProfileData = async (username, avatarUrl, farmName) => {
         try {
+
+
             const data = await createProfile(userStore.userId, username, avatarUrl, farmName);
 
             if (data) {
-                setProfileData(data)
+                setProfileData(data);
             }
         } catch (err) {
             console.error(err)

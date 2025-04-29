@@ -206,7 +206,7 @@ export const updateProfileInfo = async (id, columnName, newData) => {
     }
 }
 
-//Upload Avatar 
+//Upload Avatar
 export const uploadAvatar = async (file) => {
     try {
         const fileName = `${Date.now()}_${file.name}`;

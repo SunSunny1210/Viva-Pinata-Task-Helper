@@ -4,8 +4,6 @@ import NoProfile from './user-data/NoProfile.vue';
 import WithProfile from './user-data/WithProfile.vue';
 
 const storeProfile = useProfileStore();
-
-
 </script>
 
 <template>

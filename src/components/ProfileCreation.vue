@@ -1,23 +1,35 @@
 <script setup>
-import { useProfileStore, useUserStore } from '@/stores/store';
+import { useAvatarsStore, useProfileStore, useUserStore } from '@/stores/store';
 import { onMounted } from 'vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const storeProfile = useProfileStore();
 const storeUser = useUserStore();
+const storeAvatar = useAvatarsStore();
 
 const router = useRouter();
+const selectedFile = ref(null);
 const username = ref('');
 const avatarUrl = ref('');
 const farmName = ref('');
 
 console.log(storeUser.userData.user.id)
 
+const handleFileChange = (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    selectedFile.value = file;
+    console.log(selectedFile.value);
+    avatarUrl.value = URL.createObjectURL(file);
+  }
+};
+
 
 const sendProfileData = async () => {
     try {
         await storeProfile.createProfileData(username, avatarUrl, farmName);
+        await storeAvatar.uploadNewAvatar(selectedFile.value);
         router.push('/')
     } catch (err) {
         console.error(err)
@@ -34,8 +46,10 @@ onMounted(async () => {
         <form @submit.prevent="sendProfileData">
             <label for="username">Username</label>
             <input type="text" id="username" name="username" v-model="username" placeholder="Write your username"/>
-            <label for="avatar-url">Avatar</label>
-            <input type="url" id="avatar_url" name="avatar_url" v-model="avatarUrl" placeholder="Paste here your avatar URL">
+            <label for="title">Avatar</label>
+            <input type="file" id="avatar_url" name="avatar_url" accept="image/*" @change="handleFileChange" hidden>
+            <label for="avatar_url" class="avatar-btn">Select File</label>
+            <img v-if="avatarUrl" class="preview" :src="avatarUrl" />
             <label for="farm-name">Farm Name</label >
             <input type="text" id="farm_name" name="farm_name" v-model="farmName" placeholder="Write your super farm name">
             <button type="submit">Submit</button>
@@ -58,6 +72,26 @@ onMounted(async () => {
                 margin: 1rem;
                 color: var(--dark-green);
                 font-size: 1.2rem;
+            }
+
+            .avatar-btn {
+                margin: 0;
+                padding: 0.5rem;
+                height: 3rem;
+                width: 80%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: var(--main-green);
+                border-radius: 12px;
+            }
+
+            img {
+                margin: 1rem;
+                height: 100px;
+                width: 100px;
+                border: 3px dashed orange;
+                border-radius: 12px;
             }
             
             input {
