@@ -1,6 +1,9 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import UserData from '@/components/UserData.vue';
+import { useProfileStore } from '@/stores/store';
+
+const storeProfile = useProfileStore();
 
 const props = defineProps({
     isOpen: Boolean,
@@ -24,7 +27,7 @@ const handleLinkClick = (event) => {
             <RouterLink to="">Villagers</RouterLink>
             <RouterLink to="">Plants and seeds</RouterLink>
             <RouterLink to="">Services</RouterLink>
-            <RouterLink to="/settings">Settings</RouterLink>
+            <RouterLink to="/settings" v-if="storeProfile.profileData">Settings</RouterLink>
         </aside>
     </div>
 </template>

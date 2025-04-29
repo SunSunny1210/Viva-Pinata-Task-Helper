@@ -26,11 +26,14 @@ const sendUserData = async () => {
             if (checking) {
                 router.push('/create-profile')
             }
-        } else {
+        }
+
+        if (props.parentType === "Login") {
             const checking = await storeUser.loginUser(email.value, password.value);
 
             if (checking) {
-                router.push('/')
+                await storeProfile.getProfileData();
+                router.push('/');
             }
         }
 

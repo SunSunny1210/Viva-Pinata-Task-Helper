@@ -6,7 +6,7 @@ const props = defineProps({
     option: String
 })
 
-const emit = defineEmits(['close-pop-up'])
+const emit = defineEmits(['close-pop-up']);
 
 const userStore = useUserStore();
 

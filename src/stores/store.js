@@ -59,9 +59,7 @@ export const useUserStore = defineStore('userStore', () => {
 
     //Actions
     const setUserData = (data) => {
-        if (!userData.value) {
-            userData.value = data;
-        } 
+        userData.value = data
     };
 
     const initializeUserData = async () => {
@@ -94,9 +92,11 @@ export const useUserStore = defineStore('userStore', () => {
 
             if (data) {
                 setUserData(data);
+                return true;
             }
         } catch (err) {
-            console.error(err)
+            console.error(err);
+            return false;
         }
     }
 
@@ -131,9 +131,9 @@ export const useUserStore = defineStore('userStore', () => {
         try {
             const noUser = await logOut();
 
-            if(noUser) {
+            if (noUser) {
                 setUserData(null);
-                profileStore.setProfileData(null);
+                profileStore.removeProfileData();
             }
 
         } catch (err) {
@@ -164,6 +164,10 @@ export const useProfileStore = defineStore('profileStore', () => {
 
     //Getters
     //Actions
+    const removeProfileData = () => {
+        profileData.value = null
+    }
+
     const setProfileData = (data) => {
         profileData.value = {
             ...profileData.value,
@@ -249,5 +253,5 @@ export const useProfileStore = defineStore('profileStore', () => {
         }
     };
 
-    return { profileData, setProfileData, updateProfileAvatar, updateProfileData, getProfileData, createProfileData }
+    return { profileData, setProfileData, updateProfileAvatar, updateProfileData, getProfileData, createProfileData, removeProfileData }
 })

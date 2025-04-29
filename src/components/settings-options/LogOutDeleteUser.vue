@@ -5,13 +5,22 @@ const props = defineProps({
     option: String
 })
 
+const emit = defineEmits(['close-pop-up']);
+
 const userStore = useUserStore();
 
-const handleButton = () => {
-    if (props.option === "Log Out") {
-        userStore.logOutUser();
-    } else {
-        userStore.deleteUserData();
+const handleButton = async () => {
+    try {
+        debugger
+        if (props.option === "Log Out") {
+            await userStore.logOutUser();
+            emit('close-pop-up');
+        } else {
+            await userStore.deleteUserData();
+            emit('close-pop-up');
+        }
+    } catch (err) {
+        console.error(err)
     }
 }
 </script>

@@ -111,11 +111,13 @@ export const logOut = async () => {
 
         if (error) {
             throw new Error("Error logging out", error.message);
-        } else {
-            console.log("Log out successful");
         }
+        
+        console.log("Log out successful");
+        return true;
     } catch (err) {
-        console.error(err)
+        console.error(err);
+        return false;
     }
 }
 
