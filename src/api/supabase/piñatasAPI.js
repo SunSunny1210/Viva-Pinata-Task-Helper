@@ -66,6 +66,7 @@ export const updateUserInfo = async (email, password) => {
     try {
         if (!email && !password) {
             console.log("No email nor password provided.")
+            return null;
         }
 
         const { data, error } = await supabase.auth.updateUser({

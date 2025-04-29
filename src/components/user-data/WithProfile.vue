@@ -2,16 +2,15 @@
 import { useProfileStore } from '@/stores/store';
 
 const storeProfile = useProfileStore();
-const { profileData } = storeProfile;
 </script>
 
 <template>
     <div class="background">
         <div class="profile-info">
-            <img :src="profileData.avatar_url" alt="profile-avatar" />
+            <img :src="storeProfile.profileData.avatar_url" alt="profile-avatar" />
             <div class="profile-names">
-                <span>{{ profileData.username }}</span>
-                <span>{{ profileData.farm_name }}</span>
+                <span>{{ storeProfile.profileData.username }}</span>
+                <span>{{ storeProfile.profileData.farm_name }}</span>
             </div>
         </div>
     </div>

@@ -190,6 +190,7 @@ export const useProfileStore = defineStore('profileStore', () => {
 
         if (check) {
             profileData.value = check
+            console.log(check)
         } else {
             console.log("No existent profile")
         }
