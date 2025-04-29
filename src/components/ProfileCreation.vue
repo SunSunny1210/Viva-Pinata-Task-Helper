@@ -1,6 +1,6 @@
 <script setup>
-import { createProfile } from '@/api/supabase/piñatasAPI';
 import { useProfileStore, useUserStore } from '@/stores/store';
+import { onMounted } from 'vue';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
@@ -17,17 +17,16 @@ console.log(storeUser.userData.user.id)
 
 const sendProfileData = async () => {
     try {
-        const userId = { id: storeUser.userData.user.id };
-        const data = await createProfile(userId, username, avatarUrl, farmName);
-        
-        if (data) {
-            storeProfile.setProfileData(data);
-            router.push('/')
-        }
+        await storeProfile.createProfileData(username, avatarUrl, farmName);
+        router.push('/')
     } catch (err) {
         console.error(err)
     }
 }
+
+onMounted(async () => {
+    await storeUser.initializeUserData();
+});
 </script>
 
 <template>

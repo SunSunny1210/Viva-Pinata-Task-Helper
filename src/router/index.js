@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import RegisterUser from '@/views/RegisterUser.vue'
 import LoginUser from '@/views/LoginUser.vue'
-import CreateProfile from '@/views/CreateProfile.vue'
 import { defineAsyncComponent } from 'vue'
+import { useUserStore } from '@/stores/store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,5 +35,16 @@ const router = createRouter({
     },
   ],
 })
+
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore();
+
+  if (!userStore.userData) {
+      await userStore.initializeUserData();
+  }
+
+  next();
+});
+
 
 export default router

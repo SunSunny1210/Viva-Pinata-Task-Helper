@@ -8,7 +8,7 @@ import UserForm from '@/components/UserForm.vue';
         <h1>Log in!</h1>
         <p>Enter your email and password to log in. Remember your password!</p>
         <hr></hr>
-        <UserForm />
+        <UserForm :parentType="'Login'"/>
     </div>
 </template>
 

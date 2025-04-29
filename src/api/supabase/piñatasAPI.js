@@ -23,21 +23,23 @@ export const signUp = async (email, password) => {
     try {
         const { data, error } = await supabase.auth.signUp({
             email,
-            password
-        })
+            password,
+            options: {
+                emailRedirectTo: 'http://localhost:5173/create-profile'
+            }
+        });
 
         if (error) {
-            console.error("ERRORBITCH", error.message)
-            throw new Error(error.message)
+            throw new Error('Error during sign-up: ' + error.message);
         }
 
-        return data
+        console.log('Sign-up successful. Email confirmation required.');
+        return data;
     } catch (err) {
-        console.error(err)
-
-        return null
+        console.error(err);
+        return null;
     }
-}
+};
 
 //Login user
 export const login = async (email, password) => {
@@ -138,7 +140,7 @@ export const createProfile = async (userId, username, avatarUrl, farmName) => {
             .from('profiles')
             .insert([
                 {
-                    id: userId.id,
+                    id: userId,
                     username: username.value,
                     avatar_url: avatarUrl.value,
                     farm_name: farmName.value
@@ -149,6 +151,7 @@ export const createProfile = async (userId, username, avatarUrl, farmName) => {
             throw new Error(error.message)
         }
 
+        console.log("Profile created successfully")
         return data
     } catch (err) {
         console.error(err)

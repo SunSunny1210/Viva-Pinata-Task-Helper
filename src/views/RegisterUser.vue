@@ -8,7 +8,7 @@ import UserForm from '@/components/UserForm.vue';
         <h1>Register your user!</h1>
         <p>Enter your email and password to create your user. Remember to make a safe password!</p>
         <hr>
-        <UserForm />
+        <UserForm :parentType="'Register'"/>
     </div>
 </template>
 

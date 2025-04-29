@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getAvatars, getAvatarByName, getPiñatas, uploadAvatar, updateProfileInfo, updateUserInfo, getUser, logOut, deleteUser } from '@/api/supabase/piñatasAPI'
+import { getAvatars, getAvatarByName, getPiñatas, uploadAvatar, updateProfileInfo, updateUserInfo, getUser, logOut, deleteUser, signUp, login, getProfile, createProfile } from '@/api/supabase/piñatasAPI'
 
 export const usePiñataStore = defineStore('piñataStore', () => {
     //State
@@ -54,6 +54,42 @@ export const useUserStore = defineStore('userStore', () => {
             userData.value = data;
         } 
     };
+
+    const initializeUserData = async () => {
+        try {
+            const data = await getUser();
+            setUserData(data);
+
+            console.log("User initialized", data)
+        } catch (err) {
+            console.error("Error initializing user:", err);
+        }
+    };
+
+
+    const registerUser = async (email, password) => {
+        try {
+            const data = await signUp(email, password);
+
+            if (data) {
+                setUserData(data);
+            }
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    const loginUser = async (email, password) => {
+        try {
+            const data = await login(email, password);
+
+            if (data) {
+                setUserData(data);
+            }
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
     const updateUserData = async (data) => {
         try {
@@ -109,11 +145,12 @@ export const useUserStore = defineStore('userStore', () => {
         }
     }
 
-    return { userData, userId, setUserData, updateUserData, checkUserLog, logOutUser, deleteUserData }
+    return { userData, userId, setUserData, updateUserData, checkUserLog, logOutUser, deleteUserData, registerUser, loginUser, initializeUserData }
 });
 
 export const useProfileStore = defineStore('profileStore', () => {
     //State
+    const userStore = useUserStore();
     const profileData = ref(null);
 
     //Getters
@@ -125,9 +162,29 @@ export const useProfileStore = defineStore('profileStore', () => {
         };
     };
 
-    const updateProfileData = async (columnName, newData) => {
-        const userStore = useUserStore();
+    const createProfileData = async (username, avatarUrl, farmName) => {
+        try {
+            const data = await createProfile(userStore.userId, username, avatarUrl, farmName);
 
+            if (data) {
+                setProfileData(data)
+            }
+        } catch (err) {
+            console.error(err)
+        }
+    }
+
+    const getProfileData = async () => {
+        const check = await getProfile();
+
+        if (check) {
+            profileData.value = check
+        } else {
+            console.log("No existent profile")
+        }
+    }
+
+    const updateProfileData = async (columnName, newData) => {
         if (columnName && newData) {
             try {
                 await updateProfileInfo(userStore.userId, columnName, newData)
@@ -180,5 +237,5 @@ export const useProfileStore = defineStore('profileStore', () => {
         }
     };
 
-    return { profileData, setProfileData, updateProfileAvatar, updateProfileData }
+    return { profileData, setProfileData, updateProfileAvatar, updateProfileData, getProfileData, createProfileData }
 })

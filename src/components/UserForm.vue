@@ -1,22 +1,37 @@
 <script setup>
-import { signUp } from '@/api/supabase/piñatasAPI';
-import { useUserStore } from '@/stores/store';
+import { useUserStore, useProfileStore } from '@/stores/store';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+
+const props = defineProps({
+    parentType: {
+        type: String,
+        required: true
+    }
+})
 
 const email = ref('');
 const password = ref('');
 const router = useRouter();
 const storeUser = useUserStore();
+const storeProfile = useProfileStore();
 
 const sendUserData = async () => {
     try {
         console.log(password.value)
-        const data = await signUp(email.value, password.value);
 
-        if (data) {
-            storeUser.setUserData(data);
-            router.push('/create-profile');
+        if (props.parentType === "Register") {
+            const checking = await storeUser.registerUser(email.value, password.value);
+
+            if (checking) {
+                router.push('/create-profile')
+            }
+        } else {
+            const checking = await storeUser.loginUser(email.value, password.value);
+
+            if (checking) {
+                router.push('/')
+            }
         }
 
     } catch (err) {
