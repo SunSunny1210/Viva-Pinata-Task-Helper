@@ -11,7 +11,6 @@ const userStore = useUserStore();
 
 const handleButton = async () => {
     try {
-        debugger
         if (props.option === "Log Out") {
             await userStore.logOutUser();
             emit('close-pop-up');

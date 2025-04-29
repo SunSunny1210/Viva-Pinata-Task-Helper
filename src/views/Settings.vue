@@ -2,9 +2,10 @@
 import ChangeAvatar from '@/components/settings-options/ChangeAvatar.vue';
 import ChangeEmailPassword from '@/components/settings-options/ChangeEmailPassword.vue';
 import ChangeNames from '@/components/settings-options/ChangeNames.vue';
-import CheckInbox from '@/components/settings-options/CheckInbox.vue';
 import LogOutDeleteUser from '@/components/settings-options/LogOutDeleteUser.vue';
 import Setting from '@/components/settings-options/Setting.vue';
+import Successful from '@/components/settings-options/Successful.vue';
+import Unsuccessful from '@/components/settings-options/Unsuccessful.vue';
 import { ref, onMounted, onUnmounted } from 'vue';
 
     const OPTIONS = {
@@ -25,26 +26,31 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
     const options = Object.values(OPTIONS);
 
-    const openMessage = ref(false);
+    const openSuccessful = ref(false);
+    const openUnsuccessful = ref(false);
     const selectedOption = ref(null);
-
+    
     const showOption = (option) => {
         selectedOption.value = option;
+        console.log(selectedOption.value)
     }
 
     const closePopUp = (event) => {
         if (selectedOption.value && 
         !event.target.closest(".pop-up") && 
-        !event.target.closest(".clickable")) {
+        !event.target.closest(".clickable") &&
+        !event.target.closest(".unsuccessful")) {
             selectedOption.value = null;
         }
     };
 
     const handleClose = () => {
         selectedOption.value = null;
-        openMessage.value = true;
     }
 
+    const manageMessages = () => {
+        openMessage.value = !openMessage.value;
+    }
 
     onMounted (() => {
         document.addEventListener("click", closePopUp);
@@ -72,15 +78,22 @@ import { ref, onMounted, onUnmounted } from 'vue';
         <ChangeEmailPassword v-if="selectedOption === OPTIONS.USER_OPTIONS.EMAIL || 
         selectedOption === OPTIONS.USER_OPTIONS.PASSWORD"
         :option="selectedOption"
-        @close-pop-up="handleClose"/>
+        @close-pop-up="handleClose"
+        @open-message="manageMessages"/>
     </Transition>
     <Transition name="fade">
-        <CheckInbox v-if="openMessage" />
+        <Successful v-if="openSuccessful" />
+    </Transition>
+    <Transition name="fade">
+        <Unsuccessful v-if="openUnsuccessful"
+        :option="selectedOption"
+        @close-message="manageMessages" />
     </Transition>
     <Transition name="fade">
         <LogOutDeleteUser v-if="selectedOption === OPTIONS.USER_OPTIONS.DELETE || 
         selectedOption === OPTIONS.USER_OPTIONS.SESSION"
-        :option="selectedOption" />
+        :option="selectedOption"
+        @close-pop-up="handleClose" />
     </Transition>
   </div>
 </template>

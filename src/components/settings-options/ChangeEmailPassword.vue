@@ -1,12 +1,14 @@
 <script setup>
 import { useUserStore } from '@/stores/store';
 import { ref } from 'vue';
+import CheckInbox from './CheckInbox.vue';
 
 const props = defineProps({
     option: String
 })
 
-const emit = defineEmits(['close-pop-up']);
+const emit = defineEmits(['close-pop-up', 'open-message']);
+const openMessage = ref(false)
 
 const userStore = useUserStore();
 
@@ -14,7 +16,10 @@ const trimmedOption = props.option.replace(/(?:Change |Check\/Change )/, "");
 const newEmail = ref('');
 const newPassword = ref('');
 
-console.log(props.option)
+const manageMessage = () => {
+    openMessage.value = !openMessage.value
+    console.log(openMessage.value)
+}
 
 const handleInputChange = (event) => {
     if (props.option === 'Check/Change Email') {
@@ -24,13 +29,17 @@ const handleInputChange = (event) => {
     }
 };
 
-const handleSubmit = async (option) => {
-    console.log(`Submitting for option: ${option}`);
-    let newValue = option === "Check/Change Email" ? newEmail.value : newPassword.value;
+const handleSubmit = async () => {
+    console.log(`Submitting for option: ${props.option}`);
+    let newValue = props.option === "Check/Change Email" ? newEmail.value : newPassword.value;
     
-    userStore.updateUserData(newValue);
+    if (newValue) {
+        // userStore.updateUserData(newValue);
 
-    emit('close-pop-up');
+        manageMessage();
+    } else {
+        emit('open-message')
+    }
 }
 </script>
 
@@ -48,7 +57,7 @@ const handleSubmit = async (option) => {
             <h3>Choose New {{ trimmedOption }}</h3>
             <div class="info">
                 <p>Choose your new {{ trimmedOption }} :3</p>
-                <form class="change-info" @submit.prevent="handleSubmit(props.option)">
+                <form class="change-info" @submit.prevent="handleSubmit">
                     <label :for="trimmedOption">New {{ trimmedOption }}</label>
                     <input 
                     type="text" 
@@ -61,6 +70,9 @@ const handleSubmit = async (option) => {
             </div>
         </div>
     </div>
+    <Transition name="fade">
+        <CheckInbox v-if="openMessage" />
+    </Transition>
 </template>
 
 <style scoped>
@@ -171,5 +183,14 @@ const handleSubmit = async (option) => {
             }
         }
     }
+}
+
+.fade-enter-active, .fade-leave-active {
+        transition: opacity 0.2s ease, transform 0.5s ease;
+    }
+
+.fade-enter-from, .fade-leave-to {
+    opacity: 0;
+    transform: scale(0.8);
 }
 </style>
