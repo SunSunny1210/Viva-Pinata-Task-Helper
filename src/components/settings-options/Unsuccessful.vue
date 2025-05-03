@@ -12,12 +12,19 @@ const handleMessage = () => {
 }
 
 const trimmedOption = computed(() => props.option.replace('Check/', ''));
+
+console.log(props.option)
 </script>
 
 <template>
-    <div class="unsuccessful">
+    <div v-if="props.option" class="unsuccessful">
         <h2>{{ trimmedOption }} unsuccessful.</h2>
         <p v-if="props.option === 'Check/Change Email'">No valid email provided. Please, enter a valid email.</p>
+        <p v-else-if="props.option === 'Check/Change Password'">No valid password provided. Please, enter a valid password.</p>
+        <p v-else-if="props.option === 'Change Username'">No valid username provided. Please, enter a valid username.</p>
+        <p v-else-if="props.option === 'Change Farm Name'">No valid farm name provided. Please, enter a valid farm name.</p>
+        <p v-else-if="props.option === 'Log Out'">Error during log out. Couldn't log out successfully.</p>
+        <p v-else-if="props.option === 'Delete User'">Error during deletion. Couldn't delete user successfully.</p>
         <button @click="handleMessage">Got it!</button>
     </div>
 </template>
@@ -34,13 +41,17 @@ const trimmedOption = computed(() => props.option.replace('Check/', ''));
     background-color: cornsilk;
     border-radius: 12px;
     box-shadow: 0 0 5px 2000px rgba(0, 0, 0, 0.4);
-    z-index: 7;
+    z-index: 8;
     overflow-y: scroll;
 
     h2 {
         margin: 0;
-        padding: 1rem;
+        padding: 1rem 0;
         height: 60px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         text-align: center;
         color: white;
         background-color: orange;

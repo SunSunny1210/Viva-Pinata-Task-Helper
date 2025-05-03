@@ -2,6 +2,7 @@
 import ChangeAvatar from '@/components/settings-options/ChangeAvatar.vue';
 import ChangeEmailPassword from '@/components/settings-options/ChangeEmailPassword.vue';
 import ChangeNames from '@/components/settings-options/ChangeNames.vue';
+import ClosingX from '@/components/settings-options/ClosingX.vue';
 import LogOutDeleteUser from '@/components/settings-options/LogOutDeleteUser.vue';
 import Setting from '@/components/settings-options/Setting.vue';
 import Successful from '@/components/settings-options/Successful.vue';
@@ -35,65 +36,62 @@ import { ref, onMounted, onUnmounted } from 'vue';
         console.log(selectedOption.value)
     }
 
-    const closePopUp = (event) => {
-        if (selectedOption.value && 
-        !event.target.closest(".pop-up") && 
-        !event.target.closest(".clickable") &&
-        !event.target.closest(".unsuccessful")) {
-            selectedOption.value = null;
+    const closePopUp = () => {
+        if (selectedOption.value) {
+            selectedOption.value = null
         }
     };
 
-    const handleClose = () => {
-        selectedOption.value = null;
+    const manageSuccessful = () => {
+        openSuccessful.value = !openSuccessful.value;
     }
 
-    const manageMessages = () => {
-        openMessage.value = !openMessage.value;
+    const manageUnsuccessful = () => {
+        openUnsuccessful.value = !openUnsuccessful.value;
+        console.log(openUnsuccessful.value)
     }
-
-    onMounted (() => {
-        document.addEventListener("click", closePopUp);
-
-    });
-
-    onUnmounted (() => {
-        document.removeEventListener("click", closePopUp)
-    })
 </script>
 
 <template>
   <div class="settings">
     <h1>Settings</h1>
     <Setting v-for="(options, key) in OPTIONS" :key="key" @trigger-function="showOption" :options="options"/>
+    <Transition name="x">
+        <ClosingX v-if="selectedOption"
+        :close="closePopUp"/>
+    </Transition>
     <Transition name="fade">
         <ChangeAvatar v-if="selectedOption === OPTIONS.CHANGE_OPTIONS.AVATAR"/>
     </Transition>
     <Transition name="fade">
         <ChangeNames v-if="selectedOption === OPTIONS.CHANGE_OPTIONS.USERNAME || 
         selectedOption === OPTIONS.CHANGE_OPTIONS.FARM_NAME" 
-        :option="selectedOption"/>
+        :option="selectedOption"
+        @open-successful="manageSuccessful"
+        @open-unsuccessful="manageUnsuccessful"/>
     </Transition>
     <Transition name="fade">
         <ChangeEmailPassword v-if="selectedOption === OPTIONS.USER_OPTIONS.EMAIL || 
         selectedOption === OPTIONS.USER_OPTIONS.PASSWORD"
         :option="selectedOption"
-        @close-pop-up="handleClose"
-        @open-message="manageMessages"/>
+        @open-message="manageUnsuccessful"/>
     </Transition>
     <Transition name="fade">
-        <Successful v-if="openSuccessful" />
+        <Successful v-if="openSuccessful"
+        :option="selectedOption"
+        @close-message="manageSuccessful" />
     </Transition>
     <Transition name="fade">
         <Unsuccessful v-if="openUnsuccessful"
         :option="selectedOption"
-        @close-message="manageMessages" />
+        @close-message="manageUnsuccessful" />
     </Transition>
     <Transition name="fade">
         <LogOutDeleteUser v-if="selectedOption === OPTIONS.USER_OPTIONS.DELETE || 
         selectedOption === OPTIONS.USER_OPTIONS.SESSION"
         :option="selectedOption"
-        @close-pop-up="handleClose" />
+        @open-successful="manageSuccessful"
+        @open-unsuccessful="manageUnsuccessful" />
     </Transition>
   </div>
 </template>
@@ -103,7 +101,6 @@ import { ref, onMounted, onUnmounted } from 'vue';
         margin: 0;
     }
     .settings {
-        margin-top: 2rem;
         margin: 1rem;
         height: 90vh;
         width: 80vw;
@@ -129,11 +126,18 @@ import { ref, onMounted, onUnmounted } from 'vue';
     }
 
     .fade-enter-active, .fade-leave-active {
-        transition: opacity 0.2s ease, transform 0.5s ease;
+        transition: opacity 0.2s ease
     }
 
     .fade-enter-from, .fade-leave-to {
         opacity: 0;
-        transform: scale(0.8);
+    }
+
+    .x-enter-active, .x-leave-active {
+        transition: opacity 0.2s ease
+    }
+
+    .x-enter-from, .x-leave-to {
+        opacity: 0;
     }
 </style>

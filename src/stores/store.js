@@ -134,10 +134,12 @@ export const useUserStore = defineStore('userStore', () => {
             if (noUser) {
                 setUserData(null);
                 profileStore.removeProfileData();
-            }
+                return true;
+            };
 
         } catch (err) {
-            console.log(err)
+            console.log(err);
+            return false;
         }
     }
 
@@ -148,9 +150,12 @@ export const useUserStore = defineStore('userStore', () => {
             if (deleteRequest) {
                 setUserData(null);
                 profileStore.setProfileData(null);
-            }
+                return true;
+            };
+
         } catch (err) {
-            console.error(err)
+            console.error(err);
+            return false;
         }
     }
 

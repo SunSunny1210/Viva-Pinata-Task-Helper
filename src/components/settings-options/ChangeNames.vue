@@ -6,6 +6,8 @@ const props = defineProps({
     option: String
 })
 
+const emits = defineEmits(['open-successful', 'open-unsuccessful'])
+
 const newUserName = ref('');
 const newFarmName = ref('');
 
@@ -26,7 +28,13 @@ const handleSubmit = async (option) => {
     let columnName = option === "Change Username" ? "username" : "farm_name";
     let newValue = option === "Change Username" ? newUserName.value : newFarmName.value;
     
-    profileStore.updateProfileData(columnName, newValue)
+    if (newValue) {
+        profileStore.updateProfileData(columnName, newValue)
+
+        emits('open-successful')
+    } else {
+        emits('open-unsuccessful')
+    }
 }
 </script>
 
@@ -55,7 +63,7 @@ const handleSubmit = async (option) => {
 <style scoped>
 .pop-up {
     position: fixed;
-    height: 60%;
+    height: fit-content;
     width: 80%;
     background-color: cornsilk;
     border-radius: 12px;
@@ -88,7 +96,7 @@ const handleSubmit = async (option) => {
     }
 
     .info {
-        margin: 0 1rem 2rem;
+        margin: 0 1rem 1rem;
         padding: 2rem 1rem 1rem 1rem;
         width: 220px;
         top: 2.5rem;
