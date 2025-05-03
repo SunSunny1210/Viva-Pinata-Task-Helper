@@ -49,6 +49,7 @@ const handleButton = async () => {
 <style scoped>
 .pop-up {
     position: fixed;
+    top: 20vh;
     height: fit-content;
     width: 80%;
     background-color: cornsilk;

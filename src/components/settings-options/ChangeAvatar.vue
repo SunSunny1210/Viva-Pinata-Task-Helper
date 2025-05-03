@@ -73,6 +73,7 @@ onMounted(async () => {
 <style scoped>
 .pop-up {
     position: fixed;
+    top: 20vh;
     height: 60%;
     width: 80%;
     background-color: cornsilk;

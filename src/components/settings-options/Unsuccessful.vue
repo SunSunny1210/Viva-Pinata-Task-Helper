@@ -32,6 +32,7 @@ console.log(props.option)
 <style scoped>
 .unsuccessful {
     position: fixed;
+    top: 20vh;
     height: fit-content;
     width: 80%;
     display: flex;

@@ -27,6 +27,7 @@ const reloadPage = async () => {
 <style scoped>
 .check-inbox {
     position: fixed;
+    top: 20vh;
     height: 60%;
     width: 80%;
     display: flex;

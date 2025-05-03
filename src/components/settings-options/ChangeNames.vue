@@ -63,6 +63,7 @@ const handleSubmit = async (option) => {
 <style scoped>
 .pop-up {
     position: fixed;
+    top: 20vh;
     height: fit-content;
     width: 80%;
     background-color: cornsilk;
