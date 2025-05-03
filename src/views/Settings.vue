@@ -7,7 +7,8 @@ import LogOutDeleteUser from '@/components/settings-options/LogOutDeleteUser.vue
 import Setting from '@/components/settings-options/Setting.vue';
 import Successful from '@/components/settings-options/Successful.vue';
 import Unsuccessful from '@/components/settings-options/Unsuccessful.vue';
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
     const OPTIONS = {
         CHANGE_OPTIONS: {
@@ -24,6 +25,8 @@ import { ref, onMounted, onUnmounted } from 'vue';
             DELETE: 'Delete User'
         }
     }
+
+    const router = useRouter();
 
     const options = Object.values(OPTIONS);
 
@@ -44,11 +47,15 @@ import { ref, onMounted, onUnmounted } from 'vue';
 
     const manageSuccessful = () => {
         openSuccessful.value = !openSuccessful.value;
+
+        if (!openSuccessful.value && (selectedOption.value === OPTIONS.USER_OPTIONS.DELETE || selectedOption.value === OPTIONS.USER_OPTIONS.SESSION)) {
+            closePopUp();
+            router.push('/');
+        }
     }
 
     const manageUnsuccessful = () => {
         openUnsuccessful.value = !openUnsuccessful.value;
-        console.log(openUnsuccessful.value)
     }
 </script>
 
@@ -58,7 +65,9 @@ import { ref, onMounted, onUnmounted } from 'vue';
     <Setting v-for="(options, key) in OPTIONS" :key="key" @trigger-function="showOption" :options="options"/>
     <Transition name="x">
         <ClosingX v-if="selectedOption"
-        :close="closePopUp"/>
+        :close="closePopUp"
+        :successful="openSuccessful"
+        :unsuccessful="openUnsuccessful"/>
     </Transition>
     <Transition name="fade">
         <ChangeAvatar v-if="selectedOption === OPTIONS.CHANGE_OPTIONS.AVATAR"/>
@@ -77,6 +86,13 @@ import { ref, onMounted, onUnmounted } from 'vue';
         @open-message="manageUnsuccessful"/>
     </Transition>
     <Transition name="fade">
+        <LogOutDeleteUser v-if="selectedOption === OPTIONS.USER_OPTIONS.DELETE || 
+        selectedOption === OPTIONS.USER_OPTIONS.SESSION"
+        :option="selectedOption"
+        @open-successful="manageSuccessful"
+        @open-unsuccessful="manageUnsuccessful" />
+    </Transition>
+    <Transition name="fade">
         <Successful v-if="openSuccessful"
         :option="selectedOption"
         @close-message="manageSuccessful" />
@@ -85,13 +101,6 @@ import { ref, onMounted, onUnmounted } from 'vue';
         <Unsuccessful v-if="openUnsuccessful"
         :option="selectedOption"
         @close-message="manageUnsuccessful" />
-    </Transition>
-    <Transition name="fade">
-        <LogOutDeleteUser v-if="selectedOption === OPTIONS.USER_OPTIONS.DELETE || 
-        selectedOption === OPTIONS.USER_OPTIONS.SESSION"
-        :option="selectedOption"
-        @open-successful="manageSuccessful"
-        @open-unsuccessful="manageUnsuccessful" />
     </Transition>
   </div>
 </template>
@@ -104,10 +113,6 @@ import { ref, onMounted, onUnmounted } from 'vue';
         margin: 1rem;
         height: 90vh;
         width: 80vw;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
         background-color: white;
         border: 3px outset var(--background-yellow);
         border-radius: 12px;

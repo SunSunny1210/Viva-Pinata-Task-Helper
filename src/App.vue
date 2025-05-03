@@ -42,6 +42,7 @@ onUnmounted(() => {
 
 <style scoped>
   .main {
+    height: 100%;
     width: 100%;
     transition: transform 0.3s ease-in-out;
     overflow: visible;
@@ -52,11 +53,12 @@ onUnmounted(() => {
   }
   
   .router-view {
+    height: 80vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 18vh;
+    margin-top: 15vh;
   }
 
   .moveRight {

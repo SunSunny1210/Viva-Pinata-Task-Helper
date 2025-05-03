@@ -23,6 +23,7 @@ const filteredOptions = computed(() =>
 <style scoped>
     .setting {
         position: relative;
+        height: fit-content;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -44,6 +45,7 @@ const filteredOptions = computed(() =>
         .options {
             margin: 0 1rem 2rem;
             padding: 2rem 1rem 1rem 1rem;
+            height: 100%;
             width: 220px;
             top: 2.5rem;
             left: 0;
