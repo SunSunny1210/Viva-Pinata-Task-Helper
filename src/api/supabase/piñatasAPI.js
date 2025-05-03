@@ -124,12 +124,12 @@ export const logOut = async () => {
 //Delete user
 export const deleteUser = async (userId) => {
     try {
+        console.log(userId)
         const { error } = await supabase.auth.admin.deleteUser(userId)
 
         if (error) {
-            throw new Error(error.message)
+            throw new Error("Error during user deletion", error.message)
         }
-
         
     } catch (err) {
         console.error(err)
@@ -183,6 +183,8 @@ export const getProfile = async () => {
         if (error) {
             throw new Error(error.message)
         };
+
+        
 
         return profile
     } catch (err) {
@@ -253,9 +255,15 @@ export const getAvatars = async () => {
 
 export const getAvatarByName = async (name) => {
     try {
-        return await supabase.storage.from("avatars").getPublicUrl(name).data.publicUrl
+        const { data, error } = supabase.storage.from("avatars").getPublicUrl(name);
+
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        return data.publicUrl;
     } catch (err) {
-        console.error(err)
-        return ''
+        console.error("Error retrieving avatar URL:", err);
+        return null;
     }
-}
+};

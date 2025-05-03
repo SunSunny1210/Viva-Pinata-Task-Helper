@@ -12,20 +12,15 @@ import ProfileCreation from '@/components/ProfileCreation.vue';
 </template>
 
 <style scoped>
-* {
+    * {
         margin: 0;
     }
     .profile-creation {
-        margin-top: 2rem;
-        margin: 1rem;
         width: 85%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
         background-color: white;
         border: 3px outset var(--background-yellow);
         border-radius: 12px;
+        overflow-y: scroll;
         
         h1 {
             height: 10vh;
@@ -33,6 +28,7 @@ import ProfileCreation from '@/components/ProfileCreation.vue';
             display: flex;
             justify-content: center;
             align-items: center;
+            font-size: 1.5rem;
             color: white;
             background-color: var(--medium-green);
             border-radius: 5px 5px 0 0; 

@@ -59,7 +59,6 @@ onMounted(async () => {
 
 <style scoped>
     .create-profile {
-        height: 100%;
         width: 100%;
 
         form {

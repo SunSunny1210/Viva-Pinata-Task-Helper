@@ -23,12 +23,20 @@ export const usePiñataStore = defineStore('piñataStore', () => {
 
 export const useAvatarsStore = defineStore('avatarsStore', () => {
     //State
+    const profileStore = useProfileStore();
     const avatars = ref([])
     //Getters
     //Actions
     const uploadNewAvatar = async (file) => {
         try {
-            await uploadAvatar(file);
+            const avatarPath = await uploadAvatar(file);
+
+            if (!avatarPath) {
+                throw new Error("Failed to upload avatar");
+            }
+
+            await profileStore.updateProfileAvatar(avatarPath);
+
             console.log("Avatar uploaded correctly")
         } catch (err) {
             console.error("Error uploading avatar", err)
@@ -182,7 +190,7 @@ export const useProfileStore = defineStore('profileStore', () => {
 
     const createProfileData = async (username, avatarUrl, farmName) => {
         try {
-
+            
 
             const data = await createProfile(userStore.userId, username, avatarUrl, farmName);
 

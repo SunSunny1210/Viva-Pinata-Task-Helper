@@ -57,7 +57,6 @@ const sendUserData = async () => {
 
 <style scoped>
     .form {
-        height: 100%;
         width: 100%;
 
         form {
@@ -86,8 +85,7 @@ const sendUserData = async () => {
             }
 
             button {
-                margin-top: 1rem;
-                margin-bottom: 2rem;
+                margin: 1rem 0;
                 height: 4rem;
                 width: 80%;
                 color: white;
