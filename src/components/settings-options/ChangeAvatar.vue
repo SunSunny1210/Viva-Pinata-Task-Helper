@@ -78,7 +78,6 @@ onMounted(async () => {
     width: 80%;
     background-color: cornsilk;
     border-radius: 12px;
-    box-shadow: 0 0 5px 2000px rgba(0, 0, 0, 0.4);
     z-index: 7;
 
     .change-avatar {

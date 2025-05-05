@@ -1,11 +1,7 @@
 <script setup>
-import { useRouter } from 'vue-router';
-
 const props = defineProps({
     parentType: String
 })
-
-const router = useRouter();
 
 const reloadPage = async () => {
     try {

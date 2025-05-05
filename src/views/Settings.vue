@@ -4,6 +4,7 @@ import ChangeEmailPassword from '@/components/settings-options/ChangeEmailPasswo
 import ChangeNames from '@/components/settings-options/ChangeNames.vue';
 import ClosingX from '@/components/settings-options/ClosingX.vue';
 import LogOutDeleteUser from '@/components/settings-options/LogOutDeleteUser.vue';
+import PopUpShadow from '@/components/settings-options/PopUpShadow.vue';
 import Setting from '@/components/settings-options/Setting.vue';
 import Successful from '@/components/settings-options/Successful.vue';
 import Unsuccessful from '@/components/settings-options/Unsuccessful.vue';
@@ -68,6 +69,9 @@ import { useRouter } from 'vue-router';
         :close="closePopUp"
         :successful="openSuccessful"
         :unsuccessful="openUnsuccessful"/>
+    </Transition>
+    <Transition name="fade">
+        <PopUpShadow v-if="selectedOption" />
     </Transition>
     <Transition name="fade">
         <ChangeAvatar v-if="selectedOption === OPTIONS.CHANGE_OPTIONS.AVATAR"/>
