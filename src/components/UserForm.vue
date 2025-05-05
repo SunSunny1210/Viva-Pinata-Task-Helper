@@ -2,6 +2,7 @@
 import { useUserStore, useProfileStore } from '@/stores/store';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import CheckInbox from './settings-options/CheckInbox.vue';
 
 const props = defineProps({
     parentType: {
@@ -10,23 +11,26 @@ const props = defineProps({
     }
 })
 
-const email = ref('');
-const password = ref('');
 const router = useRouter();
 const storeUser = useUserStore();
 const storeProfile = useProfileStore();
+
+const email = ref('');
+const password = ref('');
+const showMessage = ref(false);
 
 const sendUserData = async () => {
     try {
         console.log(password.value)
 
         if (props.parentType === "Register") {
+            showMessage.value = !showMessage.value;
             const checking = await storeUser.registerUser(email.value, password.value);
 
             if (checking) {
-                router.push('/create-profile')
-            }
-        }
+                router.push('/create-profile');
+            };
+        };
 
         if (props.parentType === "Login") {
             const checking = await storeUser.loginUser(email.value, password.value);
@@ -34,8 +38,8 @@ const sendUserData = async () => {
             if (checking) {
                 await storeProfile.getProfileData();
                 router.push('/');
-            }
-        }
+            };
+        };
 
     } catch (err) {
         console.error(err)
@@ -53,6 +57,7 @@ const sendUserData = async () => {
             <button type="submit">Submit</button>
         </form>
     </div>
+    <CheckInbox v-if="showMessage" :parent-type="'Userform'" />
 </template>
 
 <style scoped>

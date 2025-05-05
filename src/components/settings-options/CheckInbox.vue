@@ -1,4 +1,12 @@
 <script setup>
+import { useRouter } from 'vue-router';
+
+const props = defineProps({
+    parentType: String
+})
+
+const router = useRouter();
+
 const reloadPage = async () => {
     try {
         if ('caches' in window) {
@@ -8,7 +16,7 @@ const reloadPage = async () => {
             }
         }
 
-        window.location.reload(true)
+        window.location.href = '/'
     } catch (err) {
         console.error(err)
     }
@@ -18,7 +26,7 @@ const reloadPage = async () => {
 <template>
     <div class="check-inbox">
         <h3>Check your Inbox</h3>
-        <p>Check your inbox to confirm email change. The email should arrive within the next minutes. Remember to check your spam in case you don't see it.</p>
+        <p>Check your inbox to confirm email <span v-if="parentType === 'Setting'">change</span>. The email should arrive within the next minutes. Remember to check your spam in case you don't see it.</p>
         <span>If you've already confirmed it, click on the button below to reload the page.</span>
         <button @click="reloadPage">Reload</button>
     </div>

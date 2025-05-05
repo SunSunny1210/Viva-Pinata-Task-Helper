@@ -71,7 +71,7 @@ const handleSubmit = async () => {
         </div>
     </div>
     <Transition name="fade">
-        <CheckInbox v-if="openMessage" />
+        <CheckInbox v-if="openMessage" :parent-type="'Setting'" />
     </Transition>
 </template>
 
