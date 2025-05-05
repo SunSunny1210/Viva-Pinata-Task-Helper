@@ -20,8 +20,8 @@ const closeMenu = (event) => {
 };
 
 onMounted(async () => {
-  storeUser.initializeUserData();
-  storeProfile.getProfileData();
+  await storeUser.initializeUserData();
+  await storeProfile.getProfileData();
   
   document.addEventListener('click', closeMenu);
 });

@@ -29,13 +29,7 @@ export const useAvatarsStore = defineStore('avatarsStore', () => {
     //Actions
     const uploadNewAvatar = async (file) => {
         try {
-            const avatarPath = await uploadAvatar(file);
-
-            if (!avatarPath) {
-                throw new Error("Failed to upload avatar");
-            }
-
-            await profileStore.updateProfileAvatar(avatarPath);
+            await profileStore.updateProfileAvatar(file);
 
             console.log("Avatar uploaded correctly")
         } catch (err) {
@@ -215,6 +209,7 @@ export const useProfileStore = defineStore('profileStore', () => {
 
     const updateProfileData = async (columnName, newData) => {
         if (columnName && newData) {
+            console.log(userStore.userId)
             try {
                 await updateProfileInfo(userStore.userId, columnName, newData)
 

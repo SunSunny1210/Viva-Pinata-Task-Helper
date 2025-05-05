@@ -1,16 +1,25 @@
 <script setup>
 import { useProfileStore } from '@/stores/store';
+import { storeToRefs } from 'pinia';
+import { onMounted } from 'vue';
 
 const storeProfile = useProfileStore();
+
+const { profileData } = storeToRefs(storeProfile);
+console.log(profileData)
+
+onMounted(async () => {
+    await storeProfile.getProfileData();
+})
 </script>
 
 <template>
     <div class="background">
         <div class="profile-info">
-            <img :src="storeProfile.profileData.avatar_url" alt="profile-avatar" />
+            <img :src="profileData.avatar_url" alt="profile-avatar" />
             <div class="profile-names">
-                <span>{{ storeProfile.profileData.username }}</span>
-                <span>{{ storeProfile.profileData.farm_name }}</span>
+                <span>{{ profileData.username }}</span>
+                <span>{{ profileData.farm_name }}</span>
             </div>
         </div>
     </div>

@@ -45,13 +45,13 @@ onMounted(async () => {
     <div class="create-profile" v-if="storeUser.userData">
         <form @submit.prevent="sendProfileData">
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" v-model="username" placeholder="Write your username"/>
+            <input v-model="username" type="text" id="username" name="username" placeholder="Write your username"/>
             <label for="title">Avatar</label>
             <input type="file" id="avatar_url" name="avatar_url" accept="image/*" @change="handleFileChange" hidden>
             <label for="avatar_url" class="avatar-btn">Select File</label>
             <img v-if="avatarUrl" class="preview" :src="avatarUrl" />
             <label for="farm-name">Farm Name</label >
-            <input type="text" id="farm_name" name="farm_name" v-model="farmName" placeholder="Write your super farm name">
+            <input v-model="farmName" type="text" id="farm_name" name="farm_name" placeholder="Write your super farm name">
             <button type="submit">Submit</button>
         </form>
     </div>
