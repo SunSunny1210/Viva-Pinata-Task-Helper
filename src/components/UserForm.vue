@@ -47,7 +47,7 @@ const sendUserData = async () => {
                 option.value = 'Password';
                 showUnsuccessful.value = !showUnsuccessful.value;
                 console.log(showUnsuccessful.value)
-            } else if (checking.includes('Email' && 'invalid')) {
+            } else if (checking.includes('Email' && 'invalid') || checking.includes('Anonymous')) {
                 option.value = 'Email'
                 showUnsuccessful.value = !showUnsuccessful.value;
             };
