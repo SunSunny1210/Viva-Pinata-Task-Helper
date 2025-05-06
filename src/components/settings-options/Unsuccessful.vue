@@ -3,7 +3,8 @@ import { computed } from 'vue'
 
 const props = defineProps({
     option: String,
-    registerOption: String
+    registerOption: String,
+    loginOption: String
 })
 
 const emit = defineEmits(['close-message'])
@@ -20,9 +21,11 @@ console.log(props.option)
 <template>
     <div v-if="props.option" class="unsuccessful">
         <h2>{{ trimmedOption }} unsuccessful.</h2>
-        <p v-if="props.option === 'Check/Change Email' || props.registerOption === 'Email'">No valid email provided. Please, enter a valid email.</p>
+        <p v-if="props.option === 'Check/Change Email' || props.registerOption === 'Email' || props.loginOption === 'Email'">No valid email provided. Please, enter a valid email.</p>
         <p v-else-if="props.option === 'Check/Change Password' || props.registerOption === 'Password'">No valid password provided. Please, enter a valid password. It must be at least 6 characters, and include uppercase and lowercase letters, numbers and special characters.</p>
         <p v-else-if="props.option === 'Change Username'">No valid username provided. Please, enter a valid username.</p>
+        <p v-else-if="props.loginOption === 'Email Not Confirmed'">Email not confirmed. Please, check your inbox to confirm your email.</p>
+        <p v-else-if="props.loginOption === 'Invalid'">Invalid credentials. Please, check that the email and password are correct.</p>
         <p v-else-if="props.option === 'Change Farm Name'">No valid farm name provided. Please, enter a valid farm name.</p>
         <p v-else-if="props.option === 'Log Out'">Error during log out. Couldn't log out successfully.</p>
         <p v-else-if="props.option === 'Delete User'">Error during deletion. Couldn't delete user successfully.</p>

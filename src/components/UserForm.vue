@@ -46,7 +46,6 @@ const sendUserData = async () => {
             } else if (checking.includes('Password should') || checking.includes('valid password')) {
                 option.value = 'Password';
                 showUnsuccessful.value = !showUnsuccessful.value;
-                console.log(showUnsuccessful.value)
             } else if (checking.includes('Email' && 'invalid') || checking.includes('Anonymous')) {
                 option.value = 'Email'
                 showUnsuccessful.value = !showUnsuccessful.value;
@@ -56,9 +55,18 @@ const sendUserData = async () => {
         if (props.parentType === "Login") {
             const checking = await storeUser.loginUser(email.value, password.value);
 
-            if (checking) {
+            if (checking.includes('successfully')) {
                 await storeProfile.getProfileData();
                 router.push('/');
+            } else if (checking.includes('missing')) {
+                option.value = 'Email';
+                showUnsuccessful.value = !showUnsuccessful.value;
+            } else if (checking.includes('Invalid')) {
+                option.value = 'Invalid';
+                showUnsuccessful.value = !showUnsuccessful.value;
+            } else if (checking.includes('not confirmed')) {
+                option.value = 'Email Not Confirmed';
+                showUnsuccessful.value = !showUnsuccessful.value;
             };
         };
 
@@ -82,7 +90,11 @@ const sendUserData = async () => {
         <CheckInbox v-if="showMessage" :parent-type="'Userform'" />
     </Transition>
     <Transition name="fade">
-        <Unsuccessful v-if="showUnsuccessful" :register-option="option" :option="'Register'" @close-message="closeMessage"/>
+        <Unsuccessful v-if="showUnsuccessful" 
+        :register-option="option"
+        :login-option="option"
+        :option="'Register'" 
+        @close-message="closeMessage"/>
     </Transition>
 </template>
 

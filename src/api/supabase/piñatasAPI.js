@@ -37,22 +37,16 @@ export const signUp = async (email, password) => {
 
 //Login user
 export const login = async (email, password) => {
-    try {
-        const { data, error } = await supabase.auth.signInWithPassword({
-            email,
-            password
-        })
+    const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password
+    })
 
-        if (error) {
-            throw new Error(error.message)
-        }
-
-        return data
-    } catch (err) {
-        console.error(err)
-
-        return null
+    if (error) {
+        console.error('Error during sign-in:', error.message);
     }
+
+    return { data, error };
 }
 
 //Reset Password
