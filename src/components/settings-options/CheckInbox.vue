@@ -22,7 +22,7 @@ const reloadPage = async () => {
 <template>
     <div class="check-inbox">
         <h3>Check your Inbox</h3>
-        <p>Check your inbox to confirm email <span v-if="parentType === 'Setting'">change</span>. The email should arrive within the next minutes. Remember to check your spam in case you don't see it.</p>
+        <p>Check your inbox to confirm email <span v-if="parentType === 'Setting'" class="change">change</span>. The email should arrive within the next minutes. Remember to check your spam in case you don't see it.</p>
         <span>If you've already confirmed it, click on the button below to reload the page.</span>
         <button @click="reloadPage">Reload</button>
     </div>
@@ -71,6 +71,11 @@ const reloadPage = async () => {
         text-align: center;
         color: var(--dark-green);
         border-radius: 12px;
+    }
+
+    .change {
+        margin: 0;
+        color: black;
     }
 
     button {

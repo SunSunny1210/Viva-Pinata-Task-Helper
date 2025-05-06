@@ -20,25 +20,19 @@ export const getPiñatas = async () => {
 
 //Create user
 export const signUp = async (email, password) => {
-    try {
-        const { data, error } = await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-                emailRedirectTo: 'http://localhost:5173/create-profile'
-            }
-        });
-
-        if (error) {
-            throw new Error('Error during sign-up: ' + error.message);
+    const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+            emailRedirectTo: 'http://localhost:5173/create-profile'
         }
+    });
 
-        console.log('Sign-up successful. Email confirmation required.');
-        return data;
-    } catch (err) {
-        console.error(err);
-        return null;
+    if (error) {
+        console.error('Error during sign-up:', error.message);
     }
+
+    return { data, error };
 };
 
 //Login user
@@ -58,6 +52,19 @@ export const login = async (email, password) => {
         console.error(err)
 
         return null
+    }
+}
+
+//Reset Password
+export const resetPassword = async (email) => {
+    try {
+        const { error } = await supabase.auth.resetPasswordForEmail(email);
+
+        if (error) {
+            
+        }
+    } catch (err) {
+        console.error(err)
     }
 }
 

@@ -34,7 +34,7 @@ const handleSubmit = async () => {
     let newValue = props.option === "Check/Change Email" ? newEmail.value : newPassword.value;
     
     if (newValue) {
-        // userStore.updateUserData(newValue);
+        userStore.updateUserData(newValue);
 
         manageMessage();
     } else {

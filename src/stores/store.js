@@ -78,15 +78,22 @@ export const useUserStore = defineStore('userStore', () => {
 
     const registerUser = async (email, password) => {
         try {
-            const data = await signUp(email, password);
-
+            const { data, error } = await signUp(email, password);
+    
+            if (error) {
+                console.error('Registration error:', error.message);
+                return error.message;
+            }
+    
             if (data) {
                 setUserData(data);
+                return 'User registered successfully!';
             }
         } catch (err) {
-            console.error(err)
+            console.error('Unexpected error:', err.message);
+            return err.message;
         }
-    }
+    };
 
     const loginUser = async (email, password) => {
         try {

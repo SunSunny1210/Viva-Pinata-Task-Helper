@@ -1,8 +1,9 @@
 <script setup>
 import { useUserStore, useProfileStore } from '@/stores/store';
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import CheckInbox from './settings-options/CheckInbox.vue';
+import Unsuccessful from './settings-options/Unsuccessful.vue';
 
 const props = defineProps({
     parentType: {
@@ -17,18 +18,38 @@ const storeProfile = useProfileStore();
 
 const email = ref('');
 const password = ref('');
+const option = ref('');
 const showMessage = ref(false);
+const showUnsuccessful = ref(false);
+
+const closeMessage = () => {
+    showUnsuccessful.value = !showUnsuccessful.value
+}
 
 const sendUserData = async () => {
     try {
         console.log(password.value)
 
         if (props.parentType === "Register") {
-            showMessage.value = !showMessage.value;
             const checking = await storeUser.registerUser(email.value, password.value);
-
-            if (checking) {
-                router.push('/create-profile');
+            console.log(checking)
+            
+            if (checking.includes('successfully')) {
+                showMessage.value = !showMessage.value;
+                
+                nextTick(() => {
+                    if (!showMessage.value) {
+                        router.push('/create-profile');
+                    }
+                });
+                
+            } else if (checking.includes('Password should') || checking.includes('valid password')) {
+                option.value = 'Password';
+                showUnsuccessful.value = !showUnsuccessful.value;
+                console.log(showUnsuccessful.value)
+            } else if (checking.includes('Email' && 'invalid')) {
+                option.value = 'Email'
+                showUnsuccessful.value = !showUnsuccessful.value;
             };
         };
 
@@ -57,7 +78,12 @@ const sendUserData = async () => {
             <button type="submit">Submit</button>
         </form>
     </div>
-    <CheckInbox v-if="showMessage" :parent-type="'Userform'" />
+    <Transition name="fade">
+        <CheckInbox v-if="showMessage" :parent-type="'Userform'" />
+    </Transition>
+    <Transition name="fade">
+        <Unsuccessful v-if="showUnsuccessful" :register-option="option" :option="'Register'" @close-message="closeMessage"/>
+    </Transition>
 </template>
 
 <style scoped>
