@@ -12,7 +12,11 @@ const reloadPage = async () => {
             }
         }
 
-        window.location.href = '/'
+        if (props.parentType === 'Setting') {
+            window.location.href = '/'
+        } else {
+            window.location.href = '/create-profile'
+        }
     } catch (err) {
         console.error(err)
     }

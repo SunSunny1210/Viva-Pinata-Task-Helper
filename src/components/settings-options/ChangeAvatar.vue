@@ -1,12 +1,17 @@
 <script setup>
 import { useAvatarsStore, useProfileStore } from '@/stores/store';
+import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue';
+
+const storeProfile = useProfileStore();
+const storeAvatar = useAvatarsStore();
+
+const { avatars } = storeToRefs(storeAvatar);
 
 const newAvatarURL = ref('');
 const selectedFile = ref(null);
-const storeProfile = useProfileStore();
-const storeAvatar = useAvatarsStore();
-const selectedAvatar = ref(null)
+const selectedAvatar = ref(null);
+
 
 const selectAvatar = async (avatar) => {
      const confirmed = confirm(`Do you want to set ${avatar.url} as your avatar?`);
@@ -37,6 +42,8 @@ const handleSubmit = async () => {
         }
         
         await storeProfile.updateProfileAvatar(selectedFile.value)
+        
+        await storeAvatar.fetchAvatars();
     } catch (err) {
         console.error(err)
     }
@@ -56,14 +63,14 @@ onMounted(async () => {
                 <label for="title">Upload your avatar</label>
                 <input type="file" id="upload" name="avatar_upload" accept="image/*" @change="handleFileChange" hidden/>
                 <label for="upload" class="upload-btn">Select your file</label>
-                <img class="preview" :src="newAvatarURL" />
+                <img v-if="newAvatarURL" class="preview" :src="newAvatarURL" />
                 <button type="submit">Upload</button>
             </form>
             <div class="uploaded-avatars">
                 <h3>Uploaded Avatars</h3>
                 <p>These are your uploaded avatars. Choose one of your like for your profile. If you don't see one you like, you can upload one on the option above!</p>
                 <div class="avatars">
-                    <img @click="selectAvatar(avatar)" v-for="avatar in storeAvatar.avatars" :key="avatar" :src="avatar.url"/>
+                    <img @click="selectAvatar(avatar)" v-for="avatar in avatars.filter(a => a.name !== '.emptyFolderPlaceholder')" :key="avatar" :src="avatar.url"/>
                 </div>
             </div>
         </div>
@@ -94,7 +101,6 @@ onMounted(async () => {
             text-align: center;
             color: var(--dark-green);
         }
-        
         
         h2 {
             margin: 0;
@@ -146,6 +152,9 @@ onMounted(async () => {
             img {
                 margin-bottom: 1rem;
                 border-radius: 12px;
+                height: 100px;
+                width: 100px;
+                border: 3px dashed orange;
             }
             
             ::placeholder {

@@ -82,7 +82,7 @@ const sendUserData = async () => {
             <label for="email">Email</label>
             <input v-model="email" type="email" id="email" name="email" placeholder="Enter your email" />
             <label for="password">Password</label>
-            <input v-model="password" type="password" id="password" name="password" placeholder="Password must be...">
+            <input v-model="password" type="password" id="password" name="password" placeholder="Write a strong password!">
             <button type="submit">Submit</button>
         </form>
     </div>
