@@ -1,32 +1,42 @@
 <script setup>
 import { RouterLink } from 'vue-router';
-// import UserData from '@/components/UserData';
+import UserData from '@/components/UserData.vue';
+import { useProfileStore } from '@/stores/store';
+
+const storeProfile = useProfileStore();
 
 const props = defineProps({
     isOpen: Boolean,
 });
 
 const emit = defineEmits(['closeMenu']);
+
+const handleLinkClick = (event) => {
+    if (event.target.closest('a')) {
+        emit('closeMenu');
+    }
+};
 </script>
 
 <template>
-    <!-- <UserData /> -->
-     <div>
-        <aside :class="{ isOpen: isOpen }">
-            <RouterLink to="">Home</RouterLink>
+    <div>
+        <aside :class="{ isOpen: isOpen }" @click="handleLinkClick">
+            <UserData />
+            <RouterLink to="/">Home</RouterLink>
             <RouterLink to="">Piñatas</RouterLink>
             <RouterLink to="">Villagers</RouterLink>
             <RouterLink to="">Plants and seeds</RouterLink>
             <RouterLink to="">Services</RouterLink>
+            <RouterLink to="/settings" v-if="storeProfile.profileData">Settings</RouterLink>
         </aside>
-     </div>
+    </div>
 </template>
 
 <style scoped>
     aside {
         padding: 1rem 10px 0 0;
         position: fixed;
-        top: 0;
+        top: -17px;
         left: 0;
         width: 65%;
         height: 100vh;
@@ -39,6 +49,7 @@ const emit = defineEmits(['closeMenu']);
         transform: translateX(-100%);
         transition: transform 0.5s ease-in-out;
         transition: box-shadow 0.2s ease-out;
+        z-index: 6;
 
         a {
             height: 30px;

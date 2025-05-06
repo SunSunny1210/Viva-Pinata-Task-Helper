@@ -1,5 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import RegisterUser from '@/views/RegisterUser.vue'
+import LoginUser from '@/views/LoginUser.vue'
+import { defineAsyncComponent } from 'vue'
+import { useUserStore } from '@/stores/store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -8,8 +12,39 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-    }
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: RegisterUser,
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginUser,
+    },
+    {
+      path: '/create-profile',
+      name: 'create-profile',
+      component: defineAsyncComponent(() => import('@/views/CreateProfile.vue')),
+    },
+    {
+      path: '/settings',
+      name: 'settings',
+      component: defineAsyncComponent(() => import('@/views/Settings.vue')),
+    },
   ],
 })
+
+router.beforeEach(async (to, from, next) => {
+  const userStore = useUserStore();
+
+  if (!userStore.userData) {
+      await userStore.initializeUserData();
+  }
+
+  next();
+});
+
 
 export default router

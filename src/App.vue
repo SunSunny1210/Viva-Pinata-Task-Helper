@@ -2,7 +2,10 @@
 import { onMounted, onUnmounted, ref } from 'vue';
 import NavBar from './components/NavBar.vue';
 import { RouterView, RouterLink } from 'vue-router';
+import { useProfileStore, useUserStore } from './stores/store';
 
+const storeUser = useUserStore();
+const storeProfile = useProfileStore();
 const menuOpen = ref(false);
 
 const affectMenu = (value) => {
@@ -16,7 +19,10 @@ const closeMenu = (event) => {
   }
 };
 
-onMounted(() => {
+onMounted(async () => {
+  await storeUser.initializeUserData();
+  await storeProfile.getProfileData();
+  
   document.addEventListener('click', closeMenu);
 });
 
@@ -27,15 +33,32 @@ onUnmounted(() => {
 
 <template>
   <div class="main" :class="{ moveRight: menuOpen }">
-    <NavBar :menuOpen="menuOpen" @menuToggled="affectMenu"/>
-    <RouterView />
+    <NavBar :menuOpen="menuOpen" @menuToggled="affectMenu" @closeMenu="affectMenu(false)"/>
+    <div class="router-view">
+      <RouterView />
+    </div>
   </div>
 </template>
 
 <style scoped>
   .main {
+    height: 100%;
+    width: 100%;
     transition: transform 0.3s ease-in-out;
     overflow: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .router-view {
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 17vh;
   }
 
   .moveRight {
