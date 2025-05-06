@@ -22,8 +22,7 @@ import { useRouter } from 'vue-router';
             TITLE: 'User',
             EMAIL: 'Check/Change Email',
             PASSWORD: 'Check/Change Password',
-            SESSION: 'Log Out',
-            DELETE: 'Delete User'
+            SESSION: 'Log Out'
         }
     }
 
