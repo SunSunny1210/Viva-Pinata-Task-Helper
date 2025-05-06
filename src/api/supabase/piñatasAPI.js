@@ -122,21 +122,6 @@ export const logOut = async () => {
     }
 }
 
-//Delete user
-export const deleteUser = async (userId) => {
-    try {
-        console.log(userId)
-        const { error } = await supabase.auth.admin.deleteUser(userId)
-
-        if (error) {
-            throw new Error("Error during user deletion", error.message)
-        }
-        
-    } catch (err) {
-        console.error(err)
-    }
-};
-
 //Create Profile
 export const createProfile = async (userId, username, avatarUrl, farmName) => {
     try {

@@ -3,7 +3,7 @@ import ChangeAvatar from '@/components/settings-options/ChangeAvatar.vue';
 import ChangeEmailPassword from '@/components/settings-options/ChangeEmailPassword.vue';
 import ChangeNames from '@/components/settings-options/ChangeNames.vue';
 import ClosingX from '@/components/settings-options/ClosingX.vue';
-import LogOutDeleteUser from '@/components/settings-options/LogOutDeleteUser.vue';
+import LogOut from '@/components/settings-options/LogOut.vue';
 import PopUpShadow from '@/components/settings-options/PopUpShadow.vue';
 import Setting from '@/components/settings-options/Setting.vue';
 import Successful from '@/components/settings-options/Successful.vue';
@@ -90,7 +90,7 @@ import { useRouter } from 'vue-router';
         @open-message="manageUnsuccessful"/>
     </Transition>
     <Transition name="fade">
-        <LogOutDeleteUser v-if="selectedOption === OPTIONS.USER_OPTIONS.DELETE || 
+        <LogOut v-if="selectedOption === OPTIONS.USER_OPTIONS.DELETE || 
         selectedOption === OPTIONS.USER_OPTIONS.SESSION"
         :option="selectedOption"
         @open-successful="manageSuccessful"
