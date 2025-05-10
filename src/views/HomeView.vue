@@ -1,5 +1,22 @@
 <script setup>
-import { RouterView } from 'vue-router';
+import { RouterLink } from 'vue-router';
+import WhatToDo from './WhatToDo.vue';
+import Task from '@/components/tasks/Task.vue';
+import { ref } from 'vue';
+
+const tasks = ref([]);
+
+const OPTIONS = [
+    '+ Get Piñata',
+    '+ Romance Piñatas',
+    '+ Piñata Variants'
+]
+
+const addTask = (option) => {
+    if (option === '+ Get Piñata') {
+
+    }
+}
 </script>
 
 <template>
@@ -8,7 +25,7 @@ import { RouterView } from 'vue-router';
             <h1>What do you wanna do today?</h1>
         </div>
         <div class="section-info">
-            <RouterView />
+            <WhatToDo @add-task="addTask" :options="OPTIONS"/>
         </div>
     </article>
     <article>
@@ -16,7 +33,7 @@ import { RouterView } from 'vue-router';
             <h1>Current tasks</h1>
         </div>
         <div class="section-info">
-            <RouterView />
+            <Task v-for="task in tasks" :key="" />
         </div>
     </article>
     <article>
@@ -24,7 +41,7 @@ import { RouterView } from 'vue-router';
             <h1>Completed tasks</h1>
         </div>
         <div class="section-info">
-            <RouterView />
+            <RouterLink />
         </div>
     </article>
 </template>
@@ -32,21 +49,23 @@ import { RouterView } from 'vue-router';
 <style>
     article {
         margin: 1rem;
+        width: 80%;
         
         .section-title {
             background-color: var(--medium-green);
             border-radius: 12px 12px 0 0;
 
             h1 {
-                margin-left: 5px;
-                padding: 5px;
-                font-size: 1rem;
+                margin: 0;
+                padding: 10px;
+                font-size: 1.2rem;
                 color: white;
             }
         }
 
         .section-info {
             background-color: white;
+            border-radius: 0 0 12px 12px;
         }
     }
 </style>
