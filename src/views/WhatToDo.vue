@@ -1,5 +1,4 @@
 <script setup>
-import { RouterLink } from 'vue-router';
 defineProps({
     options: Array
 })
@@ -9,13 +8,12 @@ const emit = defineEmits(['add-task'])
 
 <template>
     <div class="to-do">
-        <RouterLink v-for="option in options" :key="option" @click="$emit('add-task', option)">{{ option }}</RouterLink>
+        <a v-for="option in options" :key="option" @click="$emit('add-task', option)">{{ option }}</a>
     </div>
 </template>
 
 <style scoped>
     .to-do {
-        padding: 1rem;
         display: flex;
         flex-direction: column;
         gap: 1rem;
