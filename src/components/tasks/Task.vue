@@ -6,11 +6,12 @@ const props = defineProps({
     task: Object
 });
 
-const taskInfo = computed(() => props.task.task_info);
-
 const taskStore = useTaskStore();
 
+const taskInfo = computed(() => props.task.task_info);
+
 const status = ref('');
+const checked = ref({});
 
 console.log(props.task)
 
@@ -36,16 +37,22 @@ const markTask = async () => {
                 <ul>
                     <h4>Appear</h4>
                     <li v-if="!taskInfo.requirements.appear.length">Non existent requirements.</li>
-                    <li v-for="appear in taskInfo.requirements.appear" :key="props.task.id">{{ appear }}</li>
+                    <li v-for="appear in taskInfo.requirements.appear" :key="props.task.id" :class="{ 'checked': checked[appear] }">{{ appear }}
+                        <input type="checkbox" v-model="checked[appear]"/>
+                    </li>
                 </ul>
                 <ul>
                     <h4>Visit</h4>
                     <li v-if="!taskInfo.requirements.visit.length">Non existent requirements.</li>
-                    <li v-for="visit in taskInfo.requirements.visit" :key="props.task.id">{{ visit }}</li>
+                    <li v-for="visit in taskInfo.requirements.visit" :key="props.task.id" :class="{ 'checked': checked[visit] }">{{ visit }}
+                        <input type="checkbox" v-model="checked[visit]"/>
+                    </li>
                 </ul>
                 <ul>
                     <h4>Resident</h4>
-                    <li v-for="resident in taskInfo.requirements.resident" :key="props.task.id">{{ resident }}</li>
+                    <li v-for="resident in taskInfo.requirements.resident" :key="props.task.id" :class="{ 'checked': checked[resident] }">{{ resident }}
+                        <input type="checkbox" v-model="checked[resident]"/>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -137,10 +144,46 @@ const markTask = async () => {
                         margin-left: 2rem;
                         margin-bottom: 2rem;
 
+                        input[type="checkbox"] {
+                            margin: 10px 0 0 10px;
+                            position: relative;
+                            bottom: -2px;
+                            appearance: none;
+                            width: 20px;
+                            height: 20px;
+                            background-color: white;
+                            border: 2px solid var(--carmin);
+                            border-radius: 5px;
+                            cursor: pointer;
+                        }
+
+                        input[type="checkbox"]:checked {
+                            background-color: var(--carmin);
+                            border-color: var(--main-green);
+                        }
+
+                        input[type="checkbox"]::before {
+                            content: "✔";
+                            font-size: 16px;
+                            color: white;
+                            position: absolute;
+                            left: 50%;
+                            top: 50%;
+                            transform: translate(-50%, -50%);
+                            display: none;
+                        }
+
+                        input[type="checkbox"]:checked::before {
+                            display: block;
+                        }
                     }
 
                     li::marker {
                         color: var(--carmin);
+                    }
+
+                    .checked {
+                        color: grey;
                     }
                 }
             }

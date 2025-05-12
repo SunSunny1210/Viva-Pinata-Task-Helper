@@ -1,7 +1,7 @@
 <script setup>
 import WhatToDo from './WhatToDo.vue';
 import Task from '@/components/tasks/Task.vue';
-import { onMounted, ref } from 'vue';
+import { nextTick, onMounted, ref } from 'vue';
 import { useTaskStore } from '@/stores/task-store';
 import GetPiñata from '@/components/tasks/GetPiñata.vue';
 import { storeToRefs } from 'pinia';
@@ -12,6 +12,8 @@ const { tasksData } = storeToRefs(taskStore);
 
 const selectedOption = ref('');
 const selectedPiñata = ref('');
+
+const getPiñataRef = ref(null);
 
 const OPTIONS = [
     '+ Get Piñata',
@@ -32,6 +34,12 @@ const addTask = async () => {
 const handleTask = (option) => {
     if (option === '+ Get Piñata') {
         selectedOption.value = option.replace('+ ', '');
+
+        nextTick(() => {
+            if (getPiñataRef.value?.$el) {
+                getPiñataRef.value.$el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
     }
 }
 
@@ -65,7 +73,7 @@ onMounted(async () => {
                 <h1>Current tasks</h1>
             </div>
             <div class="section-info">
-                <GetPiñata v-if="selectedOption === 'Get Piñata'" @selected-piñata="handlePiñata"/>
+                <GetPiñata v-if="selectedOption === 'Get Piñata'" @selected-piñata="handlePiñata" ref="getPiñataRef"/>
                 <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'completed')">No current tasks</span>
                 <Task v-for="task in tasksData" :key="task" :task="task"/>
             </div>
@@ -82,16 +90,18 @@ onMounted(async () => {
 
 <style>
     .home {
+        padding: 1rem;
         height: 100%;
+        width: 100vw;
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 1rem;
         overflow-y: scroll;
 
         article {
-            margin: 1rem;
             height: fit-content;
-            width: 80%;
+            width: 100%;
             position: relative;
             top: 0;
             display: flex;
