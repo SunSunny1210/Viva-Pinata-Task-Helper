@@ -26,6 +26,7 @@ onMounted(async () => {
 
 <style scoped>
     .get-piñatas {
+        margin-bottom: 1rem;
         
         .choose-piñata {
             display: flex;
@@ -57,21 +58,23 @@ onMounted(async () => {
                 justify-content: space-between;
                 align-items: center;
                 gap: 10px;
-
+                
                 img {
                     height: 100px;
                     width: 110px;
                     border: 3px dashed orange;
                     border-radius: 12px;
+                    flex: 5;
                 }
-
+                
                 span {
                     padding: 10px;
-                    width: 100%;
+                    width: fit-content;
                     text-align: center;
                     color: var(--dark-green);
                     background-color: cornsilk;
                     border-radius: 12px;
+                    flex: 5;
                 }
             }
         }
