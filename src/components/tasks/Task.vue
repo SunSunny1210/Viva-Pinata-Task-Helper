@@ -1,6 +1,6 @@
 <script setup>
 import { useTaskStore } from '@/stores/task-store';
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 
 const props = defineProps({
     task: Object
@@ -9,7 +9,14 @@ const props = defineProps({
 const taskStore = useTaskStore();
 
 const taskInfo = computed(() => props.task.task_info);
+const updatedAt = computed(() => props.task.updated_at);
 
+const formattedDate = computed(() => {
+    if (updatedAt.value.includes('T')) {
+        const [date, time] = updatedAt.value.split('T');
+        return `${date} ${time.slice(0, 5)}`;
+    }
+});
 const status = ref('');
 const checked = ref({});
 
@@ -20,6 +27,10 @@ const markTask = async () => {
     console.log(status.value)
     await taskStore.markAsCompleted(status.value, props.task.id)
 }
+
+onMounted(async () => {
+    await taskStore.getAllTasks()
+})
 </script>
 
 <template>
@@ -57,10 +68,21 @@ const markTask = async () => {
             </div>
         </div>
     </div>
+    <div class="task" v-if="props.task.status === 'completed'">
+        <h2>Completed: {{ props.task.title }}</h2>
+        <div class="completed">
+            <img :src="taskInfo.img_URL" />
+            <div class="completed-info">
+                <p>{{ taskInfo.name }}</p>
+                <p><span class="timestamp">Finished on:</span> {{ formattedDate }}</p>
+            </div>
+        </div>
+    </div>
 </template>
 
 <style scoped>
     .task {
+        margin-bottom: 1rem;
         background-color: var(--background-yellow);
         border-radius: 12px;
 
@@ -117,7 +139,6 @@ const markTask = async () => {
 
             .task-info {
                 position: relative;
-
                 
                 ul {
                     position: relative;
@@ -141,8 +162,7 @@ const markTask = async () => {
                     }
 
                     li {
-                        margin-left: 2rem;
-                        margin-bottom: 2rem;
+                        margin: 0 2rem 2rem;
 
                         input[type="checkbox"] {
                             margin: 10px 0 0 10px;
@@ -185,6 +205,45 @@ const markTask = async () => {
                     .checked {
                         color: grey;
                     }
+                }
+            }
+        }
+
+        .completed {
+            padding: 1rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+
+            img {
+                height: 100px;
+                width: 100px;
+                border: 5px dashed orange;
+                border-radius: 12px;
+            }
+
+            .completed-info {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                gap: 10px;
+
+                p {
+                    margin: 0;
+                    padding: 1rem;
+                    width: fit-content;
+                    line-height: 30px;
+                    color: white;
+                    background-color: var(--main-green);
+                    border-radius: 12px;
+                }
+
+                .timestamp {
+                    color: var(--dark-green);
+                    text-decoration: underline;
+                    text-decoration-style: wavy;
+                    text-decoration-color: var(--carmin);
                 }
             }
         }

@@ -45,11 +45,20 @@ export const useTaskStore = defineStore('tasksStore', () => {
 
     const markAsCompleted = async (statusData, taskId) => {
         try {
-            const data = await updateTask(taskId, 'status', statusData);
+            const updatedAtTime = new Date().toLocaleString('en-US', { timeZone: 'Europe/Madrid' });
+
+            const data = await updateTask(taskId, {
+                updated_at: updatedAtTime,
+                status: statusData
+            });
+
             if (data) {
                 const taskIndex = tasksData.value.findIndex(task => task.id === taskId);
                 if (taskIndex !== -1) {
-                    tasksData.value[taskIndex].status = statusData;
+                    tasksData.value[taskIndex] = { 
+                        ...tasksData.value[taskIndex], 
+                        status: statusData
+                    };
                 }
             }
         } catch (err) {

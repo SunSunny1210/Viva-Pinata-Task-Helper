@@ -34,12 +34,15 @@ const addTask = async () => {
 const handleTask = (option) => {
     if (option === '+ Get Piñata') {
         selectedOption.value = option.replace('+ ', '');
+        console.log(getPiñataRef.value)
 
-        nextTick(() => {
-            if (getPiñataRef.value?.$el) {
-                getPiñataRef.value.$el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }
-        });
+        setTimeout(() => {
+            nextTick(() => {
+                if (getPiñataRef.value?.$el) {
+                    getPiñataRef.value.$el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            });
+        }, 200);
     }
 }
 
@@ -75,14 +78,15 @@ onMounted(async () => {
             <div class="section-info">
                 <GetPiñata v-if="selectedOption === 'Get Piñata'" @selected-piñata="handlePiñata" ref="getPiñataRef"/>
                 <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'completed')">No current tasks</span>
-                <Task v-for="task in tasksData" :key="task" :task="task"/>
-            </div>
-        </article>
-        <article>
-            <div class="section-title">
-                <h1>Completed tasks</h1>
-            </div>
-            <div class="section-info">
+                <Task v-for="task in tasksData.filter(task => task.status === 'pending')" :task="task"/>
+                </div>
+            </article>
+            <article>
+                <div class="section-title">
+                    <h1>Completed tasks</h1>
+                </div>
+                <div class="section-info">
+                <Task v-for="task in tasksData.filter(task => task.status === 'completed')" :task="task"/>
             </div>
         </article>
     </div>

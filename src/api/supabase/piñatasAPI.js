@@ -300,13 +300,14 @@ export const addTask = async (userId, title, taskInfo, status) => {
 }
 
 //Update Task
-export const updateTask = async (id, columnName, newData) => {
+export const updateTask = async (id, updatedColumns) => {
     try {
+        debugger
         const { data, error } = await supabase
             .from('Tasks')
-            .update({ [columnName]: newData })
+            .update(updatedColumns)
             .eq('id', id)
-            .select();
+            .select('*');
 
         if (error) {
             throw new Error("Task couldn't be updated", error.message);
