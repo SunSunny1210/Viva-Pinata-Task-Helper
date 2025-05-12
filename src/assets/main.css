@@ -17,4 +17,5 @@ html, body {
 
 * {
     font-family: "Irish Grover", system-ui;
+    box-sizing: border-box;
 }

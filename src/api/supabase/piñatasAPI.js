@@ -253,3 +253,47 @@ export const getAvatarByName = async (name) => {
         return null;
     }
 };
+
+//Get Tasks
+export const getTasks = async () => {
+    try {
+        const { data, error } = await supabase
+            .from('Tasks')
+            .select('*')
+            .order('updated_at', {ascending: true});
+        
+        if (error) {
+            throw new Error(error.message)
+        }
+
+        return data
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+//Add Task
+export const addTask = async (userId, title, taskInfo, status) => {
+    try {
+        const { data, error } = await supabase
+            .from('Tasks')
+            .insert([
+                {
+                    user_id: userId,
+                    title,
+                    task_info: taskInfo,
+                    status
+                }
+            ])
+
+        if (error) {
+            throw new Error('Error inserting task', error.message)
+        }
+
+        console.log('Task added successfully!')
+        return data
+    } catch (err) {
+        console.error(err)
+        return null
+    }
+}
