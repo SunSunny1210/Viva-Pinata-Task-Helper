@@ -17,7 +17,7 @@ const emit = defineEmits(['add-task'])
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        background-color: var(--main-green);
+        background-color: var(--light-green);
         border-radius: 0 0 12px 12px;
 
         a {

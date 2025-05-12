@@ -16,8 +16,8 @@ onMounted(async () => {
         <div class="choose-piñata">
             <h3>Choose your Piñata</h3>
             <p>What piñata are you trying to get? Choose it from the list below to get started!</p>
-            <div v-for="piñata in piñataStore.piñatas" :key="piñata" class="piñatas">
-                <img  :src="piñata.img_URL" @click="$emit('selected-piñata', piñata)"/>
+            <div v-for="piñata in piñataStore.piñatas" :key="piñata" class="piñatas" @click="$emit('selected-piñata', piñata)">
+                <img  :src="piñata.img_URL" />
                 <span>{{ piñata.name }}</span>
             </div>
         </div>

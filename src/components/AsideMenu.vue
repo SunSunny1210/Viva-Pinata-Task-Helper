@@ -34,11 +34,10 @@ const handleLinkClick = (event) => {
 
 <style scoped>
     aside {
-        padding: 1rem 10px 0 0;
         position: fixed;
-        top: -17px;
+        top: 0;
         left: 0;
-        width: 65%;
+        width: 70%;
         height: 100vh;
         display: flex;
         flex-direction: column;

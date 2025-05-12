@@ -174,7 +174,7 @@ export const useProfileStore = defineStore('profileStore', () => {
     const setProfileData = (data) => {
         profileData.value = {
             ...profileData.value,
-            ...data,
+            ...data
         };
     };
 

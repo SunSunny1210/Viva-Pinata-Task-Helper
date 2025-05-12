@@ -1,12 +1,14 @@
 <script setup>
-import { RouterLink } from 'vue-router';
 import WhatToDo from './WhatToDo.vue';
 import Task from '@/components/tasks/Task.vue';
 import { onMounted, ref } from 'vue';
 import { useTaskStore } from '@/stores/task-store';
 import GetPiñata from '@/components/tasks/GetPiñata.vue';
+import { storeToRefs } from 'pinia';
 
 const taskStore = useTaskStore();
+
+const { tasksData } = storeToRefs(taskStore);
 
 const selectedOption = ref('');
 const selectedPiñata = ref('');
@@ -17,21 +19,34 @@ const OPTIONS = [
     '+ Piñata Variants'
 ]
 
-const addTask = async (option) => {
+const addTask = async () => {
+    try {
+        if (selectedOption.value === 'Get Piñata') {
+            await taskStore.addNewTask(selectedOption.value, selectedPiñata.value, 'pending')
+        }
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+const handleTask = (option) => {
     if (option === '+ Get Piñata') {
         selectedOption.value = option.replace('+ ', '');
     }
 }
 
-const handlePiñata = (piñata) => {
+const handlePiñata = async (piñata) => {
     if (piñata) {
         selectedPiñata.value = piñata;
+        await addTask();
+        selectedOption.value = '';
         console.log('Selected Piñata: ', piñata);
     }
 }
 
 onMounted(async () => {
     await taskStore.getAllTasks();
+    console.log(tasksData.value)
 })
 </script>
 
@@ -42,7 +57,7 @@ onMounted(async () => {
                 <h1>What do you wanna do today?</h1>
             </div>
             <div class="section-info">
-                <WhatToDo @add-task="addTask" :options="OPTIONS"/>
+                <WhatToDo @add-task="handleTask" :options="OPTIONS"/>
             </div>
         </article>
         <article>
@@ -50,9 +65,9 @@ onMounted(async () => {
                 <h1>Current tasks</h1>
             </div>
             <div class="section-info">
-                <span class="no-tasks" v-if="!taskStore.tasks">No current tasks</span>
-                <GetPiñata v-if="selectedOption === 'Get Piñata'" />
-                <Task v-for="task in taskStore.tasksData" :key="task" @selected-piñata="handlePiñata"/>
+                <GetPiñata v-if="selectedOption === 'Get Piñata'" @selected-piñata="handlePiñata"/>
+                <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'completed')">No current tasks</span>
+                <Task v-for="task in tasksData" :key="task" :task="task"/>
             </div>
         </article>
         <article>
@@ -98,7 +113,7 @@ onMounted(async () => {
                 padding: 1rem;
                 display: flex;
                 flex-direction: column;
-                background-color: var(--main-green);
+                background-color: var(--light-green);
                 border-radius: 0 0 12px 12px;
 
                 .no-tasks {

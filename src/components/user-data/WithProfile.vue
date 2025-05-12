@@ -30,7 +30,7 @@ onMounted(async () => {
         background-color: var(--medium-green);
         padding: 0 16px;
         height: 20%;
-        width: 95%;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;

@@ -1,4 +1,4 @@
-import { addTask, getTasks } from "@/api/supabase/piñatasAPI";
+import { addTask, getTasks, updateTask } from "@/api/supabase/piñatasAPI";
 import { defineStore } from "pinia";
 import { useUserStore } from "./store";
 import { ref } from "vue";
@@ -12,17 +12,18 @@ export const useTaskStore = defineStore('tasksStore', () => {
     //Getters
     //Actions
     const setTaskData = (data) => {
-        tasksData.value = {
-            ...tasksData.value,
-            ...data
-        }
+        tasksData.value = [...data]
     }
 
     const getAllTasks = async () => {
         try {
             const data = await getTasks();
 
-            tasksData.value = data
+            if (data) {
+                setTaskData(data)
+            }
+            
+            return data
         } catch (err) {
             console.error(err);
             return []
@@ -35,11 +36,26 @@ export const useTaskStore = defineStore('tasksStore', () => {
 
             if (data) {
                 setTaskData(data)
+                console.log(tasksData)
             }
         } catch (err) {
             console.error(err)
         }
     }
 
-    return { getAllTasks, tasksData, addNewTask }
+    const markAsCompleted = async (statusData, taskId) => {
+        try {
+            const data = await updateTask(taskId, 'status', statusData);
+            if (data) {
+                const taskIndex = tasksData.value.findIndex(task => task.id === taskId);
+                if (taskIndex !== -1) {
+                    tasksData.value[taskIndex].status = statusData;
+                }
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    };
+
+    return { getAllTasks, tasksData, addNewTask, markAsCompleted }
 })

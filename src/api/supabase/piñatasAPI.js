@@ -285,6 +285,7 @@ export const addTask = async (userId, title, taskInfo, status) => {
                     status
                 }
             ])
+            .select();
 
         if (error) {
             throw new Error('Error inserting task', error.message)
@@ -295,5 +296,25 @@ export const addTask = async (userId, title, taskInfo, status) => {
     } catch (err) {
         console.error(err)
         return null
+    }
+}
+
+//Update Task
+export const updateTask = async (id, columnName, newData) => {
+    try {
+        const { data, error } = await supabase
+            .from('Tasks')
+            .update({ [columnName]: newData })
+            .eq('id', id)
+            .select();
+
+        if (error) {
+            throw new Error("Task couldn't be updated", error.message);
+        }
+
+        console.log("Task updated successfully");
+        return data;
+    } catch (err) {
+        console.error(err)
     }
 }
