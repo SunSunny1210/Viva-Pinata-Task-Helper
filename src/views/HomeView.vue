@@ -23,7 +23,7 @@ const OPTIONS = [
 
 const addTask = async () => {
     try {
-        if (selectedOption.value === 'Get Piñata') {
+        if (selectedOption.value) {
             await taskStore.addNewTask(selectedOption.value, selectedPiñata.value, 'pending')
         }
     } catch (err) {
@@ -34,6 +34,7 @@ const addTask = async () => {
 const handleTask = (option) => {
     if (option) {
         selectedOption.value = option.replace('+ ', '');
+        console.log(selectedOption.value)
         console.log(getPiñataRef.value)
 
         setTimeout(() => {
@@ -76,7 +77,7 @@ onMounted(async () => {
                 <h1>Current tasks</h1>
             </div>
             <div class="section-info">
-                <GetPiñata v-if="selectedOption === 'Get Piñata'" @selected-piñata="handlePiñata" ref="getPiñataRef"/>
+                <GetPiñata v-if="selectedOption" @selected-piñata="handlePiñata" ref="getPiñataRef"/>
                 <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'completed')">No current tasks.</span>
                 <Task v-for="task in tasksData.filter(task => task.status === 'pending')" :task="task"/>
                 </div>
