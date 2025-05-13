@@ -32,7 +32,7 @@ const addTask = async () => {
 }
 
 const handleTask = (option) => {
-    if (option === '+ Get Piñata') {
+    if (option) {
         selectedOption.value = option.replace('+ ', '');
         console.log(getPiñataRef.value)
 
@@ -77,7 +77,7 @@ onMounted(async () => {
             </div>
             <div class="section-info">
                 <GetPiñata v-if="selectedOption === 'Get Piñata'" @selected-piñata="handlePiñata" ref="getPiñataRef"/>
-                <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'completed')">No current tasks</span>
+                <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'completed')">No current tasks.</span>
                 <Task v-for="task in tasksData.filter(task => task.status === 'pending')" :task="task"/>
                 </div>
             </article>
@@ -86,6 +86,7 @@ onMounted(async () => {
                     <h1>Completed tasks</h1>
                 </div>
                 <div class="section-info">
+                    <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'pending')">No completed tasks.</span>
                 <Task v-for="task in tasksData.filter(task => task.status === 'completed')" :task="task"/>
             </div>
         </article>

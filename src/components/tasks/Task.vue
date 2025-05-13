@@ -28,6 +28,10 @@ const markTask = async () => {
     await taskStore.markAsCompleted(status.value, props.task.id)
 }
 
+const deleteTask = async () => {
+    await taskStore.deleteChoosenTask(props.task.id)
+}
+
 onMounted(async () => {
     await taskStore.getAllTasks()
 })
@@ -42,6 +46,7 @@ onMounted(async () => {
                 <div class="target">
                     <span>{{ taskInfo.name }}</span>
                     <button @click="markTask">Mark as Completed</button>
+                    <button class="delete-btn" @click="deleteTask">Delete Task</button>
                 </div>
             </div>
             <div class="task-info">
@@ -71,7 +76,10 @@ onMounted(async () => {
     <div class="task" v-if="props.task.status === 'completed'">
         <h2>Completed: {{ props.task.title }}</h2>
         <div class="completed">
-            <img :src="taskInfo.img_URL" />
+            <div class="img-and-btn">
+                <img :src="taskInfo.img_URL" />
+                <button class="delete-btn" @click="deleteTask">Delete Task</button>
+            </div>
             <div class="completed-info">
                 <p>{{ taskInfo.name }}</p>
                 <p><span class="timestamp">Finished on:</span> {{ formattedDate }}</p>
@@ -92,6 +100,15 @@ onMounted(async () => {
             color: white;
             background-color: var(--dark-green);
             border-radius: 12px 12px 0 0;
+        }
+
+        .delete-btn {
+            margin-top: 10px;
+            padding: 10px;
+            color: white;
+            background-color: var(--carmin);
+            border: none;
+            border-radius: 5px;
         }
 
         .get-piñata {
@@ -133,6 +150,10 @@ onMounted(async () => {
                         background-color: var(--dark-green);
                         border: none;
                         border-radius: 5px;
+                    }
+
+                    .delete-btn {
+                        background-color: var(--carmin);
                     }
                 }
             }

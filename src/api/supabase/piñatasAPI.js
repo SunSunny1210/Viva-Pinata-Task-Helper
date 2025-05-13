@@ -302,7 +302,6 @@ export const addTask = async (userId, title, taskInfo, status) => {
 //Update Task
 export const updateTask = async (id, updatedColumns) => {
     try {
-        debugger
         const { data, error } = await supabase
             .from('Tasks')
             .update(updatedColumns)
@@ -317,5 +316,27 @@ export const updateTask = async (id, updatedColumns) => {
         return data;
     } catch (err) {
         console.error(err)
+    }
+}
+
+//Delete Task
+export const deleteTask = async (userId, taskId) => {
+    try {
+        const { data, error } = await supabase
+            .from('Tasks')
+            .delete()
+            .eq('id', taskId)
+            .eq('user_id', userId)
+            .select()
+
+        if (error) {
+            throw new Error('Error during task deletion.', error.message)
+        }
+
+        console.log('Task deleted successfully!')
+        return data;
+    } catch (err) {
+        console.error(err)
+        return null
     }
 }
