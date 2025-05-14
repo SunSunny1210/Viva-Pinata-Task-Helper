@@ -16,7 +16,7 @@ import { RouterLink } from 'vue-router';
 <style scoped>
 .no-profile {
         height: 20%;
-        width: 109%;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
