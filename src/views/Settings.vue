@@ -73,7 +73,9 @@ import { useRouter } from 'vue-router';
         <PopUpShadow v-if="selectedOption" />
     </Transition>
     <Transition name="fade">
-        <ChangeAvatar v-if="selectedOption === OPTIONS.CHANGE_OPTIONS.AVATAR"/>
+        <ChangeAvatar v-if="selectedOption === OPTIONS.CHANGE_OPTIONS.AVATAR"
+        @open-successful="manageSuccessful"
+        @open-unsuccessful="manageUnsuccessful" />
     </Transition>
     <Transition name="fade">
         <ChangeNames v-if="selectedOption === OPTIONS.CHANGE_OPTIONS.USERNAME || 

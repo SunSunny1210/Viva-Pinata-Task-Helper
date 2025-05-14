@@ -212,6 +212,19 @@ onMounted(async () => {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                gap: 10px;
+
+                li {
+                    margin: 0 0 2rem 2rem;
+                }
+
+                img {
+                    margin-right: 1rem;
+                    height: 100px;
+                    width: 100px;
+                    border: 4px dashed orange;
+                    border-radius: 12px;
+                }
             }
             
             ul {
@@ -278,20 +291,6 @@ onMounted(async () => {
 
                 .checked {
                     color: grey;
-                }
-
-                .variant-img {
-                    display: flex;
-                    justify-content: flex-end;
-                    align-items: center;
-
-                    img {
-                        margin-right: 1rem;
-                        height: 100px;
-                        width: 100px;
-                        border: 4px dashed orange;
-                        border-radius: 12px;
-                    }
                 }
             }
         }

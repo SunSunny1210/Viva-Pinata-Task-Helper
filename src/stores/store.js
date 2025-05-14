@@ -232,7 +232,7 @@ export const useProfileStore = defineStore('profileStore', () => {
             let filePublicURL;
     
             if (input instanceof File) {
-                const avatarPath = await uploadAvatar(input);
+                const avatarPath = await uploadAvatar(userStore.userId, input);
                 if (avatarPath) {
                     filePublicURL = await getAvatarByName(avatarPath);
                 }

@@ -198,9 +198,9 @@ export const updateProfileInfo = async (id, columnName, newData) => {
 }
 
 //Upload Avatar
-export const uploadAvatar = async (file) => {
+export const uploadAvatar = async (userId, file) => {
     try {
-        const fileName = `${Date.now()}_${file.name}`;
+        const fileName = `${userId}_${file.name}`;
         const { data, error } = await supabase.storage
             .from('avatars')
             .upload(fileName, file)

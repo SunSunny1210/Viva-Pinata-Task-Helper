@@ -40,7 +40,7 @@ const handleButton = async () => {
     <div class="pop-up">
         <h2>{{ props.option }}</h2>
         <div class="log-delete">
-            <p>Are you sure you want to {{ props.option.toLocaleLowerCase() }}? <span v-if="props.option === 'Delete User'">This action is irreversible.</span></p>
+            <p>Are you sure you want to {{ props.option.toLocaleLowerCase() }}?</p>
             <button @click="handleButton">{{ props.option }}</button>
         </div>
     </div>
@@ -72,7 +72,7 @@ const handleButton = async () => {
     .log-delete {
         margin: 1rem;
         padding: 1rem;
-        width: 220px;
+        width: fit-content;
         top: 2.5rem;
         left: 0;
         display: flex;

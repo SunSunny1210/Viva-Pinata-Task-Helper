@@ -46,7 +46,7 @@ const handleSubmit = async () => {
 <template>
     <div class="pop-up">
         <h2>{{ props.option }}</h2>
-        <div v-if="props.option === 'Check/Change Email'" class="check-option">
+        <div v-if="props.option === 'Check/Change Email'">
             <h3>Check {{ trimmedOption }}</h3>
             <div class="info">
                 <p>Check your current {{ trimmedOption }}</p>
@@ -113,7 +113,7 @@ const handleSubmit = async () => {
     .info {
         margin: 0 1rem 2rem;
         padding: 2rem 1rem 1rem 1rem;
-        width: 220px;
+        width: fit-content;
         top: 2.5rem;
         left: 0;
         display: flex;

@@ -94,11 +94,11 @@ const handleSubmit = async (option) => {
         border-radius: 12px;
         z-index: 2;
     }
-
+    
     .info {
         margin: 0 1rem 1rem;
         padding: 2rem 1rem 1rem 1rem;
-        width: 220px;
+        width: fit-content;
         top: 2.5rem;
         left: 0;
         display: flex;
