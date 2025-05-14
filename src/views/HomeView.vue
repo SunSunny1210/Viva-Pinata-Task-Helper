@@ -39,9 +39,7 @@ const handleTask = (option) => {
 
         setTimeout(() => {
             nextTick(() => {
-                if (getPiñataRef.value?.$el) {
-                    getPiñataRef.value.$el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }
+                getPiñataRef.value.$el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             });
         }, 200);
     }

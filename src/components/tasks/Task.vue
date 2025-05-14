@@ -101,13 +101,17 @@ onMounted(async () => {
                 </div>
             </div>
             <div class="task-info">
-                <ul v-for="(info, color) in taskInfo.variants" :key="color">
-                    <h4>{{ color }}</h4>
-                    <li v-if="!info.requirement.length">Non existent variants.</li>
-                    <li :class="{ 'checked': checked[variant] }">{{ info.requirement }}
-                        <input type="checkbox" v-model="checked[variant]"/>
-                    </li>
-                    <img v-if="info.variant_img" :src="info.variant_img" />
+                <ul v-for="(info, color) in taskInfo.variants" :key="color" class="variant-ul">
+                    <div class="variant-info">
+                        <h4>{{ color.charAt(0).toUpperCase() + color.slice(1) }}</h4>
+                        <li v-if="!info.requirement.length">Non existent variants.</li>
+                        <li :class="{ 'checked': checked[info.requirement] }">{{ info.requirement }}
+                            <input type="checkbox" v-model="checked[info.requirement]"/>
+                        </li>
+                    </div>
+                    <div class="variant-img">
+                        <img v-if="info.variant_img" :src="info.variant_img" />
+                    </div>
                 </ul>
             </div>
         </div>
@@ -203,6 +207,12 @@ onMounted(async () => {
 
         .task-info {
             position: relative;
+
+            .variant-ul {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
             
             ul {
                 position: relative;
@@ -270,9 +280,18 @@ onMounted(async () => {
                     color: grey;
                 }
 
-                img {
-                    height: 50px;
-                    width: 50px;
+                .variant-img {
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+
+                    img {
+                        margin-right: 1rem;
+                        height: 100px;
+                        width: 100px;
+                        border: 4px dashed orange;
+                        border-radius: 12px;
+                    }
                 }
             }
         }
