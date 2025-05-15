@@ -48,7 +48,6 @@ onUnmounted(() => {
     overflow: visible;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
   }
   
@@ -63,5 +62,16 @@ onUnmounted(() => {
 
   .moveRight {
     transform: translateX(70%);
+  }
+
+  @media screen and (min-width: 700px){
+    .router-view {
+      margin-top: 20vh;
+      padding: 1rem;
+    }
+
+    .moveRight {
+      transform: translateX(40%);
+    }
   }
 </style>

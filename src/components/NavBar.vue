@@ -65,4 +65,15 @@ const toggleMenu = () => {
             }
         }
     }
+
+    @media screen and (min-width: 700px) {
+        nav {
+            height: 20vh;
+
+            .menu-btn {
+                height: 80%;
+                width: 15%;
+            }
+        }
+    }
 </style>

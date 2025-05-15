@@ -334,4 +334,24 @@ onMounted(async () => {
             }
         }
     }
+
+    @media screen and (min-width: 700px) {
+        .get-piñata,
+        .romance-piñata,
+        .piñata-variants {
+            img {
+                height: 150px;
+                width: 150px;
+            }
+
+        }
+
+        .img-and-btn {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+    }
 </style>

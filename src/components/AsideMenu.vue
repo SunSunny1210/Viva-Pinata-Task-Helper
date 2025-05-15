@@ -22,12 +22,14 @@ const handleLinkClick = (event) => {
     <div>
         <aside :class="{ isOpen: isOpen }" @click="handleLinkClick">
             <UserData />
-            <RouterLink to="/">Home</RouterLink>
-            <RouterLink to="">Piñatas</RouterLink>
-            <RouterLink to="">Villagers</RouterLink>
-            <RouterLink to="">Plants and seeds</RouterLink>
-            <RouterLink to="">Services</RouterLink>
-            <RouterLink to="/settings" v-if="storeProfile.profileData">Settings</RouterLink>
+            <div class="aside-settings">
+                <RouterLink to="/">Home</RouterLink>
+                <RouterLink to="">Piñatas</RouterLink>
+                <RouterLink to="">Villagers</RouterLink>
+                <RouterLink to="">Plants and seeds</RouterLink>
+                <RouterLink to="">Services</RouterLink>
+                <RouterLink to="/settings" v-if="storeProfile.profileData">Settings</RouterLink>
+            </div>
         </aside>
     </div>
 </template>
@@ -65,5 +67,28 @@ const handleLinkClick = (event) => {
 
     .isOpen {
         box-shadow: 150px 0 200px -50px rgba(0, 0, 0, 0.7);
+    }
+
+    @media screen and (min-width: 700px) {
+        aside {
+            width: 40%;
+            display: block;
+            overflow-y: scroll;
+            
+            .aside-settings {
+                padding: 1rem;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                align-items: center;
+                gap: 1rem;
+
+                a {
+                    height: 40px;
+                    width: 100%;
+                }
+            }
+        }
     }
 </style>

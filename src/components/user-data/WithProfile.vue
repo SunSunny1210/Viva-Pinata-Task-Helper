@@ -65,4 +65,10 @@ onMounted(async () => {
             }
         }
     }
+
+    @media screen and (min-width: 700px) {
+        .background {
+            height: 35%;
+        }
+    }
 </style>

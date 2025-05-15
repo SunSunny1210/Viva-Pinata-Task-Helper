@@ -12,7 +12,7 @@ import UserForm from '@/components/UserForm.vue';
 </template>
 
 <style scoped>
-* {
+    * {
         margin: 0;
     }
     .register {
@@ -45,6 +45,11 @@ import UserForm from '@/components/UserForm.vue';
             background-color: rgb(255, 251, 167);
             border: 3px dashed var(--carmin);
             border-radius: 12px;
+        }
+    }
+
+    @media screen and (min-width: 700px) {
+        .register {
         }
     }
 </style>

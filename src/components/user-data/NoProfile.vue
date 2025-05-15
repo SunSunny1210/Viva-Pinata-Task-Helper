@@ -14,7 +14,7 @@ import { RouterLink } from 'vue-router';
 </template>
 
 <style scoped>
-.no-profile {
+    .no-profile {
         height: 20%;
         width: 100%;
         display: flex;
@@ -42,6 +42,12 @@ import { RouterLink } from 'vue-router';
                 text-decoration: underline wavy yellow;
                 color: white;
             }
+        }
+    }
+
+    @media screen and (min-width: 700px) {
+        .no-profile {
+            height: 35%;
         }
     }
 </style>

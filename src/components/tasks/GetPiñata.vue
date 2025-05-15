@@ -79,4 +79,11 @@ onMounted(async () => {
             }
         }
     }
+
+    @media screen and (min-width: 700px) {
+        img {
+            min-height: 120px;
+            max-width: 130px;
+        }
+    }
 </style>

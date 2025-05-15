@@ -287,4 +287,25 @@ onMounted(async () => {
             }
         }
     }
+
+    @media screen and (min-width: 700px) {
+        .home-no-user {
+            .main {
+                margin-bottom: 2rem;
+                
+                .get-started {
+                    .buttons {
+                        a {
+                            height: 4rem;
+                            width: 8rem;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 1.2rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
 </style>
