@@ -15,9 +15,9 @@ onMounted(async () => {
     <div class="get-piñatas">
         <div class="choose-piñata">
             <h3>Choose your Piñata</h3>
-            <p>What piñata are you trying to get? Choose it from the list below to get started!</p>
-            <div v-for="piñata in piñataStore.piñatas" :key="piñata" class="piñatas">
-                <img  :src="piñata.img_URL" @click="$emit('selected-piñata', piñata)"/>
+            <p>What piñata do you need? Choose it from the list below to get started!</p>
+            <div v-for="piñata in piñataStore.piñatas" :key="piñata" class="piñatas" @click="$emit('selected-piñata', piñata)">
+                <img  :src="piñata.img_URL" />
                 <span>{{ piñata.name }}</span>
             </div>
         </div>
@@ -26,6 +26,7 @@ onMounted(async () => {
 
 <style scoped>
     .get-piñatas {
+        margin-bottom: 1rem;
         
         .choose-piñata {
             display: flex;
@@ -57,21 +58,23 @@ onMounted(async () => {
                 justify-content: space-between;
                 align-items: center;
                 gap: 10px;
-
+                
                 img {
                     height: 100px;
                     width: 110px;
                     border: 3px dashed orange;
                     border-radius: 12px;
+                    flex: 5;
                 }
-
+                
                 span {
                     padding: 10px;
-                    width: 100%;
+                    width: fit-content;
                     text-align: center;
                     color: var(--dark-green);
                     background-color: cornsilk;
                     border-radius: 12px;
+                    flex: 5;
                 }
             }
         }

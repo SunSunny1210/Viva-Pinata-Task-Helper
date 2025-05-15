@@ -15,7 +15,7 @@
         padding: 0.5rem;
         position: fixed;
         top: 10.5rem;
-        right: 11px;
+        right: 8px;
         color: white;
         background-color: var(--dark-green);
         border-radius: 0 12px 12px 0;

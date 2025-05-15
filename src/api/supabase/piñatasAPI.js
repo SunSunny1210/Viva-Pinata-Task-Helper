@@ -198,9 +198,9 @@ export const updateProfileInfo = async (id, columnName, newData) => {
 }
 
 //Upload Avatar
-export const uploadAvatar = async (file) => {
+export const uploadAvatar = async (userId, file) => {
     try {
-        const fileName = `${Date.now()}_${file.name}`;
+        const fileName = `${userId}_${file.name}`;
         const { data, error } = await supabase.storage
             .from('avatars')
             .upload(fileName, file)
@@ -285,6 +285,7 @@ export const addTask = async (userId, title, taskInfo, status) => {
                     status
                 }
             ])
+            .select();
 
         if (error) {
             throw new Error('Error inserting task', error.message)
@@ -292,6 +293,48 @@ export const addTask = async (userId, title, taskInfo, status) => {
 
         console.log('Task added successfully!')
         return data
+    } catch (err) {
+        console.error(err)
+        return null
+    }
+}
+
+//Update Task
+export const updateTask = async (id, updatedColumns) => {
+    try {
+        const { data, error } = await supabase
+            .from('Tasks')
+            .update(updatedColumns)
+            .eq('id', id)
+            .select('*');
+
+        if (error) {
+            throw new Error("Task couldn't be updated", error.message);
+        }
+
+        console.log("Task updated successfully");
+        return data;
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+//Delete Task
+export const deleteTask = async (userId, taskId) => {
+    try {
+        const { data, error } = await supabase
+            .from('Tasks')
+            .delete()
+            .eq('id', taskId)
+            .eq('user_id', userId)
+            .select()
+
+        if (error) {
+            throw new Error('Error during task deletion.', error.message)
+        }
+
+        console.log('Task deleted successfully!')
+        return data;
     } catch (err) {
         console.error(err)
         return null

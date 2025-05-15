@@ -23,6 +23,7 @@ console.log(props.option)
         <p v-else-if="props.option === 'Change Farm Name'">Farm name changed correctly!</p>
         <p v-else-if="props.option === 'Log Out'">Log out successful!</p>
         <p v-else-if="props.option === 'Delete User'">User deletion successful!</p>
+        <p v-else>Avatar updated successfully!</p>
         <button @click="handleMessage">Got it!</button>
     </div>
 </template>
@@ -45,7 +46,7 @@ console.log(props.option)
 
     h2 {
         margin: 0;
-        padding: 1rem 0;
+        padding: 1rem;
         height: 60px;
         width: 100%;
         display: flex;

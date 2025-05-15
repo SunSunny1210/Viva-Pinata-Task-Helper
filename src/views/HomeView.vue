@@ -1,15 +1,21 @@
 <script setup>
-import { RouterLink } from 'vue-router';
 import WhatToDo from './WhatToDo.vue';
 import Task from '@/components/tasks/Task.vue';
-import { onMounted, ref } from 'vue';
+import { nextTick, onMounted, ref } from 'vue';
 import { useTaskStore } from '@/stores/task-store';
 import GetPiñata from '@/components/tasks/GetPiñata.vue';
+import { storeToRefs } from 'pinia';
+import { useUserStore } from '@/stores/store';
 
+const userStore = useUserStore();
 const taskStore = useTaskStore();
+
+const { tasksData } = storeToRefs(taskStore);
 
 const selectedOption = ref('');
 const selectedPiñata = ref('');
+
+const getPiñataRef = ref(null);
 
 const OPTIONS = [
     '+ Get Piñata',
@@ -17,32 +23,57 @@ const OPTIONS = [
     '+ Piñata Variants'
 ]
 
-const addTask = async (option) => {
-    if (option === '+ Get Piñata') {
-        selectedOption.value = option.replace('+ ', '');
+const addTask = async () => {
+    try {
+        if (selectedOption.value) {
+            await taskStore.addNewTask(selectedOption.value, selectedPiñata.value, 'pending')
+        }
+    } catch (err) {
+        console.error(err)
     }
 }
 
-const handlePiñata = (piñata) => {
+const handleTask = (option) => {
+    if (option) {
+        selectedOption.value = option.replace('+ ', '');
+        console.log(selectedOption.value)
+        console.log(getPiñataRef.value)
+
+        setTimeout(() => {
+            nextTick(() => {
+                getPiñataRef.value.$el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            });
+        }, 200);
+    }
+}
+
+const handlePiñata = async (piñata) => {
     if (piñata) {
         selectedPiñata.value = piñata;
+        await addTask();
+        selectedOption.value = '';
         console.log('Selected Piñata: ', piñata);
     }
 }
 
+const scrollAToId = (target) => {
+    document.querySelector(target).scrollIntoView({ behavior: 'smooth' })
+}
+
 onMounted(async () => {
     await taskStore.getAllTasks();
+    console.log(tasksData.value)
 })
 </script>
 
 <template>
-    <div class="home">
+    <div v-if="userStore.userData" class="home-user">
         <article>
             <div class="section-title">
                 <h1>What do you wanna do today?</h1>
             </div>
             <div class="section-info">
-                <WhatToDo @add-task="addTask" :options="OPTIONS"/>
+                <WhatToDo @add-task="handleTask" :options="OPTIONS"/>
             </div>
         </article>
         <article>
@@ -50,33 +81,70 @@ onMounted(async () => {
                 <h1>Current tasks</h1>
             </div>
             <div class="section-info">
-                <span class="no-tasks" v-if="!taskStore.tasks">No current tasks</span>
-                <GetPiñata v-if="selectedOption === 'Get Piñata'" />
-                <Task v-for="task in taskStore.tasksData" :key="task" @selected-piñata="handlePiñata"/>
+                <GetPiñata v-if="selectedOption" @selected-piñata="handlePiñata" ref="getPiñataRef"/>
+                <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'completed')">No current tasks.</span>
+                <Task v-for="task in tasksData.filter(task => task.status === 'pending')" :task="task"/>
+                </div>
+            </article>
+            <article>
+                <div class="section-title">
+                    <h1>Completed tasks</h1>
+                </div>
+                <div class="section-info">
+                    <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'pending')">No completed tasks.</span>
+                <Task v-for="task in tasksData.filter(task => task.status === 'completed')" :task="task"/>
             </div>
         </article>
-        <article>
-            <div class="section-title">
-                <h1>Completed tasks</h1>
+    </div>
+    <div v-else class="home-no-user">
+        <h1>Welcome!</h1>
+        <div class="main">
+            <div class="main-info">
+                <p>This is Viva Piñata's Task Planner, a page to help you organize your progress on your farm in Viva Piñata.</p>
+                <ul>
+                    <li>
+                        <a href="#get-started" @click.prevent="scrollAToId('#get-started')">Get Started</a>
+                    </li>
+                    <li>
+                        <a href="#general-info" @click.prevent="scrollAToId('#general-info')">General Information</a>
+                    </li>
+                </ul>
             </div>
-            <div class="section-info">
+            <div class="get-started" id="get-started">
+                <h2>Wanna get started?</h2>
+                <p>To get started, you need to register to create an account. If you already have one, you can log in below!</p>
+                <div class="buttons">
+                    <RouterLink to="/register">Register</RouterLink>
+                    <RouterLink to="/login">Login</RouterLink>
+                </div>
             </div>
-        </article>
+            <div class="general-info" id="general-info">
+                <h2>General Information</h2>
+                <p>If you don't want to make an account, you can still make use of the page to check general information about piñatas, town villagers, plants and more!</p>
+                <div class="buttons">
+                    <RouterLink>Piñatas</RouterLink>
+                    <RouterLink>Villagers</RouterLink>
+                    <RouterLink>Plants & Seeds</RouterLink>
+                </div>
+            </div>
+        </div>
     </div>
 </template>
 
 <style>
-    .home {
+    .home-user {
+        padding: 1rem;
         height: 100%;
+        width: 100vw;
         display: flex;
         flex-direction: column;
         align-items: center;
+        gap: 1rem;
         overflow-y: scroll;
 
         article {
-            margin: 1rem;
             height: fit-content;
-            width: 80%;
+            width: 100%;
             position: relative;
             top: 0;
             display: flex;
@@ -98,7 +166,7 @@ onMounted(async () => {
                 padding: 1rem;
                 display: flex;
                 flex-direction: column;
-                background-color: var(--main-green);
+                background-color: var(--light-green);
                 border-radius: 0 0 12px 12px;
 
                 .no-tasks {
@@ -106,6 +174,115 @@ onMounted(async () => {
                     color: var(--dark-green);
                     background-color: var(--background-yellow);
                     border-radius: 12px;
+                }
+            }
+        }
+    }
+
+    .home-no-user {
+        padding: 1rem;
+        height: 100%;
+        width: 100vw;
+        overflow-y: scroll;
+        
+        h1 {
+            margin: 0;
+            padding: 1rem;
+            width: 100%;
+            color: white;
+            background-color: var(--medium-green);
+            border-radius: 12px 12px 0 0;
+        }
+
+        .main {
+            padding: 1rem;
+            background-color: var(--light-green);
+            border-radius: 0 0 12px 12px;
+            
+            .main-info {
+                padding: 1rem;
+                font-size: 1.2rem;
+                color: var(--dark-green);
+                background-color: cornsilk;
+                border: 3px dashed var(--carmin);
+                border-radius: 12px;
+
+                ul {
+                    margin-top: 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    gap: 10px;
+
+                    li {
+                        padding: 10px;
+                        background-color: var(--light-green);
+                        border-radius: 12px;
+
+                        a {
+                            color: white;
+                            text-decoration: none;
+                        }
+                    }
+
+                    ::marker {
+                        color: orange;
+                    }
+                }
+            }
+
+            .get-started,
+            .general-info {
+                margin-top: 2rem;
+                width: 100%;
+                background-color: cornsilk;
+                border-radius: 12px;
+
+                h2 {
+                    padding: 1rem;
+                    color: white;
+                    background-color: var(--dark-green);
+                    border-radius: 12px 12px 0 0;
+                }
+
+                p {
+                    margin: 1rem;
+                    padding: 1rem;
+                    font-size: 1.1rem;
+                    color: var(--dark-green);
+                    border: 3px dashed orange;
+                    border-radius: 12px;
+                }
+
+                .buttons {
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
+
+                    a {
+                        margin-bottom: 1rem;
+                        padding: 1rem;
+                        width: 6rem;
+                        font-size: 1.1rem;
+                        color: white;
+                        text-align: center;
+                        text-decoration: none;
+                        background-color: var(--medium-green);
+                        border-radius: 12px;
+                    }
+                }
+            }
+
+            .general-info {
+                .buttons {
+                    padding: 1rem;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    font-size: 1.2rem;
+
+                    a {
+                        width: 100%;
+                    }
                 }
             }
         }
