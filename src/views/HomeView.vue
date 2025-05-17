@@ -131,7 +131,7 @@ onMounted(async () => {
     </div>
 </template>
 
-<style>
+<style scoped>
     .home-user {
         padding: 1rem;
         height: 100%;
@@ -317,6 +317,12 @@ onMounted(async () => {
         .home-no-user,
         .home-user {
             margin-bottom: 3rem;
+        }
+    }
+
+    @media screen and (min-width: 1020px) {
+        .home-user {
+            flex-direction: row;
         }
     }
 </style>

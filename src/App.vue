@@ -13,7 +13,7 @@ const affectMenu = (value) => {
 }
 
 const closeMenu = (event) => {
-  const navBtn = document.querySelector('.menu-btn button')
+  const navBtn = document.querySelector('.menu-btn img')
   if (menuOpen.value && !event.target.closest('aside') && !navBtn.contains(event.target)) {
     menuOpen.value = false
   }
@@ -83,7 +83,7 @@ onUnmounted(() => {
     transform: translateX(70%);
   }
 
-  @media screen and (min-width: 700px) {
+  @media screen and (min-width: 700px) and (max-width: 1020px){
     .router-view {
       margin-top: 6rem;
       height: 80vh;

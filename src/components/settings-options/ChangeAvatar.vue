@@ -42,6 +42,7 @@ const handleSubmit = async () => {
     try {
         if (!selectedFile.value) {
             console.error("No file selected");
+            emit('open-unsuccessful')
             return
         }
         

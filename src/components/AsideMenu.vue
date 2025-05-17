@@ -54,8 +54,7 @@ const handleLinkClick = (event) => {
         z-index: 10;
 
         .fixed {
-            padding: 1rem;
-            height: 20%;
+            height: 20vh;
             width: 100%;
             display: flex;
             justify-content: center;
@@ -64,12 +63,14 @@ const handleLinkClick = (event) => {
         }
 
         .aside-settings {
+            margin-bottom: 1rem;
             padding: 0 1rem;
             width: 100%;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             gap: 1rem;
+            overflow-y: scroll;
 
             a {
                 height: 40px;
@@ -88,46 +89,10 @@ const handleLinkClick = (event) => {
     @media screen and (min-width: 700px) {
         aside {
             width: 40%;
-            display: block;
-            transition: box-shadow 0.2s ease-in-out;
-            
-            .fixed {
-                padding: 1rem;
-                position: fixed;
-                height: 35%;
-                width: 100%;
-                background-color: var(--medium-green);
-            }
-            
-            .aside-settings {
-                padding: 9rem 1rem 1rem;
-                height: 100%;
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-                gap: 1rem;
-                overflow-y: scroll;
-
-                a {
-                    padding: 10px;
-                    height: 3rem;
-                    width: 100%;
-                }
-            }
         }
 
         .isOpen {
             box-shadow: 200px 0 200px 500px rgba(0, 0, 0, 0.3);
-        }
-    }
-
-    @media screen and (min-width: 750px) {
-        aside {
-            .fixed {
-                height: 30%;
-            }
         }
     }
 </style>

@@ -29,6 +29,7 @@ console.log(props.option)
         <p v-else-if="props.option === 'Change Farm Name'">No valid farm name provided. Please, enter a valid farm name.</p>
         <p v-else-if="props.option === 'Log Out'">Error during log out. Couldn't log out successfully.</p>
         <p v-else-if="props.option === 'Delete User'">Error during deletion. Couldn't delete user successfully.</p>
+        <p v-else>Invalid avatar. Please, select a valid file.</p>
         <button @click="handleMessage">Got it!</button>
     </div>
 </template>

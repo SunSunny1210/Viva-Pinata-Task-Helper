@@ -29,13 +29,12 @@ onMounted(async () => {
 
 <style scoped>
     .background {
-        background-color: var(--medium-green);
-        padding: 0 16px;
-        height: 20%;
-        width: 100%;
+        margin: 1rem;
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+        background-color: var(--medium-green);
         
         .profile-info {
             height: 100%;
@@ -46,6 +45,8 @@ onMounted(async () => {
             flex: 1;
     
             .img-profile {
+                height: 100%;
+                width: 100%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
