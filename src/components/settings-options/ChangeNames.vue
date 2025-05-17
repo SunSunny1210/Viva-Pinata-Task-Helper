@@ -68,7 +68,7 @@ const handleSubmit = async (option) => {
     width: 80%;
     background-color: cornsilk;
     border-radius: 12px;
-    z-index: 7;
+    z-index: 10;
     overflow-y: scroll;
 
     h2 {

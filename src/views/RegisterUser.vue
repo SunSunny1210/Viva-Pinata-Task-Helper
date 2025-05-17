@@ -7,7 +7,7 @@ import UserForm from '@/components/UserForm.vue';
     <div class="register">
         <h1>Register your user!</h1>
         <p>Enter your email and password to create your user. Remember to make a safe password!</p>
-        <UserForm :parentType="'Register'"/>
+        <UserForm :parentType="'Register'" />
     </div>
 </template>
 
@@ -16,9 +16,13 @@ import UserForm from '@/components/UserForm.vue';
         margin: 0;
     }
     .register {
-        margin-bottom: 2rem;
+        margin: 1rem;
         height: 100%;
         width: 85%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
         background-color: white;
         border: 3px outset var(--background-yellow);
         border-radius: 12px;
@@ -45,11 +49,6 @@ import UserForm from '@/components/UserForm.vue';
             background-color: rgb(255, 251, 167);
             border: 3px dashed var(--carmin);
             border-radius: 12px;
-        }
-    }
-
-    @media screen and (min-width: 700px) {
-        .register {
         }
     }
 </style>

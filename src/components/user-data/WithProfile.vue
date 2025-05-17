@@ -16,7 +16,9 @@ onMounted(async () => {
 <template>
     <div class="background">
         <div class="profile-info">
-            <img :src="profileData.avatar_url" alt="profile-avatar" />
+            <div class="img-profile">
+                <img :src="profileData.avatar_url" alt="profile-avatar" />
+            </div>
             <div class="profile-names">
                 <span>{{ profileData.username }}</span>
                 <span>{{ profileData.farm_name }}</span>
@@ -36,15 +38,25 @@ onMounted(async () => {
         align-items: center;
         
         .profile-info {
+            height: 100%;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex: 1;
     
-            img {
-                height: 90px;
-                width: 90px;
-                border-radius: 12px;
-                border: 5px dashed  yellow;
+            .img-profile {
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex: 5;
+
+                img {
+                    height: 70%;
+                    border-radius: 12px;
+                    border: 5px dashed  yellow;
+                }
             }
     
             .profile-names {
@@ -53,11 +65,14 @@ onMounted(async () => {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                align-items: flex-start;
+                align-items: center;
                 gap: 10px;
+                flex: 5;
                 
                 span {
                     padding: 5px;
+                    width: 100%;
+                    font-size: clamp(1.2rem, 4vw, 1.5rem);
                     color: white;
                     background-color: var(--white-yellow);
                     border-radius: 5px;

@@ -14,9 +14,13 @@ import UserForm from '@/components/UserForm.vue';
 
 <style scoped>
     .login {
-        margin-bottom: 2rem;
+        margin: 1rem;
         height: 100%;
         width: 85%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
         background-color: white;
         border: 3px outset var(--background-yellow);
         border-radius: 12px;

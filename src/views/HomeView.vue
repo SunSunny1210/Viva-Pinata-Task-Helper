@@ -216,7 +216,7 @@ onMounted(async () => {
 
                     li {
                         padding: 10px;
-                        background-color: var(--light-green);
+                        background-color: var(--medium-green);
                         border-radius: 12px;
 
                         a {

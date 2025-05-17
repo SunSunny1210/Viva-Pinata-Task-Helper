@@ -54,13 +54,17 @@ const handleLinkClick = (event) => {
         .aside-settings {
             padding: 0 1rem;
             width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1rem;
 
             a {
-                margin-bottom: 0.5rem;
-                height: 30px;
+                height: 40px;
                 display: flex;
                 align-items: center;
                 padding: 7px;
+                font-size: clamp(1rem, 4vw, 1.2rem);
                 color: white;
                 background-color: var(--main-green);
                 text-decoration: none;
@@ -89,7 +93,6 @@ const handleLinkClick = (event) => {
                     padding: 10px;
                     height: 3rem;
                     width: 100%;
-                    font-size: 1.5rem;
                 }
             }
         }

@@ -41,7 +41,7 @@ console.log(props.option)
     background-color: cornsilk;
     border-radius: 12px;
     box-shadow: 0 0 5px 2000px rgba(0, 0, 0, 0.4);
-    z-index: 8;
+    z-index: 11;
     overflow-y: scroll;
 
     h2 {

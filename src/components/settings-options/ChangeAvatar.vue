@@ -64,21 +64,23 @@ onMounted(async () => {
 <template>
     <div class="pop-up">
         <h2>Change Avatar</h2>
-        <div class="change-avatar">
-            <h3>Upload your avatar</h3>
-            <form @submit.prevent="handleSubmit">
-                <p>Select an image to set as your avatar.</p>
-                <input type="file" id="upload" name="avatar_upload" accept="image/*" @change="handleFileChange" hidden/>
-                <label for="upload" class="upload-btn">Select your file</label>
-                <img v-if="newAvatarURL" class="preview" :src="newAvatarURL" />
-                <button type="submit">Upload</button>
-            </form>
-        </div>
-        <h3>Uploaded Avatars</h3>
-        <div class="uploaded-avatars">
-            <p>These are your uploaded avatars. Choose one of your like for your profile. If you don't see one you like, you can upload one on the option above!</p>
-            <div class="avatars">
-                <img @click="selectAvatar(avatar)" v-for="avatar in avatars.filter(a => a.name !== '.emptyFolderPlaceholder' && a.name.includes(storeUser.userId))" :key="avatar" :src="avatar.url"/>
+        <div class="all-options">
+            <div class="change-avatar">
+                <h3>Upload your avatar</h3>
+                <form @submit.prevent="handleSubmit">
+                    <p>Select an image to set as your avatar.</p>
+                    <input type="file" id="upload" name="avatar_upload" accept="image/*" @change="handleFileChange" hidden/>
+                    <label for="upload" class="upload-btn">Select your file</label>
+                    <img v-if="newAvatarURL" class="preview" :src="newAvatarURL" />
+                    <button type="submit">Upload</button>
+                </form>
+            </div>
+            <h3>Uploaded Avatars</h3>
+            <div class="uploaded-avatars">
+                <p>These are your uploaded avatars. Choose one of your like for your profile. If you don't see one you like, you can upload one on the option above!</p>
+                <div class="avatars">
+                    <img @click="selectAvatar(avatar)" v-for="avatar in avatars.filter(a => a.name !== '.emptyFolderPlaceholder' && a.name.includes(storeUser.userId))" :key="avatar" :src="avatar.url"/>
+                </div>
             </div>
         </div>
     </div>
@@ -92,19 +94,25 @@ onMounted(async () => {
     width: 80%;
     background-color: cornsilk;
     border-radius: 12px;
-    z-index: 7;
+    z-index: 10;
     overflow-y: scroll;
 
     h2 {
+        position: fixed;
         margin: 0;
         height: 60px;
-        width: 100%;
+        width: 80%;
         display: flex;
         justify-content: center;
         align-items: center;
         color: white;
         background-color: var(--medium-green);
         border-radius: 12px 12px 0 0;
+        z-index: 3;
+    }
+
+    .all-options {
+        margin-top: 3.5rem;
     }
 
     h3 {

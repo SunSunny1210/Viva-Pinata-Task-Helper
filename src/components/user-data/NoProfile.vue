@@ -34,8 +34,8 @@ import { RouterLink } from 'vue-router';
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 15px;
             align-items: flex-start;
+            gap: 15px;
             
             a {
                 font-size: 1.5rem;
