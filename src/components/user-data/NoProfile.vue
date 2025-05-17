@@ -47,7 +47,7 @@ import { RouterLink } from 'vue-router';
 
     @media screen and (min-width: 700px) {
         .no-profile {
-            height: 35%;
+            height: 10rem;
         }
     }
 </style>

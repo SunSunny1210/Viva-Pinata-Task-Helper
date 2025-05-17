@@ -7,7 +7,7 @@ const props = defineProps({
     menuOpen: Boolean,
 });
 
-const emit = defineEmits(['menuToggled'])
+const emit = defineEmits(['menuToggled', 'closeMenu'])
 
 const toggleMenu = () => {
     emit('menuToggled', !props.menuOpen)
@@ -68,7 +68,7 @@ const toggleMenu = () => {
 
     @media screen and (min-width: 700px) {
         nav {
-            height: 20vh;
+            height: 8rem;
 
             .menu-btn {
                 height: 80%;

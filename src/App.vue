@@ -33,6 +33,9 @@ onUnmounted(() => {
 
 <template>
   <div class="main" :class="{ moveRight: menuOpen }">
+    <Transition name="fade">
+      <div v-if="menuOpen" class="shadow"></div>
+    </Transition>
     <NavBar :menuOpen="menuOpen" @menuToggled="affectMenu" @closeMenu="affectMenu(false)"/>
     <div class="router-view">
       <RouterView />
@@ -50,7 +53,23 @@ onUnmounted(() => {
     flex-direction: column;
     align-items: center;
   }
-  
+
+  .shadow {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 9;
+  }
+
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .fade-enter-from, .fade-leave-to {
+    opacity: 0;
+  }
+
   .router-view {
     height: 80vh;
     display: flex;
@@ -66,8 +85,9 @@ onUnmounted(() => {
 
   @media screen and (min-width: 700px){
     .router-view {
-      margin-top: 20vh;
+      margin-top: 8rem;
       padding: 1rem;
+      height: 90vh;
     }
 
     .moveRight {

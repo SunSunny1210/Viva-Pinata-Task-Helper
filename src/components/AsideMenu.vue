@@ -20,7 +20,7 @@ const handleLinkClick = (event) => {
 
 <template>
     <div>
-        <aside :class="{ isOpen: isOpen }" @click="handleLinkClick">
+        <aside @click="handleLinkClick">
             <UserData />
             <div class="aside-settings">
                 <RouterLink to="/">Home</RouterLink>
@@ -49,24 +49,24 @@ const handleLinkClick = (event) => {
         background-color: var(--background-yellow);
         transform: translateX(-100%);
         transition: transform 0.5s ease-in-out;
-        transition: box-shadow 0.2s ease-out;
-        z-index: 6;
+        z-index: 10;
 
-        a {
-            height: 30px;
-            width: 85%;
-            display: flex;
-            align-items: center;
-            padding: 7px;
-            color: white;
-            background-color: var(--main-green);
-            text-decoration: none;
-            border-radius: 5px;
+        .aside-settings {
+            padding: 0 1rem;
+            width: 100%;
+
+            a {
+                margin-bottom: 0.5rem;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                padding: 7px;
+                color: white;
+                background-color: var(--main-green);
+                text-decoration: none;
+                border-radius: 5px;
+            }
         }
-    }
-
-    .isOpen {
-        box-shadow: 150px 0 200px -50px rgba(0, 0, 0, 0.7);
     }
 
     @media screen and (min-width: 700px) {
@@ -74,6 +74,7 @@ const handleLinkClick = (event) => {
             width: 40%;
             display: block;
             overflow-y: scroll;
+            transition: box-shadow 0.2s ease-in-out;
             
             .aside-settings {
                 padding: 1rem;
@@ -85,10 +86,16 @@ const handleLinkClick = (event) => {
                 gap: 1rem;
 
                 a {
-                    height: 40px;
+                    padding: 10px;
+                    height: 3rem;
                     width: 100%;
+                    font-size: 1.5rem;
                 }
             }
+        }
+
+        .isOpen {
+            box-shadow: 200px 0 200px 500px rgba(0, 0, 0, 0.3);
         }
     }
 </style>
