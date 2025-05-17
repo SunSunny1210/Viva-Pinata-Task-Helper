@@ -65,6 +65,7 @@ const handleSubmit = async (option) => {
     position: fixed;
     top: 20vh;
     height: fit-content;
+    height: 60%;
     width: 80%;
     background-color: cornsilk;
     border-radius: 12px;
@@ -72,15 +73,17 @@ const handleSubmit = async (option) => {
     overflow-y: scroll;
 
     h2 {
+        position: fixed;
         margin: 0;
         height: 60px;
-        width: 100%;
+        width: 80%;
         display: flex;
         justify-content: center;
         align-items: center;
         color: white;
         background-color: var(--medium-green);
         border-radius: 12px 12px 0 0;
+        z-index: 3;
     }
 
     h3 {
@@ -98,9 +101,7 @@ const handleSubmit = async (option) => {
     .info {
         margin: 0 1rem 1rem;
         padding: 2rem 1rem 1rem 1rem;
-        width: fit-content;
-        top: 2.5rem;
-        left: 0;
+        height: fit-content;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -122,11 +123,10 @@ const handleSubmit = async (option) => {
     }
 
     .change-option {
-        height: 100%;
+        margin-top: 3.5rem;
         width: 100%;
         display: flex;
         flex-direction: column;
-
     
         form {
             height: 100%;
@@ -157,7 +157,7 @@ const handleSubmit = async (option) => {
             }
             
             button {
-                margin-bottom: 2rem;
+                margin-bottom: 1rem;
                 height: 4rem;
                 width: 80%;
                 color: white;
@@ -165,6 +165,27 @@ const handleSubmit = async (option) => {
                 background-color: var(--carmin);
                 border: none;
                 border-radius: 12px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .pop-up {
+        height: 70%;
+        overflow-y: scroll;
+    }
+}
+
+@media screen and (min-width: 750px) {
+    .pop-up {
+        .change-option {
+            .info {
+                form {
+                    input {
+                        height: 3.5rem;
+                    }
+                }
             }
         }
     }

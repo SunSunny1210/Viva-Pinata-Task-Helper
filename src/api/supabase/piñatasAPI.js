@@ -6,6 +6,7 @@ export const getPiñatas = async () => {
         const { data, error } = await supabase
             .from('Species')
             .select()
+            .order('name', { ascending: true })
 
         if (error) {
             throw new Error(error.message)

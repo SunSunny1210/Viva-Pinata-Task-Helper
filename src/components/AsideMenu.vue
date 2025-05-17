@@ -21,7 +21,9 @@ const handleLinkClick = (event) => {
 <template>
     <div>
         <aside @click="handleLinkClick">
-            <UserData />
+            <div class="fixed">
+                <UserData />
+            </div>
             <div class="aside-settings">
                 <RouterLink to="/">Home</RouterLink>
                 <RouterLink to="">Piñatas</RouterLink>
@@ -51,6 +53,16 @@ const handleLinkClick = (event) => {
         transition: transform 0.5s ease-in-out;
         z-index: 10;
 
+        .fixed {
+            padding: 1rem;
+            height: 20%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--medium-green);
+        }
+
         .aside-settings {
             padding: 0 1rem;
             width: 100%;
@@ -77,17 +89,26 @@ const handleLinkClick = (event) => {
         aside {
             width: 40%;
             display: block;
-            overflow-y: scroll;
             transition: box-shadow 0.2s ease-in-out;
             
-            .aside-settings {
+            .fixed {
                 padding: 1rem;
+                position: fixed;
+                height: 35%;
+                width: 100%;
+                background-color: var(--medium-green);
+            }
+            
+            .aside-settings {
+                padding: 9rem 1rem 1rem;
+                height: 100%;
                 width: 100%;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
                 align-items: center;
                 gap: 1rem;
+                overflow-y: scroll;
 
                 a {
                     padding: 10px;
@@ -99,6 +120,14 @@ const handleLinkClick = (event) => {
 
         .isOpen {
             box-shadow: 200px 0 200px 500px rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    @media screen and (min-width: 750px) {
+        aside {
+            .fixed {
+                height: 30%;
+            }
         }
     }
 </style>

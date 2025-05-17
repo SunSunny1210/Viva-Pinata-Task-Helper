@@ -68,7 +68,7 @@ const toggleMenu = () => {
 
     @media screen and (min-width: 700px) {
         nav {
-            height: 8rem;
+            height: 6rem;
 
             .menu-btn {
                 height: 80%;

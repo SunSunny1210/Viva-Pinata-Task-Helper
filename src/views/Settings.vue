@@ -115,7 +115,7 @@ import { useRouter } from 'vue-router';
         margin: 0;
     }
     .settings {
-        margin: 1rem;
+        margin-top: 1rem;
         height: 90vh;
         width: 80vw;
         background-color: white;
@@ -153,5 +153,17 @@ import { useRouter } from 'vue-router';
 
     .x-enter-from, .x-leave-to {
         opacity: 0;
+    }
+
+    @media screen and (min-width: 700px) {
+        .settings {
+            margin-bottom: 2rem;
+        }
+    }
+
+    @media screen and (min-width: 750px) {
+        .settings {
+            margin-bottom: 4rem;
+        }
     }
 </style>

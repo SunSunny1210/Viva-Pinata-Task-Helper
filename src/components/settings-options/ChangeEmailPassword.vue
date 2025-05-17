@@ -200,4 +200,24 @@ const handleSubmit = async () => {
     opacity: 0;
     transform: scale(0.8);
 }
+
+@media screen and (min-width: 700px) {
+    .pop-up {
+        height: 70%;
+    }
+}
+
+@media screen and (min-width: 750px) {
+    .pop-up {
+        .change-option {
+            .info {
+                form {
+                    input {
+                        height: 3.5rem;
+                    }
+                }
+            }
+        }
+    }
+}
 </style>

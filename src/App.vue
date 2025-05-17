@@ -83,10 +83,10 @@ onUnmounted(() => {
     transform: translateX(70%);
   }
 
-  @media screen and (min-width: 700px) and (max-width: 749px){
+  @media screen and (min-width: 700px) {
     .router-view {
-      margin-top: 8rem;
-      padding: 1rem;
+      margin-top: 6rem;
+      height: 80vh;
     }
 
     .moveRight {
@@ -96,7 +96,6 @@ onUnmounted(() => {
 
   @media screen and (min-width: 750px) {
     .router-view {
-      margin-top: 8rem;
       height: 90vh;
     }
   }

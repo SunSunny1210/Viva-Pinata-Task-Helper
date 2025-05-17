@@ -193,7 +193,7 @@ onMounted(async () => {
     }
 
     .uploaded-avatars {
-        margin: 0 1rem 2rem;
+        margin: 0 1rem 1rem;
         padding: 2rem 1rem 0;
         display: flex;
         flex-direction: column;
@@ -215,6 +215,12 @@ onMounted(async () => {
             flex-wrap: wrap;
             gap: 10px;
         }
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .pop-up {
+        height: 70%;
     }
 }
 </style>

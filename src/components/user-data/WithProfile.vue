@@ -46,7 +46,6 @@ onMounted(async () => {
             flex: 1;
     
             .img-profile {
-                height: 100%;
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -54,6 +53,7 @@ onMounted(async () => {
 
                 img {
                     height: 70%;
+                    width: 100%;
                     border-radius: 12px;
                     border: 5px dashed  yellow;
                 }
@@ -72,7 +72,7 @@ onMounted(async () => {
                 span {
                     padding: 5px;
                     width: 100%;
-                    font-size: clamp(1.2rem, 4vw, 1.5rem);
+                    font-size: clamp(1.2rem, 4vw, 1.3rem);
                     color: white;
                     background-color: var(--white-yellow);
                     border-radius: 5px;
@@ -81,9 +81,13 @@ onMounted(async () => {
         }
     }
 
-    @media screen and (min-width: 700px) {
+    @media screen and (min-width: 750px) {
         .background {
-            height: 35%;
+            .profile-info {
+                .img-profile {
+                    padding: 1.5rem;
+                }
+            }
         }
     }
 </style>
