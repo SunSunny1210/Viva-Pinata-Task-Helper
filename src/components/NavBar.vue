@@ -44,7 +44,7 @@ const toggleMenu = () => {
         
         .menu-btn {
             padding: 0.5rem;
-            height: 80%;
+            height: 70%;
             display: flex;
             justify-content: space-between;
             align-items: center;
