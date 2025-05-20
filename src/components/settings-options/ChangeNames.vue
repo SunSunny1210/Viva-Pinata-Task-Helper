@@ -179,6 +179,7 @@ const handleSubmit = async (option) => {
 
 @media screen and (min-width: 750px) {
     .pop-up {
+        height: fit-content;
         .change-option {
             .info {
                 form {

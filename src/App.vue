@@ -85,8 +85,7 @@ onUnmounted(() => {
 
   @media screen and (min-width: 700px) and (max-width: 1020px){
     .router-view {
-      margin-top: 6rem;
-      height: 80vh;
+      margin-top: 17vh;
     }
 
     .moveRight {

@@ -73,7 +73,7 @@ onMounted(async () => {
                 span {
                     padding: 5px;
                     width: 100%;
-                    font-size: clamp(1.2rem, 4vw, 1.3rem);
+                    font-size: clamp(0.8rem, 4vw, 1.3rem);
                     color: white;
                     background-color: var(--white-yellow);
                     border-radius: 5px;

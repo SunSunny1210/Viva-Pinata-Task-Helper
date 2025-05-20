@@ -29,4 +29,13 @@ const emit = defineEmits(['add-task'])
             border-radius: 12px;
         }
     }
+
+    @media screen and (min-width: 750px) {
+        .to-do {
+            a {
+                width: 100%;
+                font-size: 1.2rem;
+            }
+        }
+    }
 </style>

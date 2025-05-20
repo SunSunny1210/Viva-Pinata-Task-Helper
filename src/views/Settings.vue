@@ -88,7 +88,7 @@ import { useRouter } from 'vue-router';
         <ChangeEmailPassword v-if="selectedOption === OPTIONS.USER_OPTIONS.EMAIL || 
         selectedOption === OPTIONS.USER_OPTIONS.PASSWORD"
         :option="selectedOption"
-        @open-message="manageUnsuccessful"/>
+        @open-unsuccessful="manageUnsuccessful"/>
     </Transition>
     <Transition name="fade">
         <LogOut v-if="selectedOption === OPTIONS.USER_OPTIONS.DELETE || 
@@ -163,7 +163,7 @@ import { useRouter } from 'vue-router';
 
     @media screen and (min-width: 750px) {
         .settings {
-            margin-bottom: 4rem;
+            margin-bottom: 6rem;
         }
     }
 </style>

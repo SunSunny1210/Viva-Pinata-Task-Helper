@@ -62,7 +62,7 @@ const scrollAToId = (target) => {
 
 onMounted(async () => {
     await taskStore.getAllTasks();
-    console.log(tasksData.value)
+    console.log(tasksData.value);
 })
 </script>
 
@@ -316,7 +316,7 @@ onMounted(async () => {
     @media screen and (min-width: 750px) {
         .home-no-user,
         .home-user {
-            margin-bottom: 3rem;
+            margin-bottom: 5rem;
         }
     }
 

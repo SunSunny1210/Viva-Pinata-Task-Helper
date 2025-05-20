@@ -12,23 +12,26 @@ export const useTaskStore = defineStore('tasksStore', () => {
     //Getters
     //Actions
     const setTaskData = (data) => {
-        tasksData.value = [...data]
+        const newData = data.filter(item => !tasksData.value.includes(item));
+
+        if (newData.length > 0) {
+            tasksData.value = [...tasksData.value, ...newData]
+        }
     }
 
     const getAllTasks = async () => {
         try {
-            const data = await getTasks();
+            if (tasksData.value.length > 0) return tasksData.value;
 
-            if (data) {
-                setTaskData(data)
-            }
-            
-            return data
+            const data = await getTasks();
+            if (data) setTaskData(data);
+
+            return data;
         } catch (err) {
             console.error(err);
-            return []
+            return [];
         }
-    }
+    };
 
     const addNewTask = async (title, taskInfo, status) => {
         try {

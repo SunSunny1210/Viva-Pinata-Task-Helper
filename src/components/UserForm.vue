@@ -154,6 +154,18 @@ const sendUserData = async () => {
         opacity: 0;
     }
 
-    @media screen and (min-width: 700px) {
+    @media screen and (min-width: 750px) {
+        .form {
+            form {
+                label {
+                    font-size: 1.5rem;
+                }
+
+                input {
+                    height: 5rem;
+                    font-size: 1.2rem;
+                }
+            }
+        }
     }
 </style>

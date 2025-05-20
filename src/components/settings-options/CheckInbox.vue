@@ -36,7 +36,7 @@ const reloadPage = async () => {
 .check-inbox {
     position: fixed;
     top: 20vh;
-    height: 60%;
+    height: fit-content;
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -45,7 +45,7 @@ const reloadPage = async () => {
     background-color: cornsilk;
     border-radius: 12px;
     box-shadow: 0 0 5px 2000px rgba(0, 0, 0, 0.4);
-    z-index: 7;
+    z-index: 11;
     overflow-y: scroll;
 
     h3 {

@@ -7,7 +7,7 @@ const props = defineProps({
     option: String
 })
 
-const emit = defineEmits(['close-pop-up', 'open-message']);
+const emit = defineEmits(['close-pop-up', 'open-unsuccessful']);
 const openMessage = ref(false)
 
 const userStore = useUserStore();
@@ -30,15 +30,28 @@ const handleInputChange = (event) => {
 };
 
 const handleSubmit = async () => {
-    console.log(`Submitting for option: ${props.option}`);
-    let newValue = props.option === "Check/Change Email" ? newEmail.value : newPassword.value;
-    
-    if (newValue) {
-        userStore.updateUserData(newValue);
+    try {
+        console.log(`Submitting for option: ${props.option}`);
+        let newValue = props.option === "Check/Change Email" ? newEmail.value : newPassword.value;
+        
+        if (newValue) {
+            const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newValue);
 
-        manageMessage();
-    } else {
-        emit('open-message')
+            if (isValid) {
+                await userStore.updateUserData(newValue);
+        
+                manageMessage();
+            } else {
+                emit('open-unsuccessful')
+            }
+
+        } else {
+            emit('open-unsuccessful')
+        }
+
+    } catch {
+        console.error(err);
+        emit('open-unsuccessful')
     }
 }
 </script>
@@ -91,13 +104,14 @@ const handleSubmit = async () => {
     overflow-y: scroll;
 
     h2 {
-        position: fixed;
         margin: 0;
+        position: fixed;
         height: 60px;
         width: 80%;
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: 1.2rem;
         color: white;
         background-color: var(--medium-green);
         border-radius: 12px 12px 0 0;
@@ -209,6 +223,8 @@ const handleSubmit = async () => {
 
 @media screen and (min-width: 750px) {
     .pop-up {
+        height: fit-content;
+
         .change-option {
             .info {
                 form {

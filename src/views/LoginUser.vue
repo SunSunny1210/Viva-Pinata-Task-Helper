@@ -51,8 +51,12 @@ import UserForm from '@/components/UserForm.vue';
         }
     }
 
-    @media screen and (min-width: 700px){
+    @media screen and (min-width: 750px) {
         .login {
+            p {
+                margin: 2rem 2rem 0;
+                font-size: 1.5rem;
+            }
         }
     }
 </style>

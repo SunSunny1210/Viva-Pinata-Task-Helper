@@ -17,6 +17,7 @@ const formattedDate = computed(() => {
         return `${date} ${time.slice(0, 5)}`;
     }
 });
+
 const status = ref('');
 const checked = ref({});
 
@@ -33,7 +34,8 @@ const deleteTask = async () => {
 }
 
 onMounted(async () => {
-    await taskStore.getAllTasks()
+    await taskStore.getAllTasks();
+    console.log(props.task)
 })
 </script>
 
@@ -165,12 +167,15 @@ onMounted(async () => {
         }
 
         .task-target {
+            padding: 1rem;
             height: 100%;
             display: flex;
             justify-content: center;
+            align-items: center;
             gap: 1rem;
 
             img {
+                height: 20vh;
                 width: 50%;
                 border: 5px dashed orange;
                 border-radius: 12px;
@@ -207,6 +212,7 @@ onMounted(async () => {
 
         .task-info {
             position: relative;
+            width: 100%;
 
             .variant-ul {
                 display: flex;
@@ -352,6 +358,41 @@ onMounted(async () => {
             justify-content: center;
             align-items: center;
             gap: 10px;
+        }
+    }
+
+    @media screen and (min-width: 750px) {
+        .get-piñata,
+        .romance-piñata,
+        .piñata-variants {
+            .task-target {
+                .target {
+                    span,
+                    button,
+                    .delete-btn {
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+        }
+
+        .task {
+            .completed {
+                img {
+                    height: 200px;
+                    width: 200px;
+                }
+
+                .img-and-btn {
+                    button {
+                        font-size: 1.2rem;
+                    }
+                }
+
+                .completed-info {
+                    font-size: 1.2rem;
+                }
+            }
         }
     }
 </style>

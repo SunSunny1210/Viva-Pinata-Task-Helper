@@ -51,4 +51,13 @@ import UserForm from '@/components/UserForm.vue';
             border-radius: 12px;
         }
     }
+
+    @media screen and (min-width: 750px) {
+        .register {
+            p {
+                margin: 2rem 2rem 0;
+                font-size: 1.5rem;
+            }
+        }
+    }
 </style>

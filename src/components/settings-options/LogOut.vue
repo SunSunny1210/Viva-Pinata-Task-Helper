@@ -106,9 +106,9 @@ const handleButton = async () => {
     }
 }
 
-@media screen and (min-width: 700px) {
+@media screen and (min-width: 750px) {
     .pop-up {
-        height: 70%;
+        height: 40%;
     }
 }
 </style>
