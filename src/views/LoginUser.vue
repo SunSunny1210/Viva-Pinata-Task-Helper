@@ -7,7 +7,6 @@ import UserForm from '@/components/UserForm.vue';
     <div class="login">
         <h1>Log in!</h1>
         <p>Enter your email and password to log in. Remember your password!</p>
-        <hr></hr>
         <UserForm :parentType="'Login'"/>
     </div>
 </template>
@@ -22,7 +21,6 @@ import UserForm from '@/components/UserForm.vue';
         justify-content: space-between;
         align-items: center;
         background-color: white;
-        border: 3px outset var(--background-yellow);
         border-radius: 12px;
         overflow-y: scroll;
         
@@ -56,6 +54,23 @@ import UserForm from '@/components/UserForm.vue';
             p {
                 margin: 2rem 2rem 0;
                 font-size: 1.5rem;
+            }
+        }
+    }
+
+    @media screen and (min-width: 1020px) {
+        .login {
+            height: 75vh;
+            display: block;
+
+            h1 {
+                position: fixed;
+                height: 10vh;
+                width: 58.6%;
+            }
+
+            p {
+                margin-top: 6rem;
             }
         }
     }

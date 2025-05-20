@@ -119,7 +119,6 @@ import { useRouter } from 'vue-router';
         height: 90vh;
         width: 80vw;
         background-color: white;
-        border: 3px outset var(--background-yellow);
         border-radius: 12px;
         overflow-y: scroll;
         
@@ -164,6 +163,12 @@ import { useRouter } from 'vue-router';
     @media screen and (min-width: 750px) {
         .settings {
             margin-bottom: 6rem;
+        }
+    }
+
+    @media screen and (min-width: 1020px) {
+        .settings {
+            width: 90vw;
         }
     }
 </style>

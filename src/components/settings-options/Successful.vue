@@ -78,4 +78,12 @@ console.log(props.option)
         border-radius: 12px;
     }
 }
+
+@media screen and (min-width: 1020px) {
+    .successful {
+        left: 25%;
+        width: 50%;
+        overflow-y: visible;
+    }
+}
 </style>

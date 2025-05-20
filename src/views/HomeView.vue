@@ -323,6 +323,46 @@ onMounted(async () => {
     @media screen and (min-width: 1020px) {
         .home-user {
             flex-direction: row;
+            align-items: flex-start;
+            
+            article {
+                height: 100%;
+                border-radius: 12px;
+                overflow-y: scroll;
+
+                .section-title {
+                    h1 {
+                        position: fixed;
+                        width: 31.8vw;
+                        background-color: var(--medium-green);
+                        border-radius: 12px 12px 0 0;
+                        z-index: 8;
+                    }
+                }
+
+                .section-info {
+                    margin-top: 2.5rem;
+                }
+
+            }
+        }
+
+        .home-no-user {
+            .main {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 1rem;
+
+                .get-started,
+                .general-info {
+                    margin-top: 0;
+
+                    h2 {
+                        margin-top: 0;
+                    }
+                }
+            }
         }
     }
 </style>

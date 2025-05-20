@@ -40,6 +40,8 @@ onUnmounted(() => {
     <div class="router-view">
       <RouterView />
     </div>
+    <div class="background"> </div>
+    <div class="filter"> </div>
   </div>
 </template>
 
@@ -60,6 +62,23 @@ onUnmounted(() => {
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 9;
+  }
+
+  .background {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background: url(./assets/background.jpg);
+    filter: blur(2px);
+    z-index: -2;
+  }
+
+  .filter {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(255, 247, 195, 0.345);
+    z-index: -1;
   }
 
   .fade-enter-active, .fade-leave-active {
@@ -96,6 +115,12 @@ onUnmounted(() => {
   @media screen and (min-width: 750px) {
     .router-view {
       height: 90vh;
+    }
+  }
+
+  @media screen and (min-width: 1020px) {
+    .moveRight {
+      transform: translateX(20%);
     }
   }
 </style>

@@ -95,4 +95,10 @@ const handleLinkClick = (event) => {
             box-shadow: 200px 0 200px 500px rgba(0, 0, 0, 0.3);
         }
     }
+
+    @media screen and (min-width: 1020px) {
+        aside {
+            width: 20vw;
+        }
+    }
 </style>

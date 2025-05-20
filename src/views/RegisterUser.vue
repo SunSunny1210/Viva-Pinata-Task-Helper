@@ -24,7 +24,6 @@ import UserForm from '@/components/UserForm.vue';
         justify-content: space-between;
         align-items: center;
         background-color: white;
-        border: 3px outset var(--background-yellow);
         border-radius: 12px;
         overflow-y: scroll;
         
@@ -57,6 +56,23 @@ import UserForm from '@/components/UserForm.vue';
             p {
                 margin: 2rem 2rem 0;
                 font-size: 1.5rem;
+            }
+        }
+    }
+
+    @media screen and (min-width: 1020px) {
+        .register {
+            height: 75vh;
+            display: block;
+
+            h1 {
+                position: fixed;
+                height: 10vh;
+                width: 73.6%;
+            }
+
+            p {
+                margin-top: 6rem;
             }
         }
     }

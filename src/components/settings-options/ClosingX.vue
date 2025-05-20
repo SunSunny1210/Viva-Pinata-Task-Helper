@@ -21,4 +21,10 @@
         border-radius: 0 12px 12px 0;
         z-index: 9;
     }
+
+    @media screen and (min-width: 1020px) {
+        span {
+            left: 75%;
+        }
+    }
 </style>

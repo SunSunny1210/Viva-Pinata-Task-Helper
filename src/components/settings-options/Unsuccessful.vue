@@ -92,4 +92,12 @@ console.log(props.option)
 .fade-enter-from, .fade-leave-to {
     opacity: 0;
 }
+
+@media screen and (min-width: 1020px) {
+    .unsuccessful {
+        left: 25%;
+        width: 50%;
+        overflow-y: visible;
+    }
+}
 </style>

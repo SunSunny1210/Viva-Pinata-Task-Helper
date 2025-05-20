@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Irish+Grover&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
-
 @import url(./colors.css);
 
 html, body {
@@ -7,7 +6,7 @@ html, body {
     padding: 0;
     height: 100vh;
     box-sizing: border-box;
-    background-color: var(--background-yellow);
+    background-size: contain;
 
     #app {
         height: 100%;

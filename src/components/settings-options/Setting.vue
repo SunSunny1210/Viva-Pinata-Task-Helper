@@ -74,4 +74,8 @@ const filteredOptions = computed(() =>
             color: white;
         }
     }
+
+    @media screen and (min-width: 1020px) {
+        
+    }
 </style>

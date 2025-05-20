@@ -236,4 +236,20 @@ const handleSubmit = async () => {
         }
     }
 }
+
+@media screen and (min-width: 1020px) {
+        .pop-up {
+            left: 25vw;
+            height: 60%;
+            width: 50%;
+            
+            h2 {
+                width: 50%;
+            }
+        }
+
+        ::-webkit-scrollbar { 
+            border-radius: 12px;
+        }
+    }
 </style>

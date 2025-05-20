@@ -66,4 +66,7 @@ const toggleMenu = () => {
             }
         }
     }
+
+    @media screen and (min-width: 1020px) {
+    }
 </style>

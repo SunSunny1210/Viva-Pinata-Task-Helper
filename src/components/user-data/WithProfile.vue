@@ -91,4 +91,14 @@ onMounted(async () => {
             }
         }
     }
+
+    @media screen and (min-width: 1020px) {
+        .background {
+            .profile-info {
+                .img-profile {
+                    padding: 0;
+                }
+            }
+        }
+    }
 </style>
