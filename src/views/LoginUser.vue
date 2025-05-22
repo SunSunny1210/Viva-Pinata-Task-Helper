@@ -39,7 +39,7 @@ import UserForm from '@/components/UserForm.vue';
         }
 
         p {
-            margin: 5rem 1rem 0 1rem;
+            margin: 11vh 1rem 0;
             padding: 2rem;
             text-align: justify;
             font-size: 1.2rem;
@@ -55,7 +55,7 @@ import UserForm from '@/components/UserForm.vue';
             height: 75vh;
             
             p {
-                margin: 5rem 2rem 0;
+                margin: 11vh 2rem 0;
                 font-size: 1.5rem;
             }
         }
@@ -70,10 +70,6 @@ import UserForm from '@/components/UserForm.vue';
                 position: fixed;
                 height: 10vh;
                 width: 85vw;
-            }
-
-            p {
-                margin-top: 6rem;
             }
         }
     }

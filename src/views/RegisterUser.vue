@@ -42,7 +42,7 @@ import UserForm from '@/components/UserForm.vue';
         }
 
         p {
-            margin: 5rem 1rem 0 1rem;
+            margin: 11vh 1rem 0;
             padding: 2rem;
             text-align: justify;
             font-size: 1.2rem;
@@ -56,7 +56,7 @@ import UserForm from '@/components/UserForm.vue';
     @media screen and (min-width: 750px) {
         .register {
             p {
-                margin: 5rem 2rem 0;
+                margin: 11vh 2rem 0;
                 font-size: 1.5rem;
             }
         }
@@ -70,10 +70,6 @@ import UserForm from '@/components/UserForm.vue';
             h1 {
                 position: fixed;
                 height: 10vh;
-            }
-
-            p {
-                margin-top: 6rem;
             }
         }
     }

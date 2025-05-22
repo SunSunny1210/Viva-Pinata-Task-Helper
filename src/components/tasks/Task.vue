@@ -308,12 +308,18 @@ onMounted(async () => {
             align-items: center;
             gap: 1rem;
 
-            img {
-                height: 100px;
-                width: 100px;
-                border: 5px dashed orange;
-                border-radius: 12px;
+            .img-and-btn {
+                display: flex;
+                flex-direction: column;
+
+                img {
+                    height: 100px;
+                    width: 100px;
+                    border: 5px dashed orange;
+                    border-radius: 12px;
+                }
             }
+
 
             .completed-info {
                 display: flex;
@@ -381,12 +387,6 @@ onMounted(async () => {
                 img {
                     height: 20vh;
                     width: 20vh;
-                }
-
-                .img-and-btn {
-                    button {
-                        font-size: 1.2rem;
-                    }
                 }
 
                 .completed-info {

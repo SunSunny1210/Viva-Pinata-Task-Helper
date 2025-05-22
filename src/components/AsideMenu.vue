@@ -132,9 +132,9 @@ const handleLinkClick = (event) => {
         }
     }
 
-    @media screen and (min-height: 700px) and (max-width: 1500px) {
+    @media screen and (min-height: 700px) and (min-height: 1350px) and (max-width: 1500px) {
         aside {
             width: 40%;
         }
-  }
+    }
 </style>
