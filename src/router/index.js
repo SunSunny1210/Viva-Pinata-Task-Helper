@@ -4,6 +4,7 @@ import RegisterUser from '@/views/RegisterUser.vue'
 import LoginUser from '@/views/LoginUser.vue'
 import { defineAsyncComponent } from 'vue'
 import { useUserStore } from '@/stores/store'
+import Piñatas from '@/views/Piñatas.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,12 +27,17 @@ const router = createRouter({
     {
       path: '/create-profile',
       name: 'create-profile',
-      component: defineAsyncComponent(() => import('@/views/CreateProfile.vue')),
+      component: () => import('@/views/CreateProfile.vue'),
     },
     {
       path: '/settings',
       name: 'settings',
-      component: defineAsyncComponent(() => import('@/views/Settings.vue')),
+      component: () => import('@/views/Settings.vue'),
+    },
+    {
+      path: '/pinatas',
+      name: 'pinatas',
+      component: Piñatas
     },
   ],
 })
