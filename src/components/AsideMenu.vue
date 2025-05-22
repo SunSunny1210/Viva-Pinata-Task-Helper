@@ -99,6 +99,10 @@ const handleLinkClick = (event) => {
     @media screen and (min-width: 1020px) {
         aside {
             width: 20vw;
+
+            .aside-settings {
+                overflow-y: auto;
+            }
         }
     }
 </style>

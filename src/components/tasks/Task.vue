@@ -379,8 +379,8 @@ onMounted(async () => {
         .task {
             .completed {
                 img {
-                    height: 200px;
-                    width: 200px;
+                    height: 20vh;
+                    width: 20vh;
                 }
 
                 .img-and-btn {

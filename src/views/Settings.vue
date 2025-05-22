@@ -62,7 +62,9 @@ import { useRouter } from 'vue-router';
 <template>
   <div class="settings">
     <h1>Settings</h1>
-    <Setting v-for="(options, key) in OPTIONS" :key="key" @trigger-function="showOption" :options="options"/>
+    <div class="options">
+        <Setting v-for="(options, key) in OPTIONS" :key="key" @trigger-function="showOption" :options="options"/>
+    </div>
     <Transition name="x">
         <ClosingX v-if="selectedOption"
         :close="closePopUp"
@@ -114,6 +116,7 @@ import { useRouter } from 'vue-router';
     * {
         margin: 0;
     }
+    
     .settings {
         margin-top: 1rem;
         height: 90vh;
@@ -169,6 +172,20 @@ import { useRouter } from 'vue-router';
     @media screen and (min-width: 1020px) {
         .settings {
             width: 90vw;
+
+            h1 {
+                position: fixed;
+                width: 90vw;
+                z-index: 3;
+            }
+
+            .options {
+                margin-top: 4rem;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
         }
     }
 </style>

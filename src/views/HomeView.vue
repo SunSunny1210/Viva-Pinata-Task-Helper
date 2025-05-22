@@ -84,14 +84,14 @@ onMounted(async () => {
                 <GetPiñata v-if="selectedOption" @selected-piñata="handlePiñata" ref="getPiñataRef"/>
                 <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'completed')">No current tasks.</span>
                 <Task v-for="task in tasksData.filter(task => task.status === 'pending')" :task="task"/>
-                </div>
-            </article>
-            <article>
-                <div class="section-title">
-                    <h1>Completed tasks</h1>
-                </div>
-                <div class="section-info">
-                    <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'pending')">No completed tasks.</span>
+            </div>
+        </article>
+        <article>
+            <div class="section-title">
+                <h1>Completed tasks</h1>
+            </div>
+            <div class="section-info">
+                <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'pending')">No completed tasks.</span>
                 <Task v-for="task in tasksData.filter(task => task.status === 'completed')" :task="task"/>
             </div>
         </article>
@@ -324,16 +324,17 @@ onMounted(async () => {
         .home-user {
             flex-direction: row;
             align-items: flex-start;
+            overflow-y: auto;
             
             article {
                 height: 100%;
                 border-radius: 12px;
                 overflow-y: scroll;
-
+                
                 .section-title {
                     h1 {
                         position: fixed;
-                        width: 31.8vw;
+                        width: calc(33.33vw - 1.33rem);
                         background-color: var(--medium-green);
                         border-radius: 12px 12px 0 0;
                         z-index: 8;
@@ -343,7 +344,6 @@ onMounted(async () => {
                 .section-info {
                     margin-top: 2.5rem;
                 }
-
             }
         }
 
@@ -363,6 +363,10 @@ onMounted(async () => {
                     }
                 }
             }
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
         }
     }
 </style>
