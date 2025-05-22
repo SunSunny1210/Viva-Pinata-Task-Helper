@@ -12,13 +12,19 @@
 
 <style scoped>
     span {
-        padding: 0.5rem;
+        padding: 0.5rem 0.5rem 0.5rem 1rem;
         position: fixed;
-        top: 10.5rem;
-        right: 8px;
+        top: 22%;
+        left: 90%;
         color: white;
         background-color: var(--dark-green);
         border-radius: 0 12px 12px 0;
-        z-index: 10;
+        z-index: 9;
+    }
+
+    @media screen and (min-width: 1020px) {
+        span {
+            left: 75%;
+        }
     }
 </style>

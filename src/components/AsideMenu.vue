@@ -20,14 +20,18 @@ const handleLinkClick = (event) => {
 
 <template>
     <div>
-        <aside :class="{ isOpen: isOpen }" @click="handleLinkClick">
-            <UserData />
-            <RouterLink to="/">Home</RouterLink>
-            <RouterLink to="">Piñatas</RouterLink>
-            <RouterLink to="">Villagers</RouterLink>
-            <RouterLink to="">Plants and seeds</RouterLink>
-            <RouterLink to="">Services</RouterLink>
-            <RouterLink to="/settings" v-if="storeProfile.profileData">Settings</RouterLink>
+        <aside @click="handleLinkClick">
+            <div class="fixed">
+                <UserData />
+            </div>
+            <div class="aside-settings">
+                <RouterLink to="/">Home</RouterLink>
+                <RouterLink to="">Piñatas</RouterLink>
+                <RouterLink to="">Villagers</RouterLink>
+                <RouterLink to="">Plants and seeds</RouterLink>
+                <RouterLink to="">Services</RouterLink>
+                <RouterLink to="/settings" v-if="storeProfile.profileData">Settings</RouterLink>
+            </div>
         </aside>
     </div>
 </template>
@@ -47,23 +51,90 @@ const handleLinkClick = (event) => {
         background-color: var(--background-yellow);
         transform: translateX(-100%);
         transition: transform 0.5s ease-in-out;
-        transition: box-shadow 0.2s ease-out;
-        z-index: 6;
+        z-index: 10;
 
-        a {
-            height: 30px;
-            width: 85%;
+        .fixed {
+            height: 20vh;
+            width: 100%;
             display: flex;
+            justify-content: center;
             align-items: center;
-            padding: 7px;
-            color: white;
-            background-color: var(--main-green);
-            text-decoration: none;
-            border-radius: 5px;
+            background-color: var(--medium-green);
+        }
+
+        .aside-settings {
+            margin-bottom: 1rem;
+            padding: 0 1rem;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 1rem;
+            overflow-y: scroll;
+
+            a {
+                height: 40px;
+                display: flex;
+                align-items: center;
+                padding: 7px;
+                font-size: clamp(1rem, 4vw, 1.2rem);
+                color: white;
+                background-color: var(--main-green);
+                text-decoration: none;
+                border-radius: 5px;
+            }
         }
     }
 
-    .isOpen {
-        box-shadow: 150px 0 200px -50px rgba(0, 0, 0, 0.7);
+    @media screen and (min-width: 700px) {
+        aside {
+            width: 40%;
+        }
+
+        .isOpen {
+            box-shadow: 200px 0 200px 500px rgba(0, 0, 0, 0.3);
+        }
+    }
+
+    @media screen and (min-width: 1020px) {
+        aside {
+            width: 20vw;
+
+            .aside-settings {
+                overflow-y: auto;
+            }
+        }
+    }
+
+    @media screen and (min-height: 350px) and (max-height: 415px) {
+        aside {
+            width: 40%;
+
+            .fixed {
+                height: 40vh;
+            }
+        }
+    }
+
+    @media screen and (max-height: 435px) {
+        aside {
+            .fixed {
+                height: 30vh;
+            }
+        }
+    }
+
+    @media screen and (min-height: 1020px) {
+        aside {
+            .aside-settings {
+                overflow-y: auto;
+            }
+        }
+    }
+
+    @media screen and (min-height: 700px) and (min-height: 1350px) and (max-width: 1500px) {
+        aside {
+            width: 40%;
+        }
     }
 </style>

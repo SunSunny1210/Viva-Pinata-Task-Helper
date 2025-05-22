@@ -15,5 +15,4 @@ const { profileData } = storeToRefs(storeProfile);
 </template>
 
 <style>
-    
 </style>

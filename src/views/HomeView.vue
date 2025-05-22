@@ -62,7 +62,7 @@ const scrollAToId = (target) => {
 
 onMounted(async () => {
     await taskStore.getAllTasks();
-    console.log(tasksData.value)
+    console.log(tasksData.value);
 })
 </script>
 
@@ -84,14 +84,14 @@ onMounted(async () => {
                 <GetPiñata v-if="selectedOption" @selected-piñata="handlePiñata" ref="getPiñataRef"/>
                 <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'completed')">No current tasks.</span>
                 <Task v-for="task in tasksData.filter(task => task.status === 'pending')" :task="task"/>
-                </div>
-            </article>
-            <article>
-                <div class="section-title">
-                    <h1>Completed tasks</h1>
-                </div>
-                <div class="section-info">
-                    <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'pending')">No completed tasks.</span>
+            </div>
+        </article>
+        <article>
+            <div class="section-title">
+                <h1>Completed tasks</h1>
+            </div>
+            <div class="section-info">
+                <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'pending')">No completed tasks.</span>
                 <Task v-for="task in tasksData.filter(task => task.status === 'completed')" :task="task"/>
             </div>
         </article>
@@ -131,7 +131,7 @@ onMounted(async () => {
     </div>
 </template>
 
-<style>
+<style scoped>
     .home-user {
         padding: 1rem;
         height: 100%;
@@ -216,7 +216,7 @@ onMounted(async () => {
 
                     li {
                         padding: 10px;
-                        background-color: var(--light-green);
+                        background-color: var(--medium-green);
                         border-radius: 12px;
 
                         a {
@@ -285,6 +285,112 @@ onMounted(async () => {
                     }
                 }
             }
+        }
+    }
+
+    @media screen and (min-width: 700px) {
+        .home-user {
+            margin-bottom: 2rem;
+        }
+
+        .home-no-user {
+            margin-bottom: 2rem;
+
+            .main {
+                .get-started {
+                    .buttons {
+                        a {
+                            height: 4rem;
+                            width: 8rem;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            font-size: 1.2rem;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 750px) {
+        .home-no-user,
+        .home-user {
+            margin-bottom: 5rem;
+        }
+
+        .home-user {
+            article {
+                .section-info {
+                    .no-tasks {
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 1020px) {
+        .home-user {
+            flex-direction: row;
+            align-items: flex-start;
+            overflow-y: auto;
+            
+            article {
+                height: 100%;
+                border-radius: 12px;
+                overflow-y: scroll;
+                
+                .section-title {
+                    h1 {
+                        position: fixed;
+                        width: calc(33.33vw - 1.33rem);
+                        background-color: var(--medium-green);
+                        border-radius: 12px 12px 0 0;
+                        z-index: 8;
+                    }
+                }
+
+                .section-info {
+                    margin-top: 2.5rem;
+                }
+            }
+        }
+
+        .home-no-user {
+            .main {
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 1rem;
+
+                .get-started,
+                .general-info {
+                    margin-top: 0;
+
+                    h2 {
+                        margin-top: 0;
+                    }
+                }
+
+                .general-info {
+                    height: 50vh;
+                    overflow-y: scroll;
+
+                    h2 {
+                        position: fixed;
+                        width: calc(33.33vw - 2.5rem);
+                    }
+
+                    p {
+                        margin-top: 5rem;
+                    }
+                }
+            }
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
         }
     }
 </style>

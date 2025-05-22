@@ -14,18 +14,28 @@ import { RouterLink } from 'vue-router';
 </template>
 
 <style scoped>
-.no-profile {
-        height: 20%;
-        width: 100%;
+    .no-profile {
+        margin: 1rem;
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
         background-color: var(--medium-green);
 
+        .no-profile {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex: 1;
+        }
+
         img {
-            height: 100px;
+            height: 70%;
+            width: 100%;
             border-radius: 12px;
-            border: 3px solid yellow;
+            border: 5px dashed  yellow;
         }
 
         .options {
@@ -34,14 +44,19 @@ import { RouterLink } from 'vue-router';
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 15px;
             align-items: flex-start;
+            gap: 15px;
             
             a {
-                font-size: 1.5rem;
+                font-size: clamp(1.2rem, 4vw, 1.3rem);
                 text-decoration: underline wavy yellow;
                 color: white;
             }
+        }
+    }
+
+    @media screen and (min-width: 750px) {
+        .no-profile {
         }
     }
 </style>

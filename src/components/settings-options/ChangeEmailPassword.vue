@@ -7,7 +7,7 @@ const props = defineProps({
     option: String
 })
 
-const emit = defineEmits(['close-pop-up', 'open-message']);
+const emit = defineEmits(['close-pop-up', 'open-unsuccessful']);
 const openMessage = ref(false)
 
 const userStore = useUserStore();
@@ -30,15 +30,28 @@ const handleInputChange = (event) => {
 };
 
 const handleSubmit = async () => {
-    console.log(`Submitting for option: ${props.option}`);
-    let newValue = props.option === "Check/Change Email" ? newEmail.value : newPassword.value;
-    
-    if (newValue) {
-        userStore.updateUserData(newValue);
+    try {
+        console.log(`Submitting for option: ${props.option}`);
+        let newValue = props.option === "Check/Change Email" ? newEmail.value : newPassword.value;
+        
+        if (newValue) {
+            const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newValue);
 
-        manageMessage();
-    } else {
-        emit('open-message')
+            if (isValid) {
+                await userStore.updateUserData(newValue);
+        
+                manageMessage();
+            } else {
+                emit('open-unsuccessful')
+            }
+
+        } else {
+            emit('open-unsuccessful')
+        }
+
+    } catch {
+        console.error(err);
+        emit('open-unsuccessful')
     }
 }
 </script>
@@ -46,27 +59,29 @@ const handleSubmit = async () => {
 <template>
     <div class="pop-up">
         <h2>{{ props.option }}</h2>
-        <div v-if="props.option === 'Check/Change Email'">
-            <h3>Check {{ trimmedOption }}</h3>
-            <div class="info">
-                <p>Check your current {{ trimmedOption }}</p>
-                <span>Current {{ trimmedOption }}: {{ userStore.userData.user.email }}</span>
+        <div class="all-options">
+            <div v-if="props.option === 'Check/Change Email'" class="change-email">
+                <h3>Check {{ trimmedOption }}</h3>
+                <div class="info">
+                    <p>Check your current {{ trimmedOption }}</p>
+                    <span>Current {{ trimmedOption }}: {{ userStore.userData.user.email }}</span>
+                </div>
             </div>
-        </div>
-        <div class="change-option">
-            <h3>Choose New {{ trimmedOption }}</h3>
-            <div class="info">
-                <p>Choose your new {{ trimmedOption }} :3</p>
-                <form class="change-info" @submit.prevent="handleSubmit">
-                    <label :for="trimmedOption">New {{ trimmedOption }}</label>
-                    <input 
-                    type="text" 
-                    :name="props.option === 'Check/Change Email' ? 'email' : 'password'" 
-                    :id="props.option === 'Check/Change Email' ? 'emailId' : 'passwordId'"
-                    :placeholder="'Enter new ' + trimmedOption"
-                    @input="handleInputChange">
-                    <button type="submit">Submit</button>
-                </form>
+            <div class="change-option">
+                <h3>Choose New {{ trimmedOption }}</h3>
+                <div class="info">
+                    <p>Choose your new {{ trimmedOption }} :3</p>
+                    <form class="change-info" @submit.prevent="handleSubmit">
+                        <label :for="trimmedOption">New {{ trimmedOption }}</label>
+                        <input 
+                        type="text" 
+                        :name="props.option === 'Check/Change Email' ? 'email' : 'password'" 
+                        :id="props.option === 'Check/Change Email' ? 'emailId' : 'passwordId'"
+                        :placeholder="'Enter new ' + trimmedOption"
+                        @input="handleInputChange">
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -81,21 +96,30 @@ const handleSubmit = async () => {
     top: 20vh;
     height: 60%;
     width: 80%;
+    display: flex;
+    flex-direction: column;
     background-color: cornsilk;
     border-radius: 12px;
-    z-index: 7;
+    z-index: 10;
     overflow-y: scroll;
 
     h2 {
         margin: 0;
+        position: fixed;
         height: 60px;
-        width: 100%;
+        width: 80%;
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: 1.2rem;
         color: white;
         background-color: var(--medium-green);
         border-radius: 12px 12px 0 0;
+        z-index: 3;
+    }
+
+    .all-options {
+        margin-top: 3.5rem;
     }
 
     h3 {
@@ -111,11 +135,9 @@ const handleSubmit = async () => {
     }
 
     .info {
-        margin: 0 1rem 2rem;
+        margin: 0 1rem 1rem;
         padding: 2rem 1rem 1rem 1rem;
-        width: fit-content;
-        top: 2.5rem;
-        left: 0;
+        height: fit-content;
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
@@ -137,7 +159,6 @@ const handleSubmit = async () => {
     }
 
     .change-option {
-        height: 100%;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -193,4 +214,42 @@ const handleSubmit = async () => {
     opacity: 0;
     transform: scale(0.8);
 }
+
+@media screen and (min-width: 700px) {
+    .pop-up {
+        height: 70%;
+    }
+}
+
+@media screen and (min-width: 750px) {
+    .pop-up {
+        height: fit-content;
+
+        .change-option {
+            .info {
+                form {
+                    input {
+                        height: 3.5rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1020px) {
+        .pop-up {
+            left: 25vw;
+            height: 60%;
+            width: 50%;
+            
+            h2 {
+                width: 50%;
+            }
+        }
+
+        ::-webkit-scrollbar { 
+            border-radius: 12px;
+        }
+    }
 </style>

@@ -29,6 +29,7 @@ console.log(props.option)
         <p v-else-if="props.option === 'Change Farm Name'">No valid farm name provided. Please, enter a valid farm name.</p>
         <p v-else-if="props.option === 'Log Out'">Error during log out. Couldn't log out successfully.</p>
         <p v-else-if="props.option === 'Delete User'">Error during deletion. Couldn't delete user successfully.</p>
+        <p v-else>Invalid avatar. Please, select a valid file.</p>
         <button @click="handleMessage">Got it!</button>
     </div>
 </template>
@@ -46,7 +47,7 @@ console.log(props.option)
     background-color: cornsilk;
     border-radius: 12px;
     box-shadow: 0 0 5px 2000px rgba(0, 0, 0, 0.4);
-    z-index: 8;
+    z-index: 11;
     overflow-y: scroll;
 
     h2 {
@@ -90,5 +91,13 @@ console.log(props.option)
 
 .fade-enter-from, .fade-leave-to {
     opacity: 0;
+}
+
+@media screen and (min-width: 1020px) {
+    .unsuccessful {
+        left: 25%;
+        width: 50%;
+        overflow-y: visible;
+    }
 }
 </style>

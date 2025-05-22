@@ -62,7 +62,9 @@ import { useRouter } from 'vue-router';
 <template>
   <div class="settings">
     <h1>Settings</h1>
-    <Setting v-for="(options, key) in OPTIONS" :key="key" @trigger-function="showOption" :options="options"/>
+    <div class="options">
+        <Setting v-for="(options, key) in OPTIONS" :key="key" @trigger-function="showOption" :options="options"/>
+    </div>
     <Transition name="x">
         <ClosingX v-if="selectedOption"
         :close="closePopUp"
@@ -88,7 +90,7 @@ import { useRouter } from 'vue-router';
         <ChangeEmailPassword v-if="selectedOption === OPTIONS.USER_OPTIONS.EMAIL || 
         selectedOption === OPTIONS.USER_OPTIONS.PASSWORD"
         :option="selectedOption"
-        @open-message="manageUnsuccessful"/>
+        @open-unsuccessful="manageUnsuccessful"/>
     </Transition>
     <Transition name="fade">
         <LogOut v-if="selectedOption === OPTIONS.USER_OPTIONS.DELETE || 
@@ -110,16 +112,16 @@ import { useRouter } from 'vue-router';
   </div>
 </template>
 
-<style>
+<style scoped>
     * {
         margin: 0;
     }
+    
     .settings {
-        margin: 1rem;
+        margin-top: 1rem;
         height: 90vh;
         width: 80vw;
         background-color: white;
-        border: 3px outset var(--background-yellow);
         border-radius: 12px;
         overflow-y: scroll;
         
@@ -136,18 +138,54 @@ import { useRouter } from 'vue-router';
     }
 
     .fade-enter-active, .fade-leave-active {
-        transition: opacity 0.2s ease
+        transition: opacity 0.2s ease-in-out
     }
 
     .fade-enter-from, .fade-leave-to {
         opacity: 0;
     }
 
-    .x-enter-active, .x-leave-active {
-        transition: opacity 0.2s ease
+    .x-enter-active {
+        transition: opacity 0.3s ease-in-out
+    }
+    
+    .x-leave-active {
+        transition: opacity 0.1s ease
     }
 
     .x-enter-from, .x-leave-to {
         opacity: 0;
+    }
+
+    @media screen and (min-width: 700px) {
+        .settings {
+            margin-bottom: 2rem;
+        }
+    }
+
+    @media screen and (min-width: 750px) {
+        .settings {
+            margin-bottom: 6rem;
+        }
+    }
+
+    @media screen and (min-width: 1020px) {
+        .settings {
+            width: 90vw;
+
+            h1 {
+                position: fixed;
+                width: 90vw;
+                z-index: 3;
+            }
+
+            .options {
+                margin-top: 4rem;
+            }
+        }
+
+        ::-webkit-scrollbar {
+            display: none;
+        }
     }
 </style>

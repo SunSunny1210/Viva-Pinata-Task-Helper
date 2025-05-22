@@ -16,7 +16,9 @@ onMounted(async () => {
 <template>
     <div class="background">
         <div class="profile-info">
-            <img :src="profileData.avatar_url" alt="profile-avatar" />
+            <div class="img-profile">
+                <img :src="profileData.avatar_url" alt="profile-avatar" />
+            </div>
             <div class="profile-names">
                 <span>{{ profileData.username }}</span>
                 <span>{{ profileData.farm_name }}</span>
@@ -27,40 +29,69 @@ onMounted(async () => {
 
 <style scoped>
     .background {
-        background-color: var(--medium-green);
-        padding: 0 16px;
-        height: 20%;
-        width: 100%;
+        margin: 1rem;
+        height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
+        background-color: var(--medium-green);
         
         .profile-info {
+            height: 100%;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex: 1;
     
-            img {
-                height: 90px;
-                width: 90px;
-                border-radius: 12px;
-                border: 5px dashed  yellow;
+            .img-profile {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex: 5;
+
+                img {
+                    height: 70%;
+                    width: 100%;
+                    border-radius: 12px;
+                    border: 5px dashed  yellow;
+                }
             }
     
             .profile-names {
                 margin-left: 10px;
                 height: 100%;
+                width: 50%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
-                align-items: flex-start;
+                align-items: center;
                 gap: 10px;
+                flex: 5;
                 
                 span {
                     padding: 5px;
+                    width: 100%;
+                    font-size: clamp(0.7rem, 1vw, 1.3rem);
                     color: white;
                     background-color: var(--white-yellow);
                     border-radius: 5px;
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 1020px) {
+        .background {
+            .profile-info {
+                .img-profile {
+                    padding: 0;
+
+                    img {
+                        height: 60%;
+                    }
                 }
             }
         }

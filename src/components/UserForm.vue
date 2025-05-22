@@ -101,11 +101,17 @@ const sendUserData = async () => {
 <style scoped>
     .form {
         width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
 
         form {
+            height: 100%;
+            width: 100%;
             display: flex;
             flex-direction: column;
-            justify-content: flex-start;
+            justify-content: space-evenly;
             align-items: center;
             
             label {
@@ -136,6 +142,29 @@ const sendUserData = async () => {
                 background-color: var(--carmin);
                 border: none;
                 border-radius: 12px;
+            }
+        }
+    }
+
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity 0.2s ease-in-out
+    }
+
+    .fade-enter-from, .fade-leave-to {
+        opacity: 0;
+    }
+
+    @media screen and (min-width: 750px) {
+        .form {
+            form {
+                label {
+                    font-size: 1.5rem;
+                }
+
+                input {
+                    height: 5rem;
+                    font-size: 1.2rem;
+                }
             }
         }
     }

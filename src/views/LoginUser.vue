@@ -7,40 +7,39 @@ import UserForm from '@/components/UserForm.vue';
     <div class="login">
         <h1>Log in!</h1>
         <p>Enter your email and password to log in. Remember your password!</p>
-        <hr></hr>
         <UserForm :parentType="'Login'"/>
     </div>
 </template>
 
 <style scoped>
-    * {
-        margin: 0;
-    }
     .login {
-        margin-top: 2rem;
         margin: 1rem;
+        height: 100%;
         width: 85%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
         background-color: white;
-        border: 3px outset var(--background-yellow);
         border-radius: 12px;
+        overflow-y: scroll;
         
         h1 {
+            position: fixed;
+            margin: 0;
             height: 10vh;
-            width: 100%;
+            width: 85%;
             display: flex;
             justify-content: center;
             align-items: center;
+            font-size: 1.5rem;
             color: white;
             background-color: var(--medium-green);
             border-radius: 5px 5px 0 0; 
         }
 
         p {
-            margin: 1rem 1rem 0 1rem;
+            margin: 11vh 1rem 0;
             padding: 2rem;
             text-align: justify;
             font-size: 1.2rem;
@@ -48,6 +47,30 @@ import UserForm from '@/components/UserForm.vue';
             background-color: rgb(255, 251, 167);
             border: 3px dashed var(--carmin);
             border-radius: 12px;
+        }
+    }
+
+    @media screen and (min-width: 750px) {
+        .login {
+            height: 75vh;
+            
+            p {
+                margin: 11vh 2rem 0;
+                font-size: 1.5rem;
+            }
+        }
+    }
+
+    @media screen and (min-width: 1020px) {
+        .login {
+            height: 75vh;
+            display: block;
+
+            h1 {
+                position: fixed;
+                height: 10vh;
+                width: 85vw;
+            }
         }
     }
 </style>

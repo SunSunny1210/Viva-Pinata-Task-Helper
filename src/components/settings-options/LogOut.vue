@@ -52,10 +52,11 @@ const handleButton = async () => {
     top: 20vh;
     height: fit-content;
     width: 80%;
+    display: flex;
+    flex-direction: column;
     background-color: cornsilk;
     border-radius: 12px;
-    box-shadow: 0 0 5px 2000px rgba(0, 0, 0, 0.4);
-    z-index: 7;
+    z-index: 10;
 
     h2 {
         margin: 0;
@@ -72,12 +73,9 @@ const handleButton = async () => {
     .log-delete {
         margin: 1rem;
         padding: 1rem;
-        width: fit-content;
-        top: 2.5rem;
-        left: 0;
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: space-evenly;
         align-items: center;
         gap: 10px;
         text-align: start;
@@ -86,6 +84,7 @@ const handleButton = async () => {
         background-color: white;
         border: 3px dashed var(--light-green);
         border-radius: 12px;
+        flex: 1;
     }
 
     button {
@@ -104,6 +103,19 @@ const handleButton = async () => {
         background-color: var(--white-yellow);
         border: 3px dashed var(--carmin);
         border-radius: 5px;
+    }
+}
+
+@media screen and (min-width: 750px) {
+    .pop-up {
+        height: 40%;
+    }
+}
+
+@media screen and (min-width: 1020px) {
+    .pop-up {
+        left: 25%;
+        width: 50%;
     }
 }
 </style>

@@ -123,11 +123,12 @@ export const useUserStore = defineStore('userStore', () => {
 
             if (checking && isEmail) {
                 setUserData({ email: data })
+                return 'Email changed successfully!'
             }
 
         } catch (err) {
-            console.error(err)
-            return null
+            console.error(err);
+            return err.message;
         }
     }
 

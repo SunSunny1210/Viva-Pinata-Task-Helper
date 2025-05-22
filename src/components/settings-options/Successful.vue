@@ -41,7 +41,7 @@ console.log(props.option)
     background-color: cornsilk;
     border-radius: 12px;
     box-shadow: 0 0 5px 2000px rgba(0, 0, 0, 0.4);
-    z-index: 8;
+    z-index: 11;
     overflow-y: scroll;
 
     h2 {
@@ -76,6 +76,14 @@ console.log(props.option)
         background-color: var(--carmin);
         border: none;
         border-radius: 12px;
+    }
+}
+
+@media screen and (min-width: 1020px) {
+    .successful {
+        left: 25%;
+        width: 50%;
+        overflow-y: visible;
     }
 }
 </style>

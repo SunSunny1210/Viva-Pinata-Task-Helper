@@ -79,4 +79,30 @@ onMounted(async () => {
             }
         }
     }
+
+    @media screen and (min-width: 700px) {
+        img {
+            min-height: 120px;
+            max-width: 130px;
+        }
+    }
+
+    @media screen and (min-width: 750px) {
+        .get-piñatas {
+            .choose-piñata {
+                p {
+                    font-size: 1.2rem;
+                }
+
+                .piñatas {
+                    padding: 0 2rem;
+                    gap: 2rem;
+
+                    span {
+                        padding: 1rem;
+                    }
+                }
+            }
+        }
+    }
 </style>
