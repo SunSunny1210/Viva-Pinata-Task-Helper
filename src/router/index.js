@@ -4,7 +4,6 @@ import RegisterUser from '@/views/RegisterUser.vue'
 import LoginUser from '@/views/LoginUser.vue'
 import { defineAsyncComponent } from 'vue'
 import { useUserStore } from '@/stores/store'
-import Task from '@/components/tasks/Task.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,12 +12,6 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView,
-      children: [
-        {
-          path: 'task',
-          component: Task
-        }
-      ]
     },
     {
       path: '/register',

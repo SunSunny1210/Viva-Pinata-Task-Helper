@@ -318,6 +318,16 @@ onMounted(async () => {
         .home-user {
             margin-bottom: 5rem;
         }
+
+        .home-user {
+            article {
+                .section-info {
+                    .no-tasks {
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+        }
     }
 
     @media screen and (min-width: 1020px) {
@@ -360,6 +370,20 @@ onMounted(async () => {
 
                     h2 {
                         margin-top: 0;
+                    }
+                }
+
+                .general-info {
+                    height: 50vh;
+                    overflow-y: scroll;
+
+                    h2 {
+                        position: fixed;
+                        width: calc(33.33vw - 2.5rem);
+                    }
+
+                    p {
+                        margin-top: 5rem;
                     }
                 }
             }

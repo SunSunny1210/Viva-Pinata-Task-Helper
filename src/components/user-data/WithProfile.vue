@@ -63,6 +63,7 @@ onMounted(async () => {
             .profile-names {
                 margin-left: 10px;
                 height: 100%;
+                width: 50%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -73,20 +74,10 @@ onMounted(async () => {
                 span {
                     padding: 5px;
                     width: 100%;
-                    font-size: clamp(0.8rem, 4vw, 1.3rem);
+                    font-size: clamp(0.7rem, 1vw, 1.3rem);
                     color: white;
                     background-color: var(--white-yellow);
                     border-radius: 5px;
-                }
-            }
-        }
-    }
-
-    @media screen and (min-width: 750px) {
-        .background {
-            .profile-info {
-                .img-profile {
-                    padding: 1.5rem;
                 }
             }
         }
@@ -97,6 +88,10 @@ onMounted(async () => {
             .profile-info {
                 .img-profile {
                     padding: 0;
+
+                    img {
+                        height: 60%;
+                    }
                 }
             }
         }

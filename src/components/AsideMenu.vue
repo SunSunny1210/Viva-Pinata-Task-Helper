@@ -105,4 +105,36 @@ const handleLinkClick = (event) => {
             }
         }
     }
+
+    @media screen and (min-height: 350px) and (max-height: 415px) {
+        aside {
+            width: 40%;
+
+            .fixed {
+                height: 40vh;
+            }
+        }
+    }
+
+    @media screen and (max-height: 435px) {
+        aside {
+            .fixed {
+                height: 30vh;
+            }
+        }
+    }
+
+    @media screen and (min-height: 1020px) {
+        aside {
+            .aside-settings {
+                overflow-y: auto;
+            }
+        }
+    }
+
+    @media screen and (min-height: 700px) and (max-width: 1500px) {
+        aside {
+            width: 40%;
+        }
+  }
 </style>

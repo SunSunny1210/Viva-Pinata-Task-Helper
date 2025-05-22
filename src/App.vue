@@ -91,6 +91,7 @@ onUnmounted(() => {
 
   .router-view {
     height: 80vh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -121,6 +122,18 @@ onUnmounted(() => {
   @media screen and (min-width: 1020px) {
     .moveRight {
       transform: translateX(20%);
+    }
+  }
+
+  @media screen and (min-height: 350px) and (max-height: 415px) {
+    .moveRight {
+      transform: translateX(40%);
+    }
+  }
+
+  @media screen and (min-height: 700px) and (max-width: 1500px) {
+    .moveRight {
+      transform: translateX(40%);
     }
   }
 </style>
