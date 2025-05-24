@@ -1,4 +1,4 @@
-import '@/assets/main.css'
+import '@/assets/css/main.css'
 
 import { supabase } from './api/supabase/supabase'
 import { createApp } from 'vue'

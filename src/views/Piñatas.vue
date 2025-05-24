@@ -1,12 +1,15 @@
 <script setup>
-import { usePiñataStore } from '@/stores/store';
+import Awards from '@/components/tasks/Awards.vue';
+import { useAwardStore } from '@/stores/award-store';
+import { usePiñataStore, useUserStore } from '@/stores/store';
 import { onMounted } from 'vue';
 
 const piñatasStore = usePiñataStore();
+const userStore = useUserStore();
 
 onMounted(async () => {
     await piñatasStore.fetchPiñatas();
-    console.log(piñatasStore.piñatas)
+    console.log(piñatasStore.piñatas);
 })
 </script>
 
@@ -17,10 +20,11 @@ onMounted(async () => {
             <h2>{{ piñata.name }}</h2>
             <div class="piñata-info">
                 <img :src="piñata.img_URL">
+                <Awards v-if="userStore.checkUserLog" :piñata="piñata.name"/>
                 <div class="information">
                     <h3>Requirements</h3>
                     <div class="info-container">
-                        <ul v-for="(info, requirement) in piñata.requirements" :key="requirement" class="info-content">
+                        <ul v-for="(info, requirement) in piñata.requirements" :key="piñata.id" class="info-content">
                             <h4>{{ requirement.replace(/^./, a => a.toUpperCase()) }}</h4>
                             <li v-for="inf in info" :key="info">{{ inf }}</li>
                             <p v-if="!info.length">No existent requirements.</p>
@@ -111,8 +115,8 @@ onMounted(async () => {
                 
                 img {
                     margin: 1rem 0 0 1rem;
-                    height: 20vh;
-                    width: 20vh;
+                    height: 15vh;
+                    width: 15vh;
                     border: 3px dashed orange;
                     border-radius: 12px;
                 }

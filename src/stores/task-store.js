@@ -7,9 +7,10 @@ export const useTaskStore = defineStore('tasksStore', () => {
     //State
     const userStore = useUserStore();
     const { userId: userID } = userStore;
-
+    
     const tasksData = ref([]);
     //Getters
+
     //Actions
     const setTaskData = (data) => {
         const newData = data.filter(item => !tasksData.value.includes(item));
@@ -59,9 +60,11 @@ export const useTaskStore = defineStore('tasksStore', () => {
                 const taskIndex = tasksData.value.findIndex(task => task.id === taskId);
 
                 if (taskIndex !== -1) {
+                    console.log(updatedAtTime)
                     tasksData.value[taskIndex] = { 
                         ...tasksData.value[taskIndex], 
-                        status: statusData
+                        status: statusData,
+                        updated_at: updatedAtTime
                     };
                 }
             }
@@ -76,9 +79,10 @@ export const useTaskStore = defineStore('tasksStore', () => {
 
             if (data) {
                 const taskIndex = tasksData.value.findIndex(task => task.id === taskId);
+                console.log(taskIndex)
 
                 if (taskIndex !== -1) {
-                    tasksData.value.splice(taskId, 1)
+                    tasksData.value.splice(taskIndex, 1)
                 }
             }
         } catch (err) {

@@ -341,3 +341,69 @@ export const deleteTask = async (userId, taskId) => {
         return null
     }
 }
+
+//Add Award
+export const addNewAward = async (userId, piñata, column) => {
+    try {
+        const { data, error } = await supabase
+            .from('Awards')
+            .insert([
+                {
+                    [column]: true,
+                    piñata: piñata
+                }
+            ])
+            .eq('user_id', userId)
+            .select()
+
+        if (error) {
+            throw new Error('Error durign award addition')
+        }
+
+        return data
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+//Get Awards
+export const getAllAwards = async (userId) => {
+    try {
+        const { data, error } = await supabase
+            .from('Awards')
+            .select('*')
+            .eq('user_id', userId)
+
+        if (error) {
+            throw new Error('Error during fetching all awards')
+        }
+
+        console.log('Awards fetched successfully!')
+        return data
+    } catch (err) {
+        console.error(err)
+        return []
+    }
+}
+
+//Update Award
+export const updateAward = async (userId, piñata, column) => {
+    try {
+        const { data, error } = await supabase
+            .from('Awards')
+            .update({ [column]: true })
+            .eq('piñata', piñata)
+            .eq('user_id', userId)
+            .select()
+
+        if (error) {
+            throw new Error('Error during award updating')
+        }
+
+        console.log('Award updated successfully!')
+        return data
+    } catch (err) {
+        console.error(err)
+        return null
+    }
+}

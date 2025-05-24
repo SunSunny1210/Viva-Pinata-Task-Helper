@@ -1,13 +1,25 @@
 <script setup>
+import { useAwardStore } from '@/stores/award-store';
 import { useTaskStore } from '@/stores/task-store';
 import { computed, onMounted, ref } from 'vue';
 
+//State
 const props = defineProps({
     task: Object
 });
 
 const taskStore = useTaskStore();
+const awardsStore = useAwardStore();
 
+const status = ref('');
+const checked = ref({
+    visit: {},
+    resident: {},
+    romance: {},
+    variants: {}
+});
+
+//Getters
 const taskInfo = computed(() => props.task.task_info);
 const updatedAt = computed(() => props.task.updated_at);
 
@@ -15,14 +27,28 @@ const formattedDate = computed(() => {
     if (updatedAt.value.includes('T')) {
         const [date, time] = updatedAt.value.split('T');
         return `${date} ${time.slice(0, 5)}`;
+    } else {
+        const [date, time] = updatedAt.value.split(', ');
+        return `${date} ${time.slice(0, 5)}`
     }
 });
 
-const status = ref('');
-const checked = ref({});
+const allVisitChecked = computed(() => {
+    return taskInfo.value.requirements.visit.length > 0 &&
+        taskInfo.value.requirements.visit.every(check => checked.value.visit[check])
+})
 
-console.log(props.task);
+const allResidentChecked = computed(() => {
+    return taskInfo.value.requirements.resident.length > 0 &&
+        taskInfo.value.requirements.resident.every(check => checked.value.resident[check])
+})
 
+const allRomanceChecked = computed(() => {
+    return taskInfo.value.requirements.romance.length > 0 &&
+        taskInfo.value.requirements.romance.every(check => checked.value.romance[check])
+})
+
+//Actions
 const markTask = async () => {
     status.value = 'completed';
     console.log(status.value)
@@ -30,12 +56,19 @@ const markTask = async () => {
 }
 
 const deleteTask = async () => {
+    console.log(props.task.id)
     await taskStore.deleteChoosenTask(props.task.id)
+}
+
+const addAward = async (piñata, column) => {
+    await awardsStore.awardUpdate(piñata, column)
 }
 
 onMounted(async () => {
     await taskStore.getAllTasks();
-    console.log(props.task)
+    console.log(props.task);
+    await awardsStore.getAwards();
+    console.log(awardsStore.awardsData)
 })
 </script>
 
@@ -56,21 +89,33 @@ onMounted(async () => {
                     <h4>Appear</h4>
                     <li v-if="!taskInfo.requirements.appear.length">Non existent requirements.</li>
                     <li v-for="appear in taskInfo.requirements.appear" :key="props.task.id" :class="{ 'checked': checked[appear] }">{{ appear }}
-                        <input type="checkbox" v-model="checked[appear]"/>
+                        <input type="checkbox" v-model="checked[appear]" />
                     </li>
                 </ul>
                 <ul>
                     <h4>Visit</h4>
                     <li v-if="!taskInfo.requirements.visit.length">Non existent requirements.</li>
                     <li v-for="visit in taskInfo.requirements.visit" :key="props.task.id" :class="{ 'checked': checked[visit] }">{{ visit }}
-                        <input type="checkbox" v-model="checked[visit]"/>
+                        <input type="checkbox" v-model="checked.visit[visit]" />
                     </li>
+                    <div v-if="allVisitChecked && !awardsStore.awardsData.some(award => award.piñata === taskInfo.name && award.visit)" class="add-award">
+                        <p>Do you wish to add the visit award for this piñata?</p>
+                        <button @click="addAward(taskInfo.name, 'visit')">Add 
+                            <img src="../../assets/images/Visit.png" />
+                        </button>
+                    </div>
                 </ul>
                 <ul>
                     <h4>Resident</h4>
                     <li v-for="resident in taskInfo.requirements.resident" :key="props.task.id" :class="{ 'checked': checked[resident] }">{{ resident }}
-                        <input type="checkbox" v-model="checked[resident]"/>
+                        <input type="checkbox" v-model="checked.resident[resident]"/>
                     </li>
+                    <div v-if="allResidentChecked" class="add-award">
+                        <p>Do you wish to add the residence award for this piñata?</p>
+                        <button @click="">Add 
+                            <img src="../../assets/images/Residence.png" />
+                        </button>
+                    </div>
                 </ul>
             </div>
         </div>
@@ -88,8 +133,14 @@ onMounted(async () => {
                     <h4>Romance</h4>
                     <li v-if="!taskInfo.requirements.romance.length">Non existent requirements.</li>
                     <li v-for="romance in taskInfo.requirements.romance" :key="props.task.id" :class="{ 'checked': checked[romance] }">{{ romance }}
-                        <input type="checkbox" v-model="checked[romance]"/>
+                        <input type="checkbox" v-model="checked.romance[romance]"/>
                     </li>
+                    <div v-if="allRomanceChecked" class="add-award">
+                        <p>Do you wish to add the romance award for this piñata?</p>
+                        <button @click="">Add 
+                            <img src="../../assets/images/Romance.png" />
+                        </button>
+                    </div>
                 </ul>
             </div>
         </div>
@@ -108,11 +159,17 @@ onMounted(async () => {
                         <h4>{{ color.charAt(0).toUpperCase() + color.slice(1) }}</h4>
                         <li v-if="!info.requirement.length">Non existent variants.</li>
                         <li :class="{ 'checked': checked[info.requirement] }">{{ info.requirement }}
-                            <input type="checkbox" v-model="checked[info.requirement]"/>
+                            <input type="checkbox" v-model="checked.variants[info.requirement]" />
                         </li>
                     </div>
                     <div class="variant-img">
-                        <img v-if="info.variant_img" :src="info.variant_img" />
+                        <img v-if="info.variant_img" :src="info.variant_img" class="img_url"/>
+                    </div>
+                    <div v-if="checked.variants[info.requirement]" class="add-award">
+                        <p>Do you wish to add this variant award for this piñata?</p>
+                        <button @click="">Add 
+                            <img src="../../assets/images/Residence.png" />
+                        </button>
                     </div>
                 </ul>
             </div>
@@ -213,19 +270,47 @@ onMounted(async () => {
         .task-info {
             position: relative;
             width: 100%;
+            
+            .add-award {
+                margin: 1rem;
+                padding: 10px;
+                color: var(--dark-green);
+                background-color: var(--background-yellow);
+                border: 3px dashed orange;
+                border-radius: 12px;
 
+                button {
+                    padding: 8px;
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 10px;
+                    color: white;
+                    background-color: var(--dark-green);
+                    border: none;
+                    border-radius: 12px;
+
+                    img {
+                        height: 8vh;
+                        border-radius: 12px;
+                    }
+                }
+            }
+            
             .variant-ul {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
+                flex-flow: column;
                 gap: 10px;
 
                 li {
-                    margin: 0 0 2rem 2rem;
+                    margin: 0 2rem 2rem 2rem;
                 }
 
-                img {
-                    margin-right: 1rem;
+                .img_url {
+                    margin: 0 1rem 1rem;
                     height: 100px;
                     width: 100px;
                     border: 4px dashed orange;
@@ -298,6 +383,7 @@ onMounted(async () => {
                 .checked {
                     color: grey;
                 }
+
             }
         }
         
