@@ -23,7 +23,7 @@ export const useAwardStore = defineStore('awardStore', () => {
         try {
             console.log(awardsData.value)
             if (!awardsData.value.length || !awardsData.value.includes(piñata)) {
-                const data = await addNewAward(userID, piñata, column);
+                const data = await addNewAward(piñata, column);
     
                 if (data) {
                     setAwardData(data)

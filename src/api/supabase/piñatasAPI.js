@@ -343,7 +343,8 @@ export const deleteTask = async (userId, taskId) => {
 }
 
 //Add Award
-export const addNewAward = async (userId, piñata, column) => {
+export const addNewAward = async (piñata, column) => {
+    debugger
     try {
         const { data, error } = await supabase
             .from('Awards')
@@ -353,7 +354,6 @@ export const addNewAward = async (userId, piñata, column) => {
                     piñata: piñata
                 }
             ])
-            .eq('user_id', userId)
             .select()
 
         if (error) {
