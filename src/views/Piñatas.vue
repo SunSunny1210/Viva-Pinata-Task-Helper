@@ -2,25 +2,31 @@
 import Awards from '@/components/tasks/Awards.vue';
 import { useAwardStore } from '@/stores/award-store';
 import { usePiñataStore, useUserStore } from '@/stores/store';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const piñatasStore = usePiñataStore();
 const userStore = useUserStore();
+const awardsStore = useAwardStore();
+
+const showAward = ref(false)
 
 onMounted(async () => {
     await piñatasStore.fetchPiñatas();
     console.log(piñatasStore.piñatas);
+    await awardsStore.getAwards();
+    console.log(awardsStore.awardsData);
+    showAward.value = true
 })
 </script>
 
 <template>
     <div class="piñatas">
         <h1>Piñatas</h1>
-        <div v-for="piñata in piñatasStore.piñatas" :key="piñata.id" class="piñata">
+        <div v-for="(piñata, i) in piñatasStore.piñatas" :key="piñata.id" class="piñata">
             <h2>{{ piñata.name }}</h2>
             <div class="piñata-info">
                 <img :src="piñata.img_URL">
-                <Awards v-if="userStore.checkUserLog" :piñata="piñata.name"/>
+                <Awards v-if="userStore.userData && showAward" :piñata="piñata.name" :awards="awardsStore.awardsData" />
                 <div class="information">
                     <h3>Requirements</h3>
                     <div class="info-container">

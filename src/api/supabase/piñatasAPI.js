@@ -344,7 +344,6 @@ export const deleteTask = async (userId, taskId) => {
 
 //Add Award
 export const addNewAward = async (piñata, column) => {
-    debugger
     try {
         const { data, error } = await supabase
             .from('Awards')

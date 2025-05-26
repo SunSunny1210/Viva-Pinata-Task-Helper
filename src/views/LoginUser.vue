@@ -55,7 +55,7 @@ import UserForm from '@/components/UserForm.vue';
             height: 75vh;
             
             p {
-                margin: 11vh 2rem 0;
+                margin: 14vh 2rem 0;
                 font-size: 1.5rem;
             }
         }

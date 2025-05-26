@@ -2,7 +2,6 @@ import { defineStore } from "pinia";
 import { useUserStore } from "./store";
 import { addNewAward, getAllAwards, updateAward } from "@/api/supabase/piñatasAPI";
 import { ref } from "vue";
-import { useTaskStore } from "./task-store";
 
 export const useAwardStore = defineStore('awardStore', () => {
     //State
@@ -21,20 +20,20 @@ export const useAwardStore = defineStore('awardStore', () => {
 
     const awardUpdate = async (piñata, column) => {
         try {
-            console.log(awardsData.value)
-            if (!awardsData.value.length || !awardsData.value.includes(piñata)) {
-                const data = await addNewAward(piñata, column);
-    
-                if (data) {
-                    setAwardData(data)
-                }
-            } else if (awardsData.value.includes(piñata)) {
-                const data = await updateAward(userID, piñata, column)
+            const data = ref(null);
 
-                if (data) {
-                    setAwardData(data)
-                }
+            const awardExist = awardsData.value.some(award => award.piñata === piñata);
+
+            if (!awardExist) {
+                data.value = await addNewAward(piñata, column);
+            } else {
+                data.value = await updateAward(userID, piñata, column)
             }
+
+            if (data.value) {
+                setAwardData(data.value);
+            }
+
         } catch (err) {
             console.error(err);
         }

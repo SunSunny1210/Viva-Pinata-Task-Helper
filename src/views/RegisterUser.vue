@@ -56,7 +56,7 @@ import UserForm from '@/components/UserForm.vue';
     @media screen and (min-width: 750px) {
         .register {
             p {
-                margin: 11vh 2rem 0;
+                margin: 14vh 2rem 0;
                 font-size: 1.5rem;
             }
         }

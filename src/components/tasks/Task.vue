@@ -19,6 +19,7 @@ const checked = ref({
     variants: {}
 });
 
+
 //Getters
 const taskInfo = computed(() => props.task.task_info);
 const updatedAt = computed(() => props.task.updated_at);
@@ -35,7 +36,7 @@ const formattedDate = computed(() => {
 
 const allVisitChecked = computed(() => {
     return taskInfo.value.requirements.visit.length > 0 &&
-        taskInfo.value.requirements.visit.every(check => checked.value.visit[check])
+    taskInfo.value.requirements.visit.every(check => checked.value.visit[check])
 })
 
 const allResidentChecked = computed(() => {
@@ -49,6 +50,11 @@ const allRomanceChecked = computed(() => {
 })
 
 //Actions
+const variantColumn = (color) => {
+    const keys = Object.keys(taskInfo.value.variants);
+    return 'variant_' + (keys.indexOf(color) + 1);
+}
+
 const markTask = async () => {
     status.value = 'completed';
     console.log(status.value)
@@ -110,9 +116,9 @@ onMounted(async () => {
                     <li v-for="resident in taskInfo.requirements.resident" :key="props.task.id" :class="{ 'checked': checked[resident] }">{{ resident }}
                         <input type="checkbox" v-model="checked.resident[resident]"/>
                     </li>
-                    <div v-if="allResidentChecked" class="add-award">
+                    <div v-if="allResidentChecked && !awardsStore.awardsData.some(award => award.piñata === taskInfo.name && award.residence)" class="add-award">
                         <p>Do you wish to add the residence award for this piñata?</p>
-                        <button @click="">Add 
+                        <button @click="addAward(taskInfo.name, 'residence')">Add 
                             <img src="../../assets/images/Residence.png" />
                         </button>
                     </div>
@@ -135,9 +141,9 @@ onMounted(async () => {
                     <li v-for="romance in taskInfo.requirements.romance" :key="props.task.id" :class="{ 'checked': checked[romance] }">{{ romance }}
                         <input type="checkbox" v-model="checked.romance[romance]"/>
                     </li>
-                    <div v-if="allRomanceChecked" class="add-award">
+                    <div v-if="allRomanceChecked && !awardsStore.awardsData.some(award => award.piñata === taskInfo.name && award.romance)" class="add-award">
                         <p>Do you wish to add the romance award for this piñata?</p>
-                        <button @click="">Add 
+                        <button @click="addAward(taskInfo.name, 'romance')">Add 
                             <img src="../../assets/images/Romance.png" />
                         </button>
                     </div>
@@ -165,9 +171,9 @@ onMounted(async () => {
                     <div class="variant-img">
                         <img v-if="info.variant_img" :src="info.variant_img" class="img_url"/>
                     </div>
-                    <div v-if="checked.variants[info.requirement]" class="add-award">
+                    <div v-if="checked.variants[info.requirement] && !awardsStore.awardsData.some(award => award.piñata === taskInfo.name && award[variantColumn(color)])" class="add-award">
                         <p>Do you wish to add this variant award for this piñata?</p>
-                        <button @click="">Add 
+                        <button @click="addAward(taskInfo.name, variantColumn(color))">Add 
                             <img src="../../assets/images/Residence.png" />
                         </button>
                     </div>

@@ -365,8 +365,10 @@ onMounted(async () => {
                 gap: 1rem;
 
                 .get-started,
-                .general-info {
+                .general-info,
+                .main-info {
                     margin-top: 0;
+                    flex: 3;
 
                     h2 {
                         margin-top: 0;
@@ -379,7 +381,7 @@ onMounted(async () => {
 
                     h2 {
                         position: fixed;
-                        width: calc(33.33vw - 2.5rem);
+                        width: calc(33.33vw - 2.7rem);
                     }
 
                     p {
