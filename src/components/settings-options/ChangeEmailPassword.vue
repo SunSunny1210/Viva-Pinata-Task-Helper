@@ -84,10 +84,10 @@ const handleSubmit = async () => {
                 </div>
             </div>
         </div>
+        <Transition name="appear">
+            <CheckInbox v-if="openMessage" :parent-type="'Setting'" />
+        </Transition>
     </div>
-    <Transition name="fade">
-        <CheckInbox v-if="openMessage" :parent-type="'Setting'" />
-    </Transition>
 </template>
 
 <style scoped>
@@ -206,11 +206,11 @@ const handleSubmit = async () => {
     }
 }
 
-.fade-enter-active, .fade-leave-active {
+.appear-enter-active, .appear-leave-active {
         transition: opacity 0.2s ease, transform 0.5s ease;
     }
 
-.fade-enter-from, .fade-leave-to {
+.appear-enter-from, .appear-leave-to {
     opacity: 0;
     transform: scale(0.8);
 }

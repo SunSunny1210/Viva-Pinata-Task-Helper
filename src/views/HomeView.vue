@@ -1,11 +1,12 @@
 <script setup>
 import WhatToDo from './WhatToDo.vue';
 import Task from '@/components/tasks/Task.vue';
-import { nextTick, onMounted, ref } from 'vue';
+import { nextTick, onMounted, ref, watchEffect } from 'vue';
 import { useTaskStore } from '@/stores/task-store';
 import GetPiñata from '@/components/tasks/GetPiñata.vue';
 import { storeToRefs } from 'pinia';
 import { useUserStore } from '@/stores/store';
+import gsap from 'gsap';
 
 const userStore = useUserStore();
 const taskStore = useTaskStore();
@@ -37,7 +38,6 @@ const handleTask = (option) => {
     if (option) {
         selectedOption.value = option.replace('+ ', '');
         console.log(selectedOption.value)
-        console.log(getPiñataRef.value)
 
         setTimeout(() => {
             nextTick(() => {
@@ -55,6 +55,10 @@ const handlePiñata = async (piñata) => {
         console.log('Selected Piñata: ', piñata);
     }
 }
+
+const closePiñataMenu = () => {
+    selectedOption.value = '';
+} 
 
 const scrollAToId = (target) => {
     document.querySelector(target).scrollIntoView({ behavior: 'smooth' })
@@ -80,10 +84,10 @@ onMounted(async () => {
             <div class="section-title">
                 <h1>Current tasks</h1>
             </div>
-            <div class="section-info">
-                <GetPiñata v-if="selectedOption" @selected-piñata="handlePiñata" ref="getPiñataRef"/>
+            <div class="section-info" id="expand">
+                <GetPiñata v-if="selectedOption" @selected-piñata="handlePiñata" @close-menu="closePiñataMenu" ref="getPiñataRef"/>
                 <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'completed')">No current tasks.</span>
-                <Task v-for="task in tasksData.filter(task => task.status === 'pending')" :task="task"/>
+                <Task v-for="task in tasksData.filter(task => task.status === 'pending')" :key="task.id" :task="task"/>
             </div>
         </article>
         <article>
@@ -92,7 +96,7 @@ onMounted(async () => {
             </div>
             <div class="section-info">
                 <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'pending')">No completed tasks.</span>
-                <Task v-for="task in tasksData.filter(task => task.status === 'completed')" :task="task"/>
+                <Task v-for="task in tasksData.filter(task => task.status === 'completed')" :key="task.id" :task="task"/>
             </div>
         </article>
     </div>

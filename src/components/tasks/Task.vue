@@ -74,7 +74,7 @@ onMounted(async () => {
     await taskStore.getAllTasks();
     console.log(props.task);
     await awardsStore.getAwards();
-    console.log(awardsStore.awardsData)
+    console.log(awardsStore.awardsData);
 })
 </script>
 

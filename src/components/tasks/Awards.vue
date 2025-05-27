@@ -74,6 +74,7 @@ watch(() => awardsStore.awardsData, (newValue) => {
     .awards {
         margin-top: 1rem;
         width: 100%;
+
         table {
             padding: 10px;
             display: flex;
@@ -83,6 +84,7 @@ watch(() => awardsStore.awardsData, (newValue) => {
             }
             
             th {
+                padding: 8px;
                 height: 4rem;
                 display: flex;
                 justify-content: center;
@@ -135,6 +137,41 @@ watch(() => awardsStore.awardsData, (newValue) => {
                 border-radius: 0 0 12px 0;
                 border-right: 3px dashed orange;
                 border-bottom: 3px dashed orange;
+            }
+        }
+    }
+
+    @media screen and (min-width: 1020px) {
+        .awards {
+            table {
+                width: 100%;
+                display: revert;
+
+                tr {
+                    width: 100%;
+                }
+
+                th,
+                td {
+                    width: fit-content;
+                    display: revert;
+                    text-align: center;
+                }
+
+                .start,
+                .middle {
+                    border-bottom: none;
+                }
+
+                .end {
+                    border-radius: 0 12px 0 0;
+                }
+
+                .first {
+                    border-top: none;
+                    border-left: 3px dashed orange;
+                    border-radius: 0 0 0 12px;
+                }
             }
         }
     }
