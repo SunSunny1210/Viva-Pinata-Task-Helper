@@ -445,9 +445,16 @@ onMounted(async () => {
         .piñata-variants {
             img {
                 height: 150px;
-                width: 150px;
             }
 
+        }
+
+        .task {
+            .task-target {
+                img {
+                    height: 150px;
+                }
+            }
         }
 
         .img-and-btn {
@@ -464,6 +471,9 @@ onMounted(async () => {
         .romance-piñata,
         .piñata-variants {
             .task-target {
+                img {
+                    height: 17vh;
+                }
                 .target {
                     span,
                     button,
