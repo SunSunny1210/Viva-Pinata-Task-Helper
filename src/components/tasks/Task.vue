@@ -238,7 +238,7 @@ onMounted(async () => {
             gap: 1rem;
 
             img {
-                height: 20vh;
+                height: 19vh;
                 width: 50%;
                 border: 5px dashed orange;
                 border-radius: 12px;
@@ -248,12 +248,12 @@ onMounted(async () => {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                align-items: center;
                 gap: 10px;
 
                 span {
                     padding: 1rem;
                     color: white;
+                    text-align: center;
                     background-color: var(--main-green);
                     border-radius: 12px;
                 }
@@ -312,6 +312,8 @@ onMounted(async () => {
                 gap: 10px;
 
                 li {
+                    font-size: 1.1rem;
+                    text-align: center;
                     margin: 0 2rem 2rem 2rem;
                 }
 
@@ -471,9 +473,6 @@ onMounted(async () => {
         .romance-piñata,
         .piñata-variants {
             .task-target {
-                img {
-                    height: 17vh;
-                }
                 .target {
                     span,
                     button,
@@ -493,6 +492,16 @@ onMounted(async () => {
 
                 .completed-info {
                     font-size: 1.2rem;
+                }
+            }
+        }
+    }
+
+    @media screen and (max-height: 500px) {
+        .piñata-variants {
+            .task-target {
+                img {
+                    height: 40vh;
                 }
             }
         }
