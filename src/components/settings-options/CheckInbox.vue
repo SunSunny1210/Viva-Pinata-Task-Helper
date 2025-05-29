@@ -1,11 +1,19 @@
 <script setup>
+import { useUserStore } from '@/stores/store';
+import { onMounted } from 'vue';
+
 const props = defineProps({
-    parentType: String
+    parentType: String,
+    email: String
 })
+
+const userStore = useUserStore();
 
 const reloadPage = async () => {
     try {
-        if ('caches' in window) {
+        const check = await userStore.updateEmail(props.email, userStore.userId);
+
+        if ('caches' in window && check) {
             const cachesNames = await caches.keys();
             for (const cacheName of cachesNames) {
                 await caches.delete(cacheName)
@@ -21,6 +29,10 @@ const reloadPage = async () => {
         console.error(err)
     }
 }
+
+onMounted(async () => {
+    await userStore.initializeUserData();
+})
 </script>
 
 <template>
@@ -91,6 +103,17 @@ const reloadPage = async () => {
         background-color: var(--carmin);
         border: none;
         border-radius: 12px;
+    }
+}
+
+@media screen and (min-width: 1020px) {
+    .check-inbox {
+        left: 10vw;
+        overflow-y: revert;
+
+        h3 {
+            width: 100%;
+        }
     }
 }
 </style>

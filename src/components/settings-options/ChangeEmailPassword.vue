@@ -31,6 +31,7 @@ const handleInputChange = (event) => {
 
 const handleSubmit = async () => {
     try {
+        debugger
         console.log(`Submitting for option: ${props.option}`);
         let newValue = props.option === "Check/Change Email" ? newEmail.value : newPassword.value;
         
@@ -38,9 +39,17 @@ const handleSubmit = async () => {
             const isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(newValue);
 
             if (isValid) {
-                await userStore.updateUserData(newValue);
-        
-                manageMessage();
+                const check = await userStore.checkEmail(newValue, userStore.userId);
+
+                if (check) {
+                    emit('open-unsuccessful');
+
+                } else {
+                    await userStore.updateUserData(newValue);
+            
+                    manageMessage();
+                }
+
             } else {
                 emit('open-unsuccessful')
             }
@@ -85,7 +94,7 @@ const handleSubmit = async () => {
             </div>
         </div>
         <Transition name="appear">
-            <CheckInbox v-if="openMessage" :parent-type="'Setting'" />
+            <CheckInbox v-if="openMessage" :email="newEmail" :parent-type="'Setting'" />
         </Transition>
     </div>
 </template>
@@ -223,7 +232,6 @@ const handleSubmit = async () => {
 
 @media screen and (min-width: 750px) {
     .pop-up {
-        height: fit-content;
 
         .change-option {
             .info {

@@ -16,9 +16,9 @@ import ProfileCreation from '@/components/ProfileCreation.vue';
         margin: 0;
     }
     .profile-creation {
+        margin-top: 1rem;
         width: 85%;
         background-color: white;
-        border: 3px outset var(--background-yellow);
         border-radius: 12px;
         overflow-y: scroll;
         
@@ -43,6 +43,25 @@ import ProfileCreation from '@/components/ProfileCreation.vue';
             background-color: rgb(255, 251, 167);
             border: 3px dashed var(--carmin);
             border-radius: 12px;
+        }
+    }
+
+    @media screen and (min-height: 350px) and (max-height: 450px) {
+        .profile-creation {
+            margin-bottom: 3rem;
+        }
+    }
+
+    @media screen and (min-width: 700px) {
+        .profile-creation {
+            h1 {
+                position: fixed;
+                width: 85%;
+            }
+
+            p {
+                margin-top: 15vh;
+            }
         }
     }
 </style>

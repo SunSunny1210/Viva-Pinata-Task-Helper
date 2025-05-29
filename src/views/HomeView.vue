@@ -126,7 +126,7 @@ onMounted(async () => {
                 <h2>General Information</h2>
                 <p>If you don't want to make an account, you can still make use of the page to check general information about piñatas, town villagers, plants and more!</p>
                 <div class="buttons">
-                    <RouterLink>Piñatas</RouterLink>
+                    <RouterLink to="/pinatas">Piñatas</RouterLink>
                     <RouterLink>Villagers</RouterLink>
                     <RouterLink>Plants & Seeds</RouterLink>
                 </div>
@@ -320,7 +320,7 @@ onMounted(async () => {
     @media screen and (min-width: 750px) {
         .home-no-user,
         .home-user {
-            margin-bottom: 5rem;
+            margin-bottom: 3rem;
         }
 
         .home-user {
