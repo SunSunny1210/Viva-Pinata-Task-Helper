@@ -30,10 +30,20 @@ onMounted(async () => {
                 <div class="information">
                     <h3>Requirements</h3>
                     <div class="info-container">
-                        <ul v-for="(info, requirement) in piñata.requirements" :key="piñata.id" class="info-content">
-                            <h4>{{ requirement.replace(/^./, a => a.toUpperCase()) }}</h4>
-                            <li v-for="inf in info" :key="info">{{ inf }}</li>
-                            <p v-if="!info.length">No existent requirements.</p>
+                        <ul class="info-content">
+                            <h4>Appear</h4>
+                            <li v-for="appear in piñata.requirements.appear" :key="appear">{{ appear }}</li>
+                            <p v-if="!piñata.requirements.appear">No existent requirements.</p>
+                        </ul>
+                        <ul class="info-content">
+                            <h4>Visit</h4>
+                            <li v-for="visit in piñata.requirements.visit" :key="visit">{{ visit }}</li>
+                            <p v-if="!piñata.requirements.visit">No existent requirements.</p>
+                        </ul>
+                        <ul class="info-content">
+                            <h4>Residence</h4>
+                            <li v-for="residence in piñata.requirements.resident" :key="residence">{{ residence }}</li>
+                            <p v-if="!piñata.requirements.resident">No existent requirements.</p>
                         </ul>
                     </div>
                 </div>
@@ -165,7 +175,7 @@ onMounted(async () => {
                         border-radius: 12px;
 
                         .info-content {
-                            padding: 1.5rem 8px 1.5rem 1.5rem;
+                            padding: 1.5rem 8px 1.5rem 2rem;
                             position: relative;
                             width: 100%;
                             display: flex;

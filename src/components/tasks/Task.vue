@@ -252,6 +252,7 @@ onMounted(async () => {
 
                 span {
                     padding: 1rem;
+                    width: 100%;
                     color: white;
                     text-align: center;
                     background-color: var(--main-green);
