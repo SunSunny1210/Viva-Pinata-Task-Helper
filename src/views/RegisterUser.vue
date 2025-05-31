@@ -74,9 +74,9 @@ import UserForm from '@/components/UserForm.vue';
         }
     }
 
-    @media screen and (min-height: 350px) and (max-height: 450px) {
+    @media screen and (min-height: 451px) and (max-height: 700px) and (min-width: 750px) {
         .register {
-            margin-bottom: 3rem;
+            margin-bottom: 5rem;
         }
     }
 </style>

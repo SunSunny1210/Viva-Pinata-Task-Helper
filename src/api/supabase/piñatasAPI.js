@@ -33,7 +33,7 @@ export const signUp = async (email, password) => {
         console.error('Error during sign-up:', error.message);
     }
 
-    if (data) {
+    if (data && !error) {
         console.log(data.user.id)
         await addEmailRegistry(data.user.email, data.user.id)
     }

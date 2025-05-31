@@ -74,9 +74,15 @@ import UserForm from '@/components/UserForm.vue';
         }
     }
 
-    @media screen and (min-height: 350px) and (max-height: 450px) {
+    @media screen and (min-height: 350px) and (max-height: 700px) and (max-width: 749px) {
         .login {
             margin-bottom: 3rem;
+        }
+    }
+
+    @media screen and (min-height: 451px) and (max-height: 700px) and (min-width: 750px) {
+        .login {
+            margin-bottom: 5rem;
         }
     }
 </style>
