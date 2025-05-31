@@ -54,6 +54,7 @@ onMounted(async () => {
 
                 img {
                     height: 70%;
+                    min-width: 90%;
                     max-width: 90%;
                     border-radius: 12px;
                     border: 6px dashed yellow;

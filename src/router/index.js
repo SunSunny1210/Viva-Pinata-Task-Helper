@@ -48,10 +48,12 @@ const router = createRouter({
       name: 'create-profile',
       component: () => import('@/views/CreateProfile.vue'),
       beforeEnter: async (to, from, next) => {
+        const userStore = useUserStore();
         const profileStore = useProfileStore();
         const profileCheck = await profileStore.checkProfileExistence();
+        const userCheck = await userStore.checkUserLog();
 
-        if (profileCheck) {
+        if (profileCheck && userCheck) {
           next('/')
         } else {
           next()
