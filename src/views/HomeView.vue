@@ -127,8 +127,8 @@ onMounted(async () => {
                 <p>If you don't want to make an account, you can still make use of the page to check general information about piñatas, town villagers, plants and more!</p>
                 <div class="buttons">
                     <RouterLink to="/pinatas">Piñatas</RouterLink>
-                    <RouterLink>Villagers</RouterLink>
-                    <RouterLink>Plants & Seeds</RouterLink>
+                    <RouterLink to="">Villagers</RouterLink>
+                    <RouterLink to="">Plants & Seeds</RouterLink>
                 </div>
             </div>
         </div>
