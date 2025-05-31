@@ -28,16 +28,22 @@ const closeMessage = () => {
 
 const sendUserData = async () => {
     try {
-        console.log(password.value)
-
         if (props.parentType === "Register") {
+            const emailCheck = await storeUser.checkEmail(email.value);
+
+            if (emailCheck) {
+                option.value = 'Email';
+                showUnsuccessful.value = !showUnsuccessful.value;
+                return
+            }
+
             const checking = await storeUser.registerUser(email.value, password.value);
-            console.log(checking)
+            console.log(checking);
             
             if (checking.includes('successfully')) {
                 showMessage.value = !showMessage.value;
                 
-                nextTick(() => {
+                nextTick(async () => {
                     if (!showMessage.value) {
                         router.push('/create-profile');
                     }

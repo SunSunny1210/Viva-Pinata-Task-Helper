@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue';
 import NavBar from './components/NavBar.vue';
-import { RouterView, RouterLink } from 'vue-router';
+import { RouterView } from 'vue-router';
 import { useProfileStore, useUserStore } from './stores/store';
 
 const storeUser = useUserStore();
@@ -68,7 +68,7 @@ onUnmounted(() => {
     position: fixed;
     height: 100vh;
     width: 100vw;
-    background: url(./assets/background.jpg);
+    background: url(./assets/images/background.jpg);
     filter: blur(2px);
     z-index: -2;
   }

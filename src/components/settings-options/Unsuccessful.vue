@@ -22,6 +22,7 @@ console.log(props.option)
     <div v-if="props.option" class="unsuccessful">
         <h2>{{ trimmedOption }} unsuccessful.</h2>
         <p v-if="props.option === 'Check/Change Email' || props.registerOption === 'Email' || props.loginOption === 'Email'">No valid email provided. Please, enter a valid email.</p>
+        <p v-else-if="props.registerOption === 'Email Check'">This email already exists. Please, enter an email that isn't already registered.</p>
         <p v-else-if="props.option === 'Check/Change Password' || props.registerOption === 'Password'">No valid password provided. Please, enter a valid password. It must be at least 6 characters, and include uppercase and lowercase letters, numbers and special characters.</p>
         <p v-else-if="props.option === 'Change Username'">No valid username provided. Please, enter a valid username.</p>
         <p v-else-if="props.loginOption === 'Email Not Confirmed'">Email not confirmed. Please, check your inbox to confirm your email.</p>

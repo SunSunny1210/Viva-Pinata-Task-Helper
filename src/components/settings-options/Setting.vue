@@ -4,6 +4,7 @@ import { computed } from 'vue';
 const props = defineProps({
     options: Object,
 })
+
 console.log(props.options)
 
 const filteredOptions = computed(() =>
@@ -15,7 +16,7 @@ const filteredOptions = computed(() =>
     <div class="setting">
         <h2>{{ options.TITLE }}</h2>
         <div class="options">
-            <span v-if="key !== 'TITLE'" v-for="([key, value]) in filteredOptions" :key="key"  class="clickable" @click="$emit('trigger-function', value)">{{ value }}</span>
+            <span v-for="([key, value]) in filteredOptions" :key="key"  class="clickable" @click="$emit('trigger-function', value)">{{ value }}</span>
         </div>
     </div>
 </template>

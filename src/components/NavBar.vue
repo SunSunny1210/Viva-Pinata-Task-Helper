@@ -1,7 +1,7 @@
 <script setup>
 import AsideMenu from '@/components/AsideMenu.vue'
-import VPLogo from '@/assets/VivaPinataTIP.png';
-import Pretzail from '@/assets/pretzail.jpg';
+import VPLogo from '@/assets/images/VivaPinataTIP.png';
+import Pretzail from '@/assets/images/pretzail.jpg';
 
 const props = defineProps({
     menuOpen: Boolean,

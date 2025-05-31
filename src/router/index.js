@@ -2,8 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import RegisterUser from '@/views/RegisterUser.vue'
 import LoginUser from '@/views/LoginUser.vue'
-import { defineAsyncComponent } from 'vue'
-import { useUserStore } from '@/stores/store'
+import { useProfileStore, useUserStore } from '@/stores/store'
+import Piñatas from '@/views/Piñatas.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,21 +17,56 @@ const router = createRouter({
       path: '/register',
       name: 'register',
       component: RegisterUser,
+      beforeEnter: async (to, from, next) => {
+        const userStore = useUserStore();
+        const loginCheck = await userStore.checkUserLog();
+
+        if (loginCheck) {
+          next('/')
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/login',
       name: 'login',
       component: LoginUser,
+      beforeEnter: async (to, from, next) => {
+        const userStore = useUserStore();
+        const loginCheck = await userStore.checkUserLog();
+
+        if (loginCheck) {
+          next('/')
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/create-profile',
       name: 'create-profile',
-      component: defineAsyncComponent(() => import('@/views/CreateProfile.vue')),
+      component: () => import('@/views/CreateProfile.vue'),
+      beforeEnter: async (to, from, next) => {
+        const profileStore = useProfileStore();
+        const profileCheck = await profileStore.checkProfileExistence();
+
+        if (profileCheck) {
+          next('/')
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/settings',
       name: 'settings',
-      component: defineAsyncComponent(() => import('@/views/Settings.vue')),
+      component: () => import('@/views/Settings.vue'),
+    },
+    {
+      path: '/pinatas',
+      name: 'pinatas',
+      component: Piñatas
     },
   ],
 })

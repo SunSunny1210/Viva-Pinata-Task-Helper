@@ -1,11 +1,12 @@
 <script setup>
 import WhatToDo from './WhatToDo.vue';
 import Task from '@/components/tasks/Task.vue';
-import { nextTick, onMounted, ref } from 'vue';
+import { nextTick, onMounted, ref, watchEffect } from 'vue';
 import { useTaskStore } from '@/stores/task-store';
 import GetPiñata from '@/components/tasks/GetPiñata.vue';
 import { storeToRefs } from 'pinia';
 import { useUserStore } from '@/stores/store';
+import gsap from 'gsap';
 
 const userStore = useUserStore();
 const taskStore = useTaskStore();
@@ -37,7 +38,6 @@ const handleTask = (option) => {
     if (option) {
         selectedOption.value = option.replace('+ ', '');
         console.log(selectedOption.value)
-        console.log(getPiñataRef.value)
 
         setTimeout(() => {
             nextTick(() => {
@@ -55,6 +55,10 @@ const handlePiñata = async (piñata) => {
         console.log('Selected Piñata: ', piñata);
     }
 }
+
+const closePiñataMenu = () => {
+    selectedOption.value = '';
+} 
 
 const scrollAToId = (target) => {
     document.querySelector(target).scrollIntoView({ behavior: 'smooth' })
@@ -80,10 +84,10 @@ onMounted(async () => {
             <div class="section-title">
                 <h1>Current tasks</h1>
             </div>
-            <div class="section-info">
-                <GetPiñata v-if="selectedOption" @selected-piñata="handlePiñata" ref="getPiñataRef"/>
+            <div class="section-info" id="expand">
+                <GetPiñata v-if="selectedOption" @selected-piñata="handlePiñata" @close-menu="closePiñataMenu" ref="getPiñataRef"/>
                 <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'completed')">No current tasks.</span>
-                <Task v-for="task in tasksData.filter(task => task.status === 'pending')" :task="task"/>
+                <Task v-for="task in tasksData.filter(task => task.status === 'pending')" :key="task.id" :task="task"/>
             </div>
         </article>
         <article>
@@ -92,7 +96,7 @@ onMounted(async () => {
             </div>
             <div class="section-info">
                 <span class="no-tasks" v-if="taskStore.tasksData.every(task => task.status === 'pending')">No completed tasks.</span>
-                <Task v-for="task in tasksData.filter(task => task.status === 'completed')" :task="task"/>
+                <Task v-for="task in tasksData.filter(task => task.status === 'completed')" :key="task.id" :task="task"/>
             </div>
         </article>
     </div>
@@ -122,7 +126,7 @@ onMounted(async () => {
                 <h2>General Information</h2>
                 <p>If you don't want to make an account, you can still make use of the page to check general information about piñatas, town villagers, plants and more!</p>
                 <div class="buttons">
-                    <RouterLink>Piñatas</RouterLink>
+                    <RouterLink to="/pinatas">Piñatas</RouterLink>
                     <RouterLink>Villagers</RouterLink>
                     <RouterLink>Plants & Seeds</RouterLink>
                 </div>
@@ -316,7 +320,7 @@ onMounted(async () => {
     @media screen and (min-width: 750px) {
         .home-no-user,
         .home-user {
-            margin-bottom: 5rem;
+            margin-bottom: 3rem;
         }
 
         .home-user {
@@ -365,8 +369,10 @@ onMounted(async () => {
                 gap: 1rem;
 
                 .get-started,
-                .general-info {
+                .general-info,
+                .main-info {
                     margin-top: 0;
+                    flex: 3;
 
                     h2 {
                         margin-top: 0;
@@ -379,7 +385,7 @@ onMounted(async () => {
 
                     h2 {
                         position: fixed;
-                        width: calc(33.33vw - 2.5rem);
+                        width: calc(33.33vw - 2.7rem);
                     }
 
                     p {

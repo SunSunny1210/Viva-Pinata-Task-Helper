@@ -1,6 +1,6 @@
 import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
-import { getAvatars, getAvatarByName, getPiñatas, updateProfileInfo, updateUserInfo, getUser, logOut, signUp, login, getProfile, createProfile, uploadAvatar } from '@/api/supabase/piñatasAPI'
+import { getAvatars, getAvatarByName, getPiñatas, updateProfileInfo, updateUserInfo, getUser, logOut, signUp, login, getProfile, createProfile, uploadAvatar, checkEmailExist, addEmailRegistry, updateEmailRegistry } from '@/api/supabase/piñatasAPI'
 
 export const usePiñataStore = defineStore('piñataStore', () => {
     //State
@@ -158,7 +158,47 @@ export const useUserStore = defineStore('userStore', () => {
         }
     }
 
-    return { userData, userId, setUserData, updateUserData, checkUserLog, logOutUser, registerUser, loginUser, initializeUserData }
+    const checkEmail = async (email) => {
+        try {
+            const check = await checkEmailExist(email);
+
+            if (check) return true;
+            else return false;
+            
+        } catch (err) {
+            console.error(err)
+            return false;
+        }
+    }
+
+    const addEmail = async (email, userId) => {
+        debugger
+        try {
+            const check = await addEmailRegistry(email, userId);
+
+            if (check) return true;
+            else return false;
+            
+        } catch (err) {
+            console.error(err)
+            return false;
+        }
+    }
+
+    const updateEmail = async (newEmail, userId) => {
+        debugger
+        try {
+            const check = await updateEmailRegistry(newEmail, userId);
+
+            if (check) return true;
+            else return false;
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
+    }
+
+    return { userData, userId, setUserData, updateUserData, checkUserLog, logOutUser, registerUser, loginUser, initializeUserData, checkEmail, addEmail, updateEmail }
 });
 
 export const useProfileStore = defineStore('profileStore', () => {
@@ -190,6 +230,22 @@ export const useProfileStore = defineStore('profileStore', () => {
             }
         } catch (err) {
             console.error(err)
+        }
+    }
+
+    const checkProfileExistence = async () => {
+        try {
+            const check = await getProfile();
+
+            if (check) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (err) {
+            console.error(err)
+            return false
         }
     }
 
@@ -258,5 +314,5 @@ export const useProfileStore = defineStore('profileStore', () => {
         }
     };
 
-    return { profileData, setProfileData, updateProfileAvatar, updateProfileData, getProfileData, createProfileData, removeProfileData }
+    return { profileData, setProfileData, updateProfileAvatar, updateProfileData, getProfileData, createProfileData, removeProfileData, checkProfileExistence }
 })

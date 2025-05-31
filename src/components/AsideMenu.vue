@@ -26,7 +26,7 @@ const handleLinkClick = (event) => {
             </div>
             <div class="aside-settings">
                 <RouterLink to="/">Home</RouterLink>
-                <RouterLink to="">Piñatas</RouterLink>
+                <RouterLink to="/pinatas">Piñatas</RouterLink>
                 <RouterLink to="">Villagers</RouterLink>
                 <RouterLink to="">Plants and seeds</RouterLink>
                 <RouterLink to="">Services</RouterLink>

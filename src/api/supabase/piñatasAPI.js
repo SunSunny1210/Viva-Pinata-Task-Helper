@@ -33,6 +33,11 @@ export const signUp = async (email, password) => {
         console.error('Error during sign-up:', error.message);
     }
 
+    if (data) {
+        console.log(data.user.id)
+        await addEmailRegistry(data.user.email, data.user.id)
+    }
+
     return { data, error };
 };
 
@@ -120,6 +125,67 @@ export const logOut = async () => {
     } catch (err) {
         console.error(err);
         return false;
+    }
+}
+
+//Check email
+export const checkEmailExist = async (email) => {
+    try {
+        const { data, error } = await supabase
+            .from('Emails')
+            .select('email')
+            .eq('email', email)
+
+        if (error) {
+            throw new Error('Error checking email existence.')
+        }
+
+        if (data.length > 0) {
+            return true
+        } else {
+            return false
+        }
+
+    } catch (err) {
+        console.error(err)
+        return false
+    }
+}
+
+//Add email
+export const addEmailRegistry = async (email, userId) => {
+    try {
+        const { data, error } = await supabase
+            .from('Emails')
+            .insert([{ email: email, user_id: userId}])
+
+        if (error) {
+            throw new Error('Error adding email.')
+        }
+
+        return data
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+//Update email
+export const updateEmailRegistry = async (newEmail, userId) => {
+    debugger
+    try {
+        const { error } = await supabase
+            .from('Emails')
+            .update({email: newEmail})
+            .eq('user_id', userId)
+
+        if (error) {
+            throw new Error('Error during email update.')
+        }
+
+        return true
+    } catch (err) {
+        console.error(err)
+        return false
     }
 }
 
@@ -336,6 +402,71 @@ export const deleteTask = async (userId, taskId) => {
 
         console.log('Task deleted successfully!')
         return data;
+    } catch (err) {
+        console.error(err)
+        return null
+    }
+}
+
+//Add Award
+export const addNewAward = async (piñata, column) => {
+    try {
+        const { data, error } = await supabase
+            .from('Awards')
+            .insert([
+                {
+                    [column]: true,
+                    piñata: piñata
+                }
+            ])
+            .select()
+
+        if (error) {
+            throw new Error('Error durign award addition')
+        }
+
+        return data
+    } catch (err) {
+        console.error(err)
+    }
+}
+
+//Get Awards
+export const getAllAwards = async (userId) => {
+    try {
+        const { data, error } = await supabase
+            .from('Awards')
+            .select('*')
+            .eq('user_id', userId)
+
+        if (error) {
+            throw new Error('Error during fetching all awards')
+        }
+
+        console.log('Awards fetched successfully!')
+        return data
+    } catch (err) {
+        console.error(err)
+        return []
+    }
+}
+
+//Update Award
+export const updateAward = async (userId, piñata, column) => {
+    try {
+        const { data, error } = await supabase
+            .from('Awards')
+            .update({ [column]: true })
+            .eq('piñata', piñata)
+            .eq('user_id', userId)
+            .select()
+
+        if (error) {
+            throw new Error('Error during award updating')
+        }
+
+        console.log('Award updated successfully!')
+        return data
     } catch (err) {
         console.error(err)
         return null

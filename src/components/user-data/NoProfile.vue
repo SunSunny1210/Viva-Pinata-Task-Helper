@@ -1,5 +1,5 @@
 <script setup>
-import Pretzail from '@/assets/pretzail.jpg';
+import Pretzail from '@/assets/images/pretzail.jpg';
 import { RouterLink } from 'vue-router';
 </script>
 
@@ -52,11 +52,6 @@ import { RouterLink } from 'vue-router';
                 text-decoration: underline wavy yellow;
                 color: white;
             }
-        }
-    }
-
-    @media screen and (min-width: 750px) {
-        .no-profile {
         }
     }
 </style>
