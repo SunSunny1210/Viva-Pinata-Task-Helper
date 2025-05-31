@@ -233,6 +233,22 @@ export const useProfileStore = defineStore('profileStore', () => {
         }
     }
 
+    const checkProfileExistence = async () => {
+        try {
+            const check = await getProfile();
+
+            if (check) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (err) {
+            console.error(err)
+            return false
+        }
+    }
+
     const getProfileData = async () => {
         const check = await getProfile();
 
@@ -298,5 +314,5 @@ export const useProfileStore = defineStore('profileStore', () => {
         }
     };
 
-    return { profileData, setProfileData, updateProfileAvatar, updateProfileData, getProfileData, createProfileData, removeProfileData }
+    return { profileData, setProfileData, updateProfileAvatar, updateProfileData, getProfileData, createProfileData, removeProfileData, checkProfileExistence }
 })
