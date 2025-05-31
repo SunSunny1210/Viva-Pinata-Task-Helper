@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Irish+Grover&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url(./colors.css);
+
+html, body {
+    margin: 0 auto;
+    padding: 0;
+    height: 100vh;
+    box-sizing: border-box;
+    background-size: contain;
+
+    #app {
+        height: 100%;
+        overflow: hidden;
+    }
+}
+
+* {
+    font-family: "Irish Grover", system-ui;
+    box-sizing: border-box;
+}
