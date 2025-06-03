@@ -69,9 +69,9 @@ const router = createRouter({
         const loginCheck = await userStore.checkUserLog();
 
         if (loginCheck) {
-          next('/')
-        } else {
           next()
+        } else {
+          next('/')
         }
       }
     },

@@ -33,17 +33,17 @@ onMounted(async () => {
                         <ul class="info-content">
                             <h4>Appear</h4>
                             <li v-for="appear in piñata.requirements.appear" :key="appear">{{ appear }}</li>
-                            <p v-if="!piñata.requirements.appear">No existent requirements.</p>
+                            <p v-if="!piñata.requirements.appear.length">No existent requirements.</p>
                         </ul>
                         <ul class="info-content">
                             <h4>Visit</h4>
                             <li v-for="visit in piñata.requirements.visit" :key="visit">{{ visit }}</li>
-                            <p v-if="!piñata.requirements.visit">No existent requirements.</p>
+                            <p v-if="!piñata.requirements.visit.length">No existent requirements.</p>
                         </ul>
                         <ul class="info-content">
                             <h4>Residence</h4>
                             <li v-for="residence in piñata.requirements.resident" :key="residence">{{ residence }}</li>
-                            <p v-if="!piñata.requirements.resident">No existent requirements.</p>
+                            <p v-if="!piñata.requirements.resident.length">No existent requirements.</p>
                         </ul>
                     </div>
                 </div>
