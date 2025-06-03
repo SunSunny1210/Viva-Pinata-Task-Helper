@@ -16,7 +16,8 @@ import UserForm from '@/components/UserForm.vue';
         margin: 0;
     }
     .register {
-        margin: 1rem;
+        margin: 1rem 1rem 4rem;
+        height: 100%;
         width: 85%;
         display: flex;
         flex-direction: column;
@@ -39,7 +40,7 @@ import UserForm from '@/components/UserForm.vue';
         }
 
         p {
-            margin: 1rem 1rem 4rem;
+            margin: 1rem;
             padding: 2rem;
             text-align: justify;
             font-size: 1.2rem;
