@@ -118,7 +118,7 @@ import { useRouter } from 'vue-router';
     }
     
     .settings {
-        margin-top: 1rem;
+        margin: 1rem 0;
         height: 90vh;
         width: 80vw;
         background-color: white;
@@ -126,7 +126,7 @@ import { useRouter } from 'vue-router';
         overflow-y: scroll;
         
         h1 {
-            height: 10vh;
+            height: 73px;
             width: 100%;
             display: flex;
             justify-content: center;
@@ -155,18 +155,6 @@ import { useRouter } from 'vue-router';
 
     .x-enter-from, .x-leave-to {
         opacity: 0;
-    }
-
-    @media screen and (min-width: 700px) {
-        .settings {
-            margin-bottom: 2rem;
-        }
-    }
-
-    @media screen and (min-width: 750px) {
-        .settings {
-            margin-bottom: 6rem;
-        }
     }
 
     @media screen and (min-width: 1020px) {

@@ -91,7 +91,7 @@ onMounted(async () => {
 
 <style scoped>
     .piñatas {
-        margin-top: 2rem;
+        margin: 1rem 0;
         width: 90vw;
         background-color: var(--light-green);
         border-radius: 12px;

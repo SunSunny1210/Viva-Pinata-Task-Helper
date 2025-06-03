@@ -293,13 +293,7 @@ onMounted(async () => {
     }
 
     @media screen and (min-width: 700px) {
-        .home-user {
-            margin-bottom: 2rem;
-        }
-
         .home-no-user {
-            margin-bottom: 2rem;
-
             .main {
                 .get-started {
                     .buttons {
@@ -318,11 +312,6 @@ onMounted(async () => {
     }
 
     @media screen and (min-width: 750px) {
-        .home-no-user,
-        .home-user {
-            margin-bottom: 3rem;
-        }
-
         .home-user {
             article {
                 .section-info {

@@ -31,6 +31,7 @@ onMounted(async () => {
     .background {
         margin: 1rem;
         height: 100%;
+        width: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -76,7 +77,7 @@ onMounted(async () => {
                 span {
                     padding: 5px;
                     width: 100%;
-                    font-size: clamp(0.7rem, 1vw, 1.3rem);
+                    font-size: clamp(0.7rem, 2vw, 1.3rem);
                     color: white;
                     background-color: var(--white-yellow);
                     border-radius: 5px;
