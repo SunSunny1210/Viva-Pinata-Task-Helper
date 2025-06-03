@@ -53,7 +53,6 @@ onUnmounted(() => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    overflow-y: hidden;
   }
 
   .shadow {
@@ -97,6 +96,7 @@ onUnmounted(() => {
     justify-content: center;
     align-items: center;
     margin-top: 110px;
+    overflow-y: hidden;
   }
 
   .moveRight {
