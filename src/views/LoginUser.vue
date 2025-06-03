@@ -14,7 +14,6 @@ import UserForm from '@/components/UserForm.vue';
 <style scoped>
     .login {
         margin: 1rem;
-        height: 100%;
         width: 85%;
         display: flex;
         flex-direction: column;
