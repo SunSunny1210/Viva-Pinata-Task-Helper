@@ -25,6 +25,7 @@ import UserForm from '@/components/UserForm.vue';
         align-items: center;
         background-color: white;
         border-radius: 12px;
+        overflow-y: hidden;
         
         h1 {
             position: fixed;

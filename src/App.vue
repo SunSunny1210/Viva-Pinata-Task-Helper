@@ -96,6 +96,7 @@ onUnmounted(() => {
     justify-content: center;
     align-items: center;
     margin-top: 110px;
+    overflow-y: scroll;
   }
 
   .moveRight {
