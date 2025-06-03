@@ -50,7 +50,6 @@ onUnmounted(() => {
     height: 100%;
     width: 100%;
     transition: transform 0.3s ease-in-out;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
