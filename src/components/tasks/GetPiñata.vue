@@ -84,7 +84,7 @@ onMounted(async () => {
                 span {
                     padding: 10px;
                     width: fit-content;
-                    max-width: 114px;
+                    max-width: 130px;
                     text-align: center;
                     word-wrap: break-word;
                     color: var(--dark-green);
@@ -115,18 +115,6 @@ onMounted(async () => {
                     span {
                         padding: 1rem;
                         width: 100%;
-                    }
-                }
-            }
-        }
-    }
-
-    @media screen and (min-width: 1020px) {
-        .get-piñatas {
-            .choose-piñata {
-                .piñatas {
-                    span {
-                        max-width: 114px;
                     }
                 }
             }

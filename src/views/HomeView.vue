@@ -41,7 +41,7 @@ const handleTask = (option) => {
 
         setTimeout(() => {
             nextTick(() => {
-                getPiñataRef.value.$el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                getPiñataRef.value.$el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         }, 200);
     }
@@ -61,7 +61,7 @@ const closePiñataMenu = () => {
 } 
 
 const scrollAToId = (target) => {
-    document.querySelector(target).scrollIntoView({ behavior: 'smooth' })
+    document.querySelector(target).scrollIntoView({ behavior: 'smooth', block: 'start' })
 }
 
 onMounted(async () => {

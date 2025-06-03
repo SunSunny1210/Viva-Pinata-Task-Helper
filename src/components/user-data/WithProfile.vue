@@ -53,18 +53,19 @@ onMounted(async () => {
                 flex: 5;
 
                 img {
-                    height: 70%;
+                    min-height: 55%;
+                    max-height: 70%;
                     min-width: 90%;
-                    max-width: 90%;
+                    max-width: 85px;
                     border-radius: 12px;
-                    border: 6px dashed yellow;
+                    border: 4px solid yellow;
                 }
             }
     
             .profile-names {
                 margin-left: 10px;
                 height: 100%;
-                width: 50%;
+                width: 100%;
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -84,14 +85,14 @@ onMounted(async () => {
         }
     }
 
-    @media screen and (min-width: 1020px) {
+    @media screen and (min-width: 750px) {
         .background {
             .profile-info {
                 .img-profile {
                     padding: 0;
 
                     img {
-                        height: 60%;
+                        min-height: 65%;
                     }
                 }
             }
