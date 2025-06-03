@@ -25,7 +25,6 @@ import UserForm from '@/components/UserForm.vue';
         align-items: center;
         background-color: white;
         border-radius: 12px;
-        overflow-y: scroll;
         
         h1 {
             position: fixed;
@@ -50,6 +49,12 @@ import UserForm from '@/components/UserForm.vue';
             background-color: rgb(255, 251, 167);
             border: 3px dashed var(--carmin);
             border-radius: 12px;
+        }
+    }
+
+    @media screen and (min-width: 700px) {
+        .register {
+            overflow-y: scroll;
         }
     }
 

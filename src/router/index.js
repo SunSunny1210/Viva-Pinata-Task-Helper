@@ -64,6 +64,16 @@ const router = createRouter({
       path: '/settings',
       name: 'settings',
       component: () => import('@/views/Settings.vue'),
+      beforeEnter: async (to, from, next) => {
+        const userStore = useUserStore();
+        const loginCheck = await userStore.checkUserLog();
+
+        if (loginCheck) {
+          next('/')
+        } else {
+          next()
+        }
+      }
     },
     {
       path: '/pinatas',

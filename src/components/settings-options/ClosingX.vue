@@ -14,7 +14,7 @@
     span {
         padding: 0.5rem 0.5rem 0.5rem 1rem;
         position: fixed;
-        top: 22%;
+        top: 23%;
         left: 90%;
         color: white;
         background-color: var(--dark-green);
