@@ -13,7 +13,8 @@ import UserForm from '@/components/UserForm.vue';
 
 <style scoped>
     .login {
-        margin: 1rem;
+        margin: 1rem 1rem 4rem;
+        height: 100%;
         width: 85%;
         display: flex;
         flex-direction: column;
@@ -23,10 +24,9 @@ import UserForm from '@/components/UserForm.vue';
         border-radius: 12px;
         
         h1 {
-            position: fixed;
             margin: 0;
             height: 10vh;
-            width: 85%;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -37,7 +37,7 @@ import UserForm from '@/components/UserForm.vue';
         }
 
         p {
-            margin: 11vh 1rem 0;
+            margin: 1rem;
             padding: 2rem;
             text-align: justify;
             font-size: 1.2rem;
@@ -51,6 +51,11 @@ import UserForm from '@/components/UserForm.vue';
     @media screen and (min-width: 700px) {
         .login {
             overflow-y: scroll;
+
+            h1 {
+                position: fixed;
+                width: 85%;
+            }
         }
     }
 
