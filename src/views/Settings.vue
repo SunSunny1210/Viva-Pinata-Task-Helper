@@ -28,8 +28,6 @@ import { useRouter } from 'vue-router';
 
     const router = useRouter();
 
-    const options = Object.values(OPTIONS);
-
     const openSuccessful = ref(false);
     const openUnsuccessful = ref(false);
     const selectedOption = ref(null);

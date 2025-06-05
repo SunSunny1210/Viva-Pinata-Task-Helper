@@ -31,7 +31,6 @@ const handleInputChange = (event) => {
 
 const handleSubmit = async () => {
     try {
-        debugger
         console.log(`Submitting for option: ${props.option}`);
         let newValue = props.option === "Check/Change Email" ? newEmail.value : newPassword.value;
         
@@ -73,7 +72,7 @@ const handleSubmit = async () => {
                 <h3>Check {{ trimmedOption }}</h3>
                 <div class="info">
                     <p>Check your current {{ trimmedOption }}</p>
-                    <span>Current {{ trimmedOption }}: {{ userStore.userData.user.email }}</span>
+                    <span>Current {{ trimmedOption }}: {{ userStore.userData?.user?.email }}</span>
                 </div>
             </div>
             <div class="change-option">
