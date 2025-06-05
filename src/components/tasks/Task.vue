@@ -101,7 +101,7 @@ onMounted(async () => {
                 <ul>
                     <h4>Visit</h4>
                     <li v-if="!taskInfo.requirements.visit.length">Non existent requirements.</li>
-                    <li v-for="visit in taskInfo.requirements.visit" :key="props.task.id" :class="{ 'checked': checked[visit] }">{{ visit }}
+                    <li v-for="visit in taskInfo.requirements.visit" :key="props.task.id" :class="{ 'checked': checked.visit[visit] }">{{ visit }}
                         <input type="checkbox" v-model="checked.visit[visit]" />
                     </li>
                     <div v-if="allVisitChecked && !awardsStore.awardsData.some(award => award.piñata === taskInfo.name && award.visit)" class="add-award">
@@ -113,7 +113,7 @@ onMounted(async () => {
                 </ul>
                 <ul>
                     <h4>Resident</h4>
-                    <li v-for="resident in taskInfo.requirements.resident" :key="props.task.id" :class="{ 'checked': checked[resident] }">{{ resident }}
+                    <li v-for="resident in taskInfo.requirements.resident" :key="props.task.id" :class="{ 'checked': checked.resident[resident] }">{{ resident }}
                         <input type="checkbox" v-model="checked.resident[resident]"/>
                     </li>
                     <div v-if="allResidentChecked && !awardsStore.awardsData.some(award => award.piñata === taskInfo.name && award.residence)" class="add-award">
@@ -138,7 +138,7 @@ onMounted(async () => {
                 <ul>
                     <h4>Romance</h4>
                     <li v-if="!taskInfo.requirements.romance.length">Non existent requirements.</li>
-                    <li v-for="romance in taskInfo.requirements.romance" :key="props.task.id" :class="{ 'checked': checked[romance] }">{{ romance }}
+                    <li v-for="romance in taskInfo.requirements.romance" :key="props.task.id" :class="{ 'checked': checked.romance[romance] }">{{ romance }}
                         <input type="checkbox" v-model="checked.romance[romance]"/>
                     </li>
                     <div v-if="allRomanceChecked && !awardsStore.awardsData.some(award => award.piñata === taskInfo.name && award.romance)" class="add-award">
@@ -161,15 +161,17 @@ onMounted(async () => {
             </div>
             <div class="task-info">
                 <ul v-for="(info, color) in taskInfo.variants" :key="color" class="variant-ul">
-                    <div class="variant-info">
-                        <h4>{{ color.charAt(0).toUpperCase() + color.slice(1) }}</h4>
-                        <li v-if="!info.requirement.length">Non existent variants.</li>
-                        <li :class="{ 'checked': checked[info.requirement] }">{{ info.requirement }}
-                            <input type="checkbox" v-model="checked.variants[info.requirement]" />
-                        </li>
-                    </div>
-                    <div class="variant-img">
-                        <img v-if="info.variant_img" :src="info.variant_img" class="img_url"/>
+                    <div class="variants">
+                        <div class="variant-info">
+                            <h4>{{ color.charAt(0).toUpperCase() + color.slice(1) }}</h4>
+                            <li v-if="!info.requirement.length">Non existent variants.</li>
+                            <li :class="{ 'checked': checked.variants[info.requirement] }">{{ info.requirement }}
+                                <input type="checkbox" v-model="checked.variants[info.requirement]" />
+                            </li>
+                        </div>
+                        <div class="variant-img">
+                            <img v-if="info.variant_img" :src="info.variant_img" class="img_url"/>
+                        </div>
                     </div>
                     <div v-if="checked.variants[info.requirement] && !awardsStore.awardsData.some(award => award.piñata === taskInfo.name && award[variantColumn(color)])" class="add-award">
                         <p>Do you wish to add this variant award for this piñata?</p>
@@ -281,6 +283,7 @@ onMounted(async () => {
             .add-award {
                 margin: 1rem;
                 padding: 10px;
+                width: 90%;
                 color: var(--dark-green);
                 background-color: var(--background-yellow);
                 border: 3px dashed orange;
@@ -310,7 +313,15 @@ onMounted(async () => {
                 justify-content: space-between;
                 align-items: center;
                 flex-flow: column;
-                gap: 10px;
+
+                .variants {
+                    padding: 10px;
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                    align-items: center;
+                }
 
                 li {
                     font-size: 1.1rem;
@@ -319,7 +330,7 @@ onMounted(async () => {
                 }
 
                 .img_url {
-                    margin: 0 1rem 1rem;
+                    margin: 8px;
                     height: 100px;
                     width: 100px;
                     border: 4px dashed orange;
@@ -339,7 +350,7 @@ onMounted(async () => {
                     margin: 0;
                     padding: 1rem;
                     position: relative;
-                    top: -25px;
+                    top: -30px;
                     left: 20px;
                     width: fit-content;
                     color: white;
@@ -458,6 +469,14 @@ onMounted(async () => {
                     height: 150px;
                 }
             }
+
+            .task-info {
+                .variant-ul {
+                    .variants {
+                        flex-direction: row;
+                    }
+                }
+            }
         }
 
         .img-and-btn {
@@ -493,6 +512,20 @@ onMounted(async () => {
 
                 .completed-info {
                     font-size: 1.2rem;
+                }
+            }
+        }
+    }
+
+    @media screen and (min-width: 1020px) {
+        .get-piñata,
+        .romance-piñata,
+        .piñata-variants {
+            .task-info {
+                .variant-ul {
+                    .img_url {
+                        margin-bottom: 10px;
+                    }
                 }
             }
         }

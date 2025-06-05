@@ -169,9 +169,5 @@ import { useRouter } from 'vue-router';
                 margin-top: 4rem;
             }
         }
-
-        ::-webkit-scrollbar {
-            display: none;
-        }
     }
 </style>

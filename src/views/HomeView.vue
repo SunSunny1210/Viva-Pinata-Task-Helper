@@ -332,7 +332,6 @@ onMounted(async () => {
             article {
                 height: 100%;
                 border-radius: 12px;
-                overflow-y: scroll;
                 
                 .section-title {
                     h1 {
@@ -343,8 +342,9 @@ onMounted(async () => {
                         z-index: 8;
                     }
                 }
-
+                
                 .section-info {
+                    overflow-y: scroll;
                     margin-top: 2.5rem;
                 }
             }
@@ -382,10 +382,6 @@ onMounted(async () => {
                     }
                 }
             }
-        }
-
-        ::-webkit-scrollbar {
-            display: none;
         }
     }
 </style>
