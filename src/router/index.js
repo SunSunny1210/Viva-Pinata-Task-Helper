@@ -51,7 +51,7 @@ const router = createRouter({
         const userStore = useUserStore();
         const profileStore = useProfileStore();
         const profileCheck = await profileStore.checkProfileExistence();
-        const userCheck = await userStore.checkUserLog();
+        const userCheck = await userStore.initializeUserData();
 
         if (profileCheck && userCheck) {
           next('/')
