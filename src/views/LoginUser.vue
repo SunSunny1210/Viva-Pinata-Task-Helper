@@ -15,7 +15,7 @@ import UserForm from '@/components/UserForm.vue';
     .login {
         margin: 1rem 1rem 4rem;
         height: 100%;
-        width: 85%;
+        width: 70%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -54,7 +54,7 @@ import UserForm from '@/components/UserForm.vue';
 
             h1 {
                 position: fixed;
-                width: 85%;
+                width: 70%;
             }
         }
     }

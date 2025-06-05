@@ -64,7 +64,6 @@ const handleSubmit = async (option) => {
     .pop-up {
         position: fixed;
         top: 20vh;
-        height: fit-content;
         height: 60%;
         width: 80%;
         background-color: cornsilk;

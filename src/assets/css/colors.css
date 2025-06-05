@@ -1,9 +1,9 @@
 :root {
-    --main-green: rgb(186, 250, 90);
-    --light-green: rgb(202, 255, 123);
-    --medium-green: rgb(119, 217, 7);
+    --main-green: rgb(131, 208, 38);
+    --light-green: rgb(181, 230, 96);
+    --medium-green: rgb(54, 172, 0);
     --dark-green: rgb(28, 96, 41);
-    --background-yellow: rgba(250, 250, 181, 0.778);
-    --white-yellow: rgba(255, 245, 100, 0.475);
-    --carmin: rgb(255, 43, 85)
+    --background-yellow: rgb(255, 255, 207);
+    --white-yellow: rgba(255, 251, 196, 0.69);
+    --carmin: rgb(255, 82, 117)
 }

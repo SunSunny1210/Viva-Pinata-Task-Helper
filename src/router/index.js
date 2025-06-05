@@ -55,7 +55,7 @@ const router = createRouter({
 
         if (profileCheck && userCheck) {
           next('/')
-        } else {
+        } else if (userCheck && !profileCheck) {
           next()
         }
       }
