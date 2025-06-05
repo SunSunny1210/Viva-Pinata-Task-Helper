@@ -35,6 +35,11 @@ const emit = defineEmits(['add-task'])
         color: white;
     }
 
+    a:active {
+        background-color: var(--dark-green);
+        color: white;
+    }
+
     @media screen and (min-width: 750px) {
         .to-do {
             a {

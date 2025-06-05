@@ -65,12 +65,13 @@ onMounted(async () => {
             }
 
             .piñatas {
-                margin: 1rem 0;
-                padding: 0 1rem;
+                margin: 1rem 8px;
+                padding: 8px 1rem;
                 display: flex;
                 justify-content: space-evenly;
                 align-items: center;
                 gap: 10px;
+                border-radius: 12px;
                 
                 img {
                     height: 100px;
@@ -92,6 +93,14 @@ onMounted(async () => {
                     border-radius: 12px;
                     flex: 1;
                 }
+            }
+
+            .piñatas:hover {
+                background-color: var(--dark-green);
+            }
+
+            .piñatas:active {
+                background-color: var(--dark-green);
             }
         }
     }
