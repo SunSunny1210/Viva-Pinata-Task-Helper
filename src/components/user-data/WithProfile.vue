@@ -56,8 +56,8 @@ onMounted(async () => {
                 img {
                     min-height: 55%;
                     max-height: 70%;
-                    min-width: 90%;
-                    max-width: 85px;
+                    min-width: 55%;
+                    max-width: 100%;
                     border-radius: 12px;
                     border: 4px solid yellow;
                 }
@@ -77,7 +77,7 @@ onMounted(async () => {
                 span {
                     padding: 5px;
                     width: 100%;
-                    font-size: clamp(0.7rem, 2vw, 1.3rem);
+                    font-size: 2vh;
                     color: white;
                     background-color: var(--white-yellow);
                     border-radius: 5px;

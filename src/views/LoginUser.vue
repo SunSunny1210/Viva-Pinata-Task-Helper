@@ -78,7 +78,6 @@ import UserForm from '@/components/UserForm.vue';
             h1 {
                 position: fixed;
                 height: 10vh;
-                width: 85vw;
             }
         }
     }

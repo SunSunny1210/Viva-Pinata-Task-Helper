@@ -17,7 +17,8 @@ import ProfileCreation from '@/components/ProfileCreation.vue';
     }
     .profile-creation {
         margin-top: 1rem;
-        width: 85%;
+        margin-bottom: 3rem;
+        width: 70%;
         background-color: white;
         border-radius: 12px;
         overflow-y: scroll;
@@ -56,7 +57,7 @@ import ProfileCreation from '@/components/ProfileCreation.vue';
         .profile-creation {
             h1 {
                 position: fixed;
-                width: 85%;
+                width: 70%;
             }
 
             p {

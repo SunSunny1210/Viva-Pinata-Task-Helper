@@ -30,6 +30,11 @@ const emit = defineEmits(['add-task'])
         }
     }
 
+    a:hover {
+        background-color: var(--dark-green);
+        color: white;
+    }
+
     @media screen and (min-width: 750px) {
         .to-do {
             a {
